@@ -1,0 +1,48 @@
+﻿@model IEnumerable<WebClient.Models.MovieEvent>
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="wirdt=device-width" />
+    <title>Movie List</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+</head>
+<body>
+    <div class="panel-body">
+        <h2>Here is the list of movies</h2>
+            <table class="table table-sm table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>DateTime</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var m in Model)
+                    {
+                    <tr>
+                        <td>@m.MovieName</td>
+                        <td>@m.Time</td>
+
+                        <td class="text-center">
+                            <form asp-action="Delete" method="post">
+                                <input type="hidden" name="MovieName" value="@m.ID" />
+                                <button type="submit" class="btn btn-danger btn-sm">
+                                    Delete
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                        }
+                </tbody>
+            </table>
+    </div>
+    <div class="text-left">
+        <a class="btn btn-primary" asp-action="MainView">Go Back</a>
+    </div>
+</body>
+</html>

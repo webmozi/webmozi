@@ -30,7 +30,7 @@
   },
   "libraries": {
     "Microsoft.NETCore.Platforms/1.1.0": {
-      "sha512": "kz0PEW2lhqygehI/d6XsPCQzD7ff7gUJaVGPVETX611eadGsA3A877GdSlU0LRVMCTH/+P3o2iDTak+S08V2+A==",
+      "sha512": "K2OSSnZTUzY8RWmxfluAUVKTQUBqvTki+N7tDpClpeCy3A7FQbG+WpyMRdk3j9Gy5I04Cgz9z6vbmVTQCKaVaQ==",
       "type": "package",
       "path": "microsoft.netcore.platforms/1.1.0",
       "files": [
@@ -176,23 +176,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Majkut Kristóf\\.nuget\\packages\\": {},
+    "C:\\Users\\User\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\BME\\programozas\\Temalabor\\gitrepo\\WebMozi\\DTO\\DTO.csproj",
+      "projectUniqueName": "C:\\Users\\User\\Desktop\\webmozi\\webmozii\\WebMozi\\DTO\\DTO.csproj",
       "projectName": "DTO",
-      "projectPath": "D:\\BME\\programozas\\Temalabor\\gitrepo\\WebMozi\\DTO\\DTO.csproj",
-      "packagesPath": "C:\\Users\\Majkut Kristóf\\.nuget\\packages\\",
-      "outputPath": "D:\\BME\\programozas\\Temalabor\\gitrepo\\WebMozi\\DTO\\obj\\",
+      "projectPath": "C:\\Users\\User\\Desktop\\webmozi\\webmozii\\WebMozi\\DTO\\DTO.csproj",
+      "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\User\\Desktop\\webmozi\\webmozii\\WebMozi\\DTO\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\Majkut Kristóf\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

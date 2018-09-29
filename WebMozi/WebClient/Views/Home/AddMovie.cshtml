@@ -1,0 +1,40 @@
+﻿@model WebClient.Models.MovieEvent
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="widt=device-width" />
+    <title>Add Movie</title>
+    <link rel="stylesheet" href="~/css/styles.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+</head>
+<body>
+    <div class="panel panel-success">
+        <div class="panel-heading text-center"><h4>Add Movie</h4></div>
+        <div class="panel-body">
+            <form class="p-a-1" asp-action="AddMovie" method="post">
+                <div asp-validation-summary="All"></div>
+                <div class="form-group">
+                    <label asp-for="MovieName">Movie name:</label>
+                    <input class="form-control" asp-for="MovieName" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Time">Date:</label>
+                    <input class="form-control" asp-for="Time" />
+                </div>
+                <div class="text-center">
+                    <button class="btn btn-primary" type="submit">
+                        Submit Movie
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
+

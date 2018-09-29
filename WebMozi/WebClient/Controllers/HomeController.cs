@@ -5,39 +5,44 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using WebClient.Models;
-
 namespace WebClient.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        private IReservationManager irm = ReservationManagerProvider.Instance.GetReservationManager();
+        public ViewResult Index()
+        {
+            return View("MainView");
+        }
+        public ViewResult MainView()
+        {
+            return View("MainView");
+        }
+        [HttpGet]
+        public ViewResult AddMovie()
         {
             return View();
         }
-
-        public IActionResult About()
+        [HttpPost]
+        public ViewResult AddMovie(MovieEvent m)
         {
-            ViewData["Message"] = "Your application description page.";
-
-            return View();
+            if (ModelState.IsValid)
+            {
+                irm.AddMovie(m);
+                return View("MainView", m);
+            }
+            else
+            { return View(); }
         }
-
-        public IActionResult Contact()
+        public ViewResult ListMovies()
         {
-            ViewData["Message"] = "Your contact page.";
-
-            return View();
+            return View(irm.ListMovies());
         }
-
-        public IActionResult Privacy()
+        [HttpPost]
+        public IActionResult Delete(int ID)
         {
-            return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            irm.DeleteMovie(ID);
+            return RedirectToAction("ListMovies");
         }
     }
 }
