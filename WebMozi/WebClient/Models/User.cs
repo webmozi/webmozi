@@ -18,8 +18,6 @@ namespace WebClient.Models
         [Required(ErrorMessage = "Please enter your phone number!")]
         public string Phone { get; set; }
 
-        public int ID { get; set; }
-
         public List<Reservation> Reservations { get; set;}
 
         public void AddReservation(Reservation reservation) {

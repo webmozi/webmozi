@@ -13,6 +13,5 @@ namespace WebClient.Models
         void DeleteMovie(int i);
         MovieEvent SelectMovie(int id);
         void CreateRoom(int capacity);
-
     }
 }

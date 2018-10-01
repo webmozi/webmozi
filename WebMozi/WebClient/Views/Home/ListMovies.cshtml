@@ -14,17 +14,17 @@
 <body>
     <div class="panel-body">
         <h2>Here is the list of movies</h2>
-            <table class="table table-sm table-striped table-bordered">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>DateTime</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var m in Model)
-                    {
+        <table class="table table-sm table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>DateTime</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var m in Model)
+                {
                     <tr>
                         <td>@m.MovieName</td>
                         <td>@m.Time</td>
@@ -37,9 +37,9 @@
                             </form>
                         </td>
                     </tr>
-                        }
-                </tbody>
-            </table>
+                }
+            </tbody>
+        </table>
     </div>
     <div class="text-left">
         <a class="btn btn-primary" asp-action="MainView">Go Back</a>

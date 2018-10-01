@@ -8,12 +8,9 @@ namespace WebClient.Models
     public interface IReservationManager
     {
         int MakeReservation(MovieEvent m);
+        Reservation GetReservation(int resID);
         int AddUser(User user);
-        int GetUserIDInList(int ID);
-        User GetUserInList(int ID);
-        Reservation GetReservationById(int ID);
+        User GetUser(int ID);
         void ReservationToUser(int UserID, int ReservationID);
-       
-
         }
     }

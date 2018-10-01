@@ -7,7 +7,7 @@ namespace WebClient.Models
 {
     public class MovieEvent
     {
-        //public Room Room { get; set; }    //Még osztály nem tudok kiírni weben
+        //public Room Room { get; set; }    //Még osztályt nem tudok kiírni weben
         public string MovieName { get; set; }
         public string Time { get; set; }
         public int ID { get; set; }

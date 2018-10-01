@@ -7,11 +7,9 @@ namespace WebClient.Models
 {
     public class Reservation
     {
-        public int ID { get; set;  }
         public Seat Seat { get; set; }
 
-        public Reservation(int id, Seat seat) {
-            ID = id;
+        public Reservation(Seat seat) {
             Seat = seat;
         }
 

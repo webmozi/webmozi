@@ -7,38 +7,39 @@ namespace WebClient.Models
 {
     public class MockCinemaManager :ICinemaManager
     {
-
-        private int RoomIDs = 0;
-        public static List<MovieEvent> Movies = new List<MovieEvent>();
-        private readonly List<Room> Rooms = new List<Room>();
+        
+        private static List<MovieEvent> movies = new List<MovieEvent>();
+        private static List<Room> rooms = new List<Room>();
 
         public IEnumerable<MovieEvent> ListMovies()
         {
-            return Movies;
+            return movies;
         }
 
         public IEnumerable<Room> ListRooms()
         {
-            return Rooms;
+            return rooms;
         }
 
         public void AddMovie(MovieEvent m)
         {
-            Movies.Add(m);
+            m.ID = movies.Count+1;
+            movies.Add(m);
         }
 
         public void DeleteMovie(int id)
         {
-            Movies.RemoveAt(id);
+            movies.RemoveAt(id);
         }
 
         public MovieEvent SelectMovie(int id)
         {
-            return Movies.ElementAt(id);
+            return movies.ElementAt(id);
         }
+
         public void CreateRoom(int capacity)
         {
-            Room room = new Room(capacity, RoomIDs++);
+            Room room = new Room(capacity, rooms.Count);
         }
     }
 }

@@ -9,8 +9,8 @@ namespace WebClient.Controllers
 {
     public class HomeController : Controller
     {
-        private IReservationManager irm = ManagerProvider.Instance.GetReservationManager();
-        private ICinemaManager icm = ManagerProvider.Instance.GetCinemaManager();
+        private IReservationManager ireservationmanager = ManagerProvider.Instance.GetReservationManager();
+        private ICinemaManager icinemamanager = ManagerProvider.Instance.GetCinemaManager();
         private int UserID;
         private int ReservationID;
 
@@ -30,39 +30,38 @@ namespace WebClient.Controllers
         [HttpPost]
         public ViewResult AddMovie(MovieEvent m)
         {
-                icm.AddMovie(m);
+                icinemamanager.AddMovie(m);
                 return View("MainView", m);
-            
         }
         public ViewResult ListMovies()
         {
-            return View(icm.ListMovies());
+            return View(icinemamanager.ListMovies());
         }
         [HttpPost]
         public IActionResult Delete(int ID)
         {
-            icm.DeleteMovie(ID);
+            icinemamanager.DeleteMovie(ID);
             return RedirectToAction("ListMovies");
         }
        //View hiányzik
         public ViewResult ChooseMovie(MovieEvent m)
         {
-            ReservationID = irm.MakeReservation(m);
+            ReservationID = ireservationmanager.MakeReservation(m);
             return View();
         }
         //View hiányzik
         public ViewResult CreateUser(User user) {
-            UserID=irm.AddUser(user);
+            UserID= ireservationmanager.AddUser(user);
             return View();
         }
         //View hiányzik
         public ViewResult MakingReservation() {
-            irm.ReservationToUser(UserID, ReservationID);
+            ireservationmanager.ReservationToUser(UserID, ReservationID);
             return View();
         }
         //View hiányzik
         public ViewResult GetTicket() {
-            User user = irm.GetUserInList(UserID);
+            User user = ireservationmanager.GetUser(UserID);
             return View(user.Reservations);
         }
     }

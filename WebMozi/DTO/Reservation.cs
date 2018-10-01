@@ -6,7 +6,6 @@ namespace DTO
 {
     class Reservation
     {
-        public int ID { get; set; }
         public Seat Seat { get; set; }
     }
 }
