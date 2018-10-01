@@ -7,8 +7,9 @@ namespace WebClient.Models
 {
     public class Seat
     {
-        public int Row { get; set; }
-        public int Room { get; set; }
-
+        public int ID { get; set; }
+        public Seat(int id) {
+            ID = id;
+        }
     }
 }

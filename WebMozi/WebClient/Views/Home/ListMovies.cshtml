@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<WebClient.Models.MovieEvent>
+
 @{
     Layout = null;
 }
@@ -27,7 +28,6 @@
                     <tr>
                         <td>@m.MovieName</td>
                         <td>@m.Time</td>
-
                         <td class="text-center">
                             <form asp-action="Delete" method="post">
                                 <input type="hidden" name="MovieName" value="@m.ID" />

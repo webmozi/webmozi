@@ -68,12 +68,12 @@ using WebClient.Models;
             WriteLiteral("\r\n<!DOCTYPE html>\r\n\r\n<html>\r\n");
             EndContext();
             BeginContext(58, 180, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("head", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "1272e344b7c848a6a76c8f7a1164ff81", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("head", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "a4aac584805d4c679f546111fbbfb271", async() => {
                 BeginContext(64, 94, true);
                 WriteLiteral("\r\n    <meta name=\"viewport\" content=\"width=device-width\" />\r\n    <title>MainView</title>\r\n    ");
                 EndContext();
                 BeginContext(158, 71, false);
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("link", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "dce6cb3c36f34357bf4f9ff599f5e206", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("link", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "b214ac75c4804d3099262bde5035d4bf", async() => {
                 }
                 );
                 __Microsoft_AspNetCore_Mvc_Razor_TagHelpers_UrlResolutionTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.Razor.TagHelpers.UrlResolutionTagHelper>();
@@ -107,12 +107,12 @@ using WebClient.Models;
             WriteLiteral("\r\n");
             EndContext();
             BeginContext(240, 317, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("body", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "9d35f370dbfb43b18a670595633ce3fa", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("body", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "4d3b6f1597d5401d93cc4ea117d213e3", async() => {
                 BeginContext(246, 119, true);
                 WriteLiteral("\r\n    <div class=\"text-center\">\r\n        <h3>Cinema AKG</h3>\r\n        <h4>You can see the list of movies</h4>\r\n        ");
                 EndContext();
                 BeginContext(365, 62, false);
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "6e8a5acfa81b4f43b6fa67ed8ca8ed3b", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "74bbc687e34842d195c0331cdd586586", async() => {
                     BeginContext(416, 7, true);
                     WriteLiteral("See Now");
                     EndContext();
@@ -135,7 +135,7 @@ using WebClient.Models;
                 WriteLiteral("\r\n        <h4>Or add the new one</h4>\r\n        ");
                 EndContext();
                 BeginContext(474, 60, false);
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "94397aa121e142deb810be9a6e13717e", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "ba50627b5ad54650b41d172ff4c12cc1", async() => {
                     BeginContext(523, 7, true);
                     WriteLiteral("Add Now");
                     EndContext();

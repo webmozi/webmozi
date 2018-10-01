@@ -7,10 +7,13 @@ namespace WebClient.Models
 {
     public interface IReservationManager
     {
-        IEnumerable<Seat> ListSeats();
-        IEnumerable<MovieEvent> ListMovies();
-        void AddMovie(MovieEvent m);
-        void DeleteMovie(int i);
+        int MakeReservation(MovieEvent m);
+        int AddUser(User user);
+        int GetUserIDInList(int ID);
+        User GetUserInList(int ID);
+        Reservation GetReservationById(int ID);
+        void ReservationToUser(int UserID, int ReservationID);
+       
 
+        }
     }
-}

@@ -9,7 +9,11 @@ namespace WebClient.Controllers
 {
     public class HomeController : Controller
     {
-        private IReservationManager irm = ReservationManagerProvider.Instance.GetReservationManager();
+        private IReservationManager irm = ManagerProvider.Instance.GetReservationManager();
+        private ICinemaManager icm = ManagerProvider.Instance.GetCinemaManager();
+        private int UserID;
+        private int ReservationID;
+
         public ViewResult Index()
         {
             return View("MainView");
@@ -26,23 +30,40 @@ namespace WebClient.Controllers
         [HttpPost]
         public ViewResult AddMovie(MovieEvent m)
         {
-            if (ModelState.IsValid)
-            {
-                irm.AddMovie(m);
+                icm.AddMovie(m);
                 return View("MainView", m);
-            }
-            else
-            { return View(); }
+            
         }
         public ViewResult ListMovies()
         {
-            return View(irm.ListMovies());
+            return View(icm.ListMovies());
         }
         [HttpPost]
         public IActionResult Delete(int ID)
         {
-            irm.DeleteMovie(ID);
+            icm.DeleteMovie(ID);
             return RedirectToAction("ListMovies");
+        }
+       //View hiányzik
+        public ViewResult ChooseMovie(MovieEvent m)
+        {
+            ReservationID = irm.MakeReservation(m);
+            return View();
+        }
+        //View hiányzik
+        public ViewResult CreateUser(User user) {
+            UserID=irm.AddUser(user);
+            return View();
+        }
+        //View hiányzik
+        public ViewResult MakingReservation() {
+            irm.ReservationToUser(UserID, ReservationID);
+            return View();
+        }
+        //View hiányzik
+        public ViewResult GetTicket() {
+            User user = irm.GetUserInList(UserID);
+            return View(user.Reservations);
         }
     }
 }
