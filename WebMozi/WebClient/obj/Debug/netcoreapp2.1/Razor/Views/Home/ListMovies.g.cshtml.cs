@@ -73,12 +73,12 @@ using WebClient.Models;
             WriteLiteral("<!DOCTYPE html>\r\n\r\n<html>\r\n");
             EndContext();
             BeginContext(105, 182, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("head", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "ef866482547944ffbd48bb405b4f0a79", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("head", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "6af8e6dcb4f04ba49ad7e2c7c2fab5f9", async() => {
                 BeginContext(111, 96, true);
                 WriteLiteral("\r\n    <meta name=\"viewport\" content=\"wirdt=device-width\" />\r\n    <title>Movie List</title>\r\n    ");
                 EndContext();
                 BeginContext(207, 71, false);
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("link", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "b490b5f457b54d67a1ef83f4197e4d09", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("link", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "9e54f7666194436abf1af97d87f49eaf", async() => {
                 }
                 );
                 __Microsoft_AspNetCore_Mvc_Razor_TagHelpers_UrlResolutionTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.Razor.TagHelpers.UrlResolutionTagHelper>();
@@ -112,7 +112,7 @@ using WebClient.Models;
             WriteLiteral("\r\n");
             EndContext();
             BeginContext(289, 1208, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("body", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "33143439b46642f58e01ad8a0e40bafb", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("body", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "6c8825c6bdd241e2826f0fcb6e44c858", async() => {
                 BeginContext(295, 360, true);
                 WriteLiteral(@"
     <div class=""panel-body"">
@@ -158,7 +158,7 @@ using WebClient.Models;
                 WriteLiteral("</td>\r\n                        <td class=\"text-center\">\r\n                            ");
                 EndContext();
                 BeginContext(910, 338, false);
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "fc8624ced443468597f6e8d5d7e0e5ea", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "e8d8979039d948cbbb65b56b2bb7e92d", async() => {
                     BeginContext(950, 71, true);
                     WriteLiteral("\r\n                                <input type=\"hidden\" name=\"MovieName\"");
                     EndContext();
@@ -202,7 +202,7 @@ WriteAttributeValue("", 1029, m.ID, 1029, 5, false);
                 WriteLiteral("            </tbody>\r\n        </table>\r\n    </div>\r\n    <div class=\"text-left\">\r\n        ");
                 EndContext();
                 BeginContext(1416, 60, false);
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f78c2f2b97544e6898863e26786fcd8f", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "9b0502e446cb4dbcb7a220e01a3ac03f", async() => {
                     BeginContext(1465, 7, true);
                     WriteLiteral("Go Back");
                     EndContext();

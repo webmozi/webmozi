@@ -7,14 +7,16 @@ namespace WebClient.Models
 {
     public class MockReservationManager : IReservationManager
     {
-        private static List<User> users = new List<User>();
-        private static List<Reservation> reservations = new List<Reservation>();
+        private  List<User> users = new List<User>();
+        private  List<Reservation> reservations = new List<Reservation>();
 
-        public int MakeReservation(MovieEvent m) {
-            Seat seat = m.GetSeat();
-            Reservation reservation = new Reservation(seat);
+        private Maker Maker = new Maker();
+
+        public int AddReservation(MovieEvent m) {
+            Reservation reservation = Maker.MakeReservation(m);
             reservations.Add(reservation);
-            return reservations.Count;
+            int reservationID = reservations.Count;
+            return reservationID;
         }
 
         public Reservation GetReservation(int resID) {
@@ -23,7 +25,8 @@ namespace WebClient.Models
 
         public int AddUser(User user) {
             users.Add(user);
-            return users.Count;
+            int userID = users.Count;
+            return userID;
         }
 
         public User GetUser(int ID)

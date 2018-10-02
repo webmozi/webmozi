@@ -4,7 +4,7 @@ using System.Text;
 
 namespace DTO
 {
-    class MovieEvent
+    public class MovieEvent
     {   public Room Room { get; set; }    
         public string MovieName { get; set; }
         public string Time { get; set; }

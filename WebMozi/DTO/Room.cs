@@ -4,7 +4,7 @@ using System.Text;
 
 namespace DTO
 {
-    class Room
+    public class Room
     {
         private readonly List<Seat> seats = new List<Seat>();      
     }

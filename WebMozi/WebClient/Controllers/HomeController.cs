@@ -9,8 +9,8 @@ namespace WebClient.Controllers
 {
     public class HomeController : Controller
     {
-        private IReservationManager ireservationmanager = ManagerProvider.Instance.GetReservationManager();
-        private ICinemaManager icinemamanager = ManagerProvider.Instance.GetCinemaManager();
+        private static IReservationManager ireservationmanager = ManagerProvider.Instance.GetReservationManager();
+        private static ICinemaManager icinemamanager = ManagerProvider.Instance.GetCinemaManager();
         private int UserID;
         private int ReservationID;
 
@@ -46,7 +46,7 @@ namespace WebClient.Controllers
        //View hiányzik
         public ViewResult ChooseMovie(MovieEvent m)
         {
-            ReservationID = ireservationmanager.MakeReservation(m);
+            ReservationID = ireservationmanager.AddReservation(m);
             return View();
         }
         //View hiányzik
