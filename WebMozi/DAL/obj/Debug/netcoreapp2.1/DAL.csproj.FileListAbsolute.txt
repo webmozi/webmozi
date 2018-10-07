@@ -7,3 +7,14 @@ C:\Users\User\Desktop\webmozi\webmozii\WebMozi\DAL\obj\Debug\netcoreapp2.1\DAL.A
 C:\Users\User\Desktop\webmozi\webmozii\WebMozi\DAL\obj\Debug\netcoreapp2.1\DAL.AssemblyInfo.cs
 C:\Users\User\Desktop\webmozi\webmozii\WebMozi\DAL\obj\Debug\netcoreapp2.1\DAL.dll
 C:\Users\User\Desktop\webmozi\webmozii\WebMozi\DAL\obj\Debug\netcoreapp2.1\DAL.pdb
+D:\BME\programozas\Temalabor\gitrepo\WebMozi\DAL\bin\Debug\netcoreapp2.1\DAL.deps.json
+D:\BME\programozas\Temalabor\gitrepo\WebMozi\DAL\bin\Debug\netcoreapp2.1\DAL.dll
+D:\BME\programozas\Temalabor\gitrepo\WebMozi\DAL\bin\Debug\netcoreapp2.1\DAL.pdb
+D:\BME\programozas\Temalabor\gitrepo\WebMozi\DAL\obj\Debug\netcoreapp2.1\DAL.csprojAssemblyReference.cache
+D:\BME\programozas\Temalabor\gitrepo\WebMozi\DAL\obj\Debug\netcoreapp2.1\DAL.csproj.CoreCompileInputs.cache
+D:\BME\programozas\Temalabor\gitrepo\WebMozi\DAL\obj\Debug\netcoreapp2.1\DAL.AssemblyInfoInputs.cache
+D:\BME\programozas\Temalabor\gitrepo\WebMozi\DAL\obj\Debug\netcoreapp2.1\DAL.AssemblyInfo.cs
+D:\BME\programozas\Temalabor\gitrepo\WebMozi\DAL\obj\Debug\netcoreapp2.1\DAL.dll
+D:\BME\programozas\Temalabor\gitrepo\WebMozi\DAL\obj\Debug\netcoreapp2.1\DAL.pdb
+D:\BME\programozas\Temalabor\gitrepo\WebMozi\DAL\bin\Debug\netcoreapp2.1\DAL.runtimeconfig.json
+D:\BME\programozas\Temalabor\gitrepo\WebMozi\DAL\bin\Debug\netcoreapp2.1\DAL.runtimeconfig.dev.json
