@@ -2231,7 +2231,7 @@
       ]
     },
     "System.Interactive.Async/3.1.1": {
-      "sha512": "hZccYiIE5RS1/J9Tb/BNtosAGVggdlsJm4Ojdu+gDV0p4AIi+LUfUogMKkRacljQEJd2AG6vYzvcjhQFkqoZmw==",
+      "sha512": "6p268oQbMusEGOP1LSbZmVDk/GBJ2AxKvEQqTRFkghbPZi3l7y4Z6UhMAIbqKAy/Q8PheBlxY8wuANoTPh7WMQ==",
       "type": "package",
       "path": "system.interactive.async/3.1.1",
       "files": [
@@ -3548,23 +3548,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Majkut Kristóf\\.nuget\\packages\\": {},
+    "C:\\Users\\User\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\BME\\programozas\\Temalabor\\gitrepo\\WebMozi\\DAL\\DAL.csproj",
+      "projectUniqueName": "C:\\Users\\User\\Desktop\\webmozi\\webmozii\\WebMozi\\DAL\\DAL.csproj",
       "projectName": "DAL",
-      "projectPath": "D:\\BME\\programozas\\Temalabor\\gitrepo\\WebMozi\\DAL\\DAL.csproj",
-      "packagesPath": "C:\\Users\\Majkut Kristóf\\.nuget\\packages\\",
-      "outputPath": "D:\\BME\\programozas\\Temalabor\\gitrepo\\WebMozi\\DAL\\obj\\",
+      "projectPath": "C:\\Users\\User\\Desktop\\webmozi\\webmozii\\WebMozi\\DAL\\DAL.csproj",
+      "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\User\\Desktop\\webmozi\\webmozii\\WebMozi\\DAL\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\Majkut Kristóf\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

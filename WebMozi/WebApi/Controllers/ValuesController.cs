@@ -6,40 +6,19 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace WebApi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/todo")]
     [ApiController]
-    public class ValuesController : ControllerBase
+    public class TodoController : ControllerBase
     {
-        // GET api/values
+        private List<DTO.Movie> _dtolist = new List<DTO.Movie>();
+
+
         [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
+        public ActionResult<List<DTO.Movie>> Get()
         {
-            return new string[] { "value1", "value2" };
-        }
-
-        // GET api/values/5
-        [HttpGet("{id}")]
-        public ActionResult<string> Get(int id)
-        {
-            return "value";
-        }
-
-        // POST api/values
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
-
-        // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+            //_dallist.Add(new DAL.Movie { Title = "Item1", Director = "Hnaphajnalig" });
+            _dtolist.Add(new DTO.Movie { Title = "Faszom", Director = "Ebbe" });
+            return _dtolist;
         }
     }
 }

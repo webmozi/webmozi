@@ -28,14 +28,15 @@ namespace WebClient.Controllers
             return View();
         }
         [HttpPost]
-        public ViewResult AddMovie(MovieEvent m)
+        public ViewResult AddMovie(Movie m)
         {
                 icinemamanager.AddMovie(m);
                 return View("MainView", m);
         }
         public ViewResult ListMovies()
         {
-            return View(icinemamanager.ListMovies());
+            ViewBag.movies = icinemamanager.ListMovies();
+            return View();
         }
         [HttpPost]
         public IActionResult Delete(int ID)
@@ -44,7 +45,7 @@ namespace WebClient.Controllers
             return RedirectToAction("ListMovies");
         }
        //View hiányzik
-        public ViewResult ChooseMovie(MovieEvent m)
+        public ViewResult ChooseMovieEvent(MovieEvent m)
         {
             ReservationID = ireservationmanager.AddReservation(m);
             return View();

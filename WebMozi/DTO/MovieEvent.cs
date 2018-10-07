@@ -5,9 +5,11 @@ using System.Text;
 namespace DTO
 {
     public class MovieEvent
-    {   public Room Room { get; set; }    
-        public string MovieName { get; set; }
+    {
+        public Room Room { get; set; }
+        public Movie Movie { get; set; }
         public string Time { get; set; }
         public int ID { get; set; }
+
     }
 }

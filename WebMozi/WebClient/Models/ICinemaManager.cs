@@ -7,11 +7,15 @@ namespace WebClient.Models
 {
     public interface ICinemaManager
     {
-        IEnumerable<MovieEvent> ListMovies();
+        IEnumerable<Movie> ListMovies();
+        IEnumerable<MovieEvent> ListMovieEvents();
         IEnumerable<Room> ListRooms();
-        void AddMovie(MovieEvent m);
+        void AddMovie(Movie m);
+        void AddMovieEvent(MovieEvent me);
         void DeleteMovie(int i);
-        MovieEvent SelectMovie(int id);
+        void DeleteMovieEvent(int id);
+        Movie SelectMovie(int id);
+        void SelectMovieEvent(int id);
         void CreateRoom(int capacity);
     }
 }

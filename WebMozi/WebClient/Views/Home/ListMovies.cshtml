@@ -1,4 +1,4 @@
-﻿@model IEnumerable<WebClient.Models.MovieEvent>
+﻿@model WebClient.Models.Movie
 
 @{
     Layout = null;
@@ -23,14 +23,14 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var m in Model)
+                @foreach (var m in ViewBag.movies)
                 {
                     <tr>
-                        <td>@m.MovieName</td>
-                        <td>@m.Time</td>
+                        <td>@m.Title</td>
+                        <td>@m.Director</td>
                         <td class="text-center">
                             <form asp-action="Delete" method="post">
-                                <input type="hidden" name="MovieName" value="@m.ID" />
+                                <input type="hidden" name="MovieName" value="@m.MovieId" />
                                 <button type="submit" class="btn btn-danger btn-sm">
                                     Delete
                                 </button>
