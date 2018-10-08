@@ -8,15 +8,15 @@ namespace WebClient.Models
 {
     public class RealCinemaManager :ICinemaManager
     {
-        private  List<Movie> movies;
-        private  List<Room> rooms;
-        private  List<MovieEvent> movieevents;
+        private static List<Movie> movies;
+        private static List<Room> rooms;
+        private static List<MovieEvent> movieevents;
 
         public RealCinemaManager() {
-            /*movies = new List<Movie>();
+            movies = new List<Movie>();
             rooms = new List<Room>();
             movieevents = new List<MovieEvent>();
-            */
+            
             GetMovies();
             GetRooms();
             GetMovieEvents();
@@ -68,7 +68,7 @@ namespace WebClient.Models
         }
         public void AddMovie(Movie m)
         {
-            m.MovieId = movies.Count + 1;
+            m.MovieId = movies.Count;
             movies.Add(m);
         }
 

@@ -14,13 +14,9 @@ namespace WebClient.Controllers
         private int UserID;
         private int ReservationID;
 
-        public ViewResult Index()
-        {
-            return View("MainView");
-        }
-        public ViewResult MainView()
-        {
-            return View("MainView");
+        public ViewResult Index() {
+            refreshViewBag();
+            return View("ListMovies");
         }
         [HttpGet]
         public ViewResult AddMovie()
@@ -31,16 +27,42 @@ namespace WebClient.Controllers
         public ViewResult AddMovie(Movie m)
         {
                 icinemamanager.AddMovie(m);
-                return View("MainView", m);
+                refreshViewBag();
+                return View("ListMovies",m);
+        }
+        public ViewResult Edit(int MovieId)
+        {
+            Movie EditingMovie = icinemamanager.SelectMovie(MovieId);
+  
+           return View(EditingMovie);
+        }
+        [HttpPost]
+        public IActionResult Edit(Movie m)
+        {
+            if (ModelState.IsValid)
+            {
+                icinemamanager.DeleteMovie(m.MovieId);
+                icinemamanager.AddMovie(m);
+                refreshViewBag();
+                return RedirectToAction("ListMovies");
+            }
+            else
+            {
+                return View(m);
+            }
+        }
+            public void refreshViewBag() {
+            ViewBag.movies= icinemamanager.ListMovies();
         }
         public ViewResult ListMovies()
         {
-            ViewBag.movies = icinemamanager.ListMovies();
+            refreshViewBag();
             return View();
         }
         [HttpPost]
         public IActionResult Delete(int ID)
         {
+            refreshViewBag();
             icinemamanager.DeleteMovie(ID);
             return RedirectToAction("ListMovies");
         }

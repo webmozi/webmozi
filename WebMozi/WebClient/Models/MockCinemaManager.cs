@@ -35,7 +35,7 @@ namespace WebClient.Models
         }
         public void AddMovie(Movie m)
         {
-            m.MovieId = movies.Count+1;
+            m.MovieId = movies.Count;
             movies.Add(m);
         }
 

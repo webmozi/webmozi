@@ -25,7 +25,7 @@ namespace WebClient.Models
 
         public int AddUser(User user) {
             users.Add(user);
-            int userID = users.Count;
+            int userID = users.Count-1;
             return userID;
         }
 

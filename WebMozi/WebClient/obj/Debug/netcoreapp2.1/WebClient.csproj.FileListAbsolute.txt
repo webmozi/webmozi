@@ -72,3 +72,5 @@ D:\BME\programozas\Temalabor\gitrepo\WebMozi\WebClient\obj\Debug\netcoreapp2.1\W
 D:\BME\programozas\Temalabor\gitrepo\WebMozi\WebClient\obj\Debug\netcoreapp2.1\WebClient.csproj.CopyComplete
 D:\BME\programozas\Temalabor\gitrepo\WebMozi\WebClient\obj\Debug\netcoreapp2.1\WebClient.dll
 D:\BME\programozas\Temalabor\gitrepo\WebMozi\WebClient\obj\Debug\netcoreapp2.1\WebClient.pdb
+C:\Users\User\Desktop\webmozi\webmozii\WebMozi\WebClient\obj\Debug\netcoreapp2.1\Razor\Views\Home\Edit.g.cshtml.cs
+C:\Users\User\Desktop\webmozi\webmozii\WebMozi\WebClient\obj\Debug\netcoreapp2.1\Razor\Views\Shared\_AdminLayout.g.cshtml.cs
