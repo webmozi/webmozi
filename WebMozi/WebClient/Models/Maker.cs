@@ -7,10 +7,15 @@ namespace WebClient.Models
 {
     public class Maker 
     {
-        public Reservation MakeReservation(MovieEvent m)
+        private RoomManager roommanager;
+        public void setRoomManager(RoomManager rm) {
+            roommanager = rm;
+        }
+        public DTO.Reservation MakeReservation(DTO.MovieEvent m)
         {
-            Seat seat = m.Room.GetSeat();
-            Reservation reservation = new Reservation(seat);
+            DTO.Seat seat = roommanager.GetSeat(m.Room.Number);
+            DTO.Reservation reservation = new DTO.Reservation();
+            reservation.Seat = seat;
             return reservation;
         }
     }

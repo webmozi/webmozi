@@ -15,8 +15,8 @@ namespace WebClient.Controllers
         private int ReservationID;
 
         public ViewResult Index() {
-            refreshViewBag();
-            return View("ListMovies");
+
+            return ListMovies();
         }
         [HttpGet]
         public ViewResult AddMovie()
@@ -24,56 +24,53 @@ namespace WebClient.Controllers
             return View();
         }
         [HttpPost]
-        public ViewResult AddMovie(Movie m)
+        public ViewResult AddMovie(DTO.Movie m)
         {
-                icinemamanager.AddMovie(m);
-                refreshViewBag();
-                return View("ListMovies",m);
+            icinemamanager.AddMovie(m);
+            return View("ListMovies", icinemamanager.ListMovies());
         }
+
+        [HttpGet]
         public ViewResult Edit(int MovieId)
         {
-            Movie EditingMovie = icinemamanager.SelectMovie(MovieId);
-  
-           return View(EditingMovie);
+            DTO.Movie EditingMovie = icinemamanager.SelectMovie(MovieId);
+
+            return View(EditingMovie);
         }
+     
         [HttpPost]
-        public IActionResult Edit(Movie m)
+        public IActionResult Edit(DTO.Movie m)
         {
             if (ModelState.IsValid)
             {
                 icinemamanager.DeleteMovie(m.MovieId);
                 icinemamanager.AddMovie(m);
-                refreshViewBag();
-                return RedirectToAction("ListMovies");
+                return RedirectToAction("ListMovies", icinemamanager.ListMovies());
             }
             else
             {
-                return View(m);
+                return View();
             }
         }
-            public void refreshViewBag() {
-            ViewBag.movies= icinemamanager.ListMovies();
-        }
+       
         public ViewResult ListMovies()
         {
-            refreshViewBag();
-            return View();
+            return View("ListMovies", icinemamanager.ListMovies());
         }
         [HttpPost]
         public IActionResult Delete(int ID)
         {
-            refreshViewBag();
             icinemamanager.DeleteMovie(ID);
             return RedirectToAction("ListMovies");
         }
        //View hiányzik
-        public ViewResult ChooseMovieEvent(MovieEvent m)
+        public ViewResult ChooseMovieEvent(DTO.MovieEvent m)
         {
             ReservationID = ireservationmanager.AddReservation(m);
             return View();
         }
         //View hiányzik
-        public ViewResult CreateUser(User user) {
+        public ViewResult CreateUser(DTO.User user) {
             UserID= ireservationmanager.AddUser(user);
             return View();
         }
@@ -84,7 +81,7 @@ namespace WebClient.Controllers
         }
         //View hiányzik
         public ViewResult GetTicket() {
-            User user = ireservationmanager.GetUser(UserID);
+            DTO.User user = ireservationmanager.GetUser(UserID);
             return View(user.Reservations);
         }
     }

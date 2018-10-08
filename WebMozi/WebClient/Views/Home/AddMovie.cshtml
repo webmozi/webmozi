@@ -1,4 +1,4 @@
-﻿@model WebClient.Models.Movie
+﻿@model DTO.Movie
 
 @{
     Layout = null;
@@ -20,7 +20,7 @@
             <form class="p-a-1" asp-action="AddMovie" method="post">
                 <div asp-validation-summary="All"></div>
                 <div class="form-group">
-                    <label asp-for="Title">Movie name:</label>
+                    <label asp-for="Title">Movie title:</label>
                     <input class="form-control" asp-for="Title" />
                 </div>
                 <div class="form-group">

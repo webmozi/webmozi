@@ -8,65 +8,54 @@ namespace WebClient.Models
 {
     public class RealCinemaManager :ICinemaManager
     {
-        private static List<Movie> movies;
-        private static List<Room> rooms;
-        private static List<MovieEvent> movieevents;
+        private List<DTO.Movie> movies;
+        private List<DTO.MovieEvent> movieevents;
+        private RoomManager roommanager;
 
         public RealCinemaManager() {
-            movies = new List<Movie>();
-            rooms = new List<Room>();
-            movieevents = new List<MovieEvent>();
-            
             GetMovies();
-            GetRooms();
             GetMovieEvents();
+            //movieevents = new List<DTO.MovieEvent>();
+           // movies = new List<DTO.Movie>();
+            roommanager = new RoomManager();
         }
-        void GetMovieEvents()
+        private void GetMovieEvents()
         {
             HttpClient client = new HttpClient();
-            var result = client.GetAsync("http://localhost:6544/api/todo").Result;
+            var result = client.GetAsync("http://localhost:6544/api/values").Result;
             if (result.IsSuccessStatusCode)
             {
-                movieevents = result.Content.ReadAsAsync<List<MovieEvent>>().Result;
+                movieevents = result.Content.ReadAsAsync<List<DTO.MovieEvent>>().Result;
             }
         }
-        void GetMovies() {
+        private void GetMovies() {
             HttpClient client = new HttpClient();
-            var result = client.GetAsync("http://localhost:6544/ap/todo").Result;
+            var result = client.GetAsync("http://localhost:6544/api/values").Result;
             if (result.IsSuccessStatusCode)
             {
-                movies = result.Content.ReadAsAsync<List<Movie>>().Result;
+                movies = result.Content.ReadAsAsync<List<DTO.Movie>>().Result;
             }
         }
-        void GetRooms()
-        {
-            HttpClient client = new HttpClient();
-            var result = client.GetAsync("http://localhost:6544/api/todo").Result;
-            if (result.IsSuccessStatusCode)
-            {
-                rooms = result.Content.ReadAsAsync<List<Room>>().Result;
-            }
-        }
-
-        public IEnumerable<Movie> ListMovies()
+        
+        public IEnumerable<DTO.Movie> ListMovies()
         {
             return movies;
         }
 
-        public IEnumerable<MovieEvent> ListMovieEvents()
+        public IEnumerable<DTO.MovieEvent> ListMovieEvents()
         {
             return movieevents;
         }
 
-        public IEnumerable<Room> ListRooms()
+        public IEnumerable<DTO.Room> ListRooms()
         {
-            return rooms;
+            return roommanager.ListRooms();
         }
-        public void AddMovieEvent(MovieEvent me)
+        public void AddMovieEvent(DTO.MovieEvent me)
         {
             movieevents.Add(me);
         }
-        public void AddMovie(Movie m)
+        public void AddMovie(DTO.Movie m)
         {
             m.MovieId = movies.Count;
             movies.Add(m);
@@ -80,7 +69,7 @@ namespace WebClient.Models
         {
             movieevents.RemoveAt(id);
         }
-        public Movie SelectMovie(int id)
+        public DTO.Movie SelectMovie(int id)
         {
             return movies.ElementAt(id);
         }
@@ -90,15 +79,7 @@ namespace WebClient.Models
         }
         public void CreateRoom(int capacity)
         {
-            Room room = new Room(capacity, rooms.Count);
-            rooms.Add(room);
-        }
-        public void CreateMovieEvent(Movie m, String time,Room r) {
-            MovieEvent me = new MovieEvent();
-            me.Movie = m;
-            me.Time = time;
-            me.Room = r;
-            movieevents.Add(me);
+            roommanager.CreateRoom(capacity);
         }
     }
 }

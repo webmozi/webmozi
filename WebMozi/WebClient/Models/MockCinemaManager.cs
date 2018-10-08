@@ -7,33 +7,33 @@ namespace WebClient.Models
 {
     public class MockCinemaManager :ICinemaManager
     {
-        private List<Movie> movies;
-        private List<MovieEvent> movieevents;
-        private  List<Room> rooms;
+        private List<DTO.Movie> movies;
+        private List<DTO.MovieEvent> movieevents;
+        private RoomManager roommanager; 
 
         public MockCinemaManager() {
-            movies = new List<Movie>();
-            movieevents = new List<MovieEvent>();
-            rooms = new List<Room>();
+            movies = new List<DTO.Movie>();
+            movieevents = new List<DTO.MovieEvent>();
+            roommanager = new RoomManager();
         }
-        public IEnumerable<Movie> ListMovies()
+        public IEnumerable<DTO.Movie> ListMovies()
         {
             return movies;
         }
 
-        public IEnumerable<MovieEvent> ListMovieEvents()
+        public IEnumerable<DTO.MovieEvent> ListMovieEvents()
         {
             return movieevents;
         }
 
-        public IEnumerable<Room> ListRooms()
+        public IEnumerable<DTO.Room> ListRooms()
         {
-            return rooms;
+            return roommanager.ListRooms();
         }
-        public void AddMovieEvent(MovieEvent me) {
+        public void AddMovieEvent(DTO.MovieEvent me) {
             movieevents.Add(me);
         }
-        public void AddMovie(Movie m)
+        public void AddMovie(DTO.Movie m)
         {
             m.MovieId = movies.Count;
             movies.Add(m);
@@ -47,7 +47,7 @@ namespace WebClient.Models
         {
             movieevents.RemoveAt(id);
         }
-        public Movie SelectMovie(int id)
+        public DTO.Movie SelectMovie(int id)
         {
             return movies.ElementAt(id);
         }
@@ -57,7 +57,9 @@ namespace WebClient.Models
         }
         public void CreateRoom(int capacity)
         {
-            Room room = new Room(capacity, rooms.Count);
+            roommanager.CreateRoom(capacity);
         }
+
+     
     }
 }

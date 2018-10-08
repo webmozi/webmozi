@@ -16,3 +16,12 @@ D:\BME\programozas\Temalabor\gitrepo\WebMozi\DTO\obj\Debug\netstandard2.0\DTO.As
 D:\BME\programozas\Temalabor\gitrepo\WebMozi\DTO\obj\Debug\netstandard2.0\DTO.AssemblyInfo.cs
 D:\BME\programozas\Temalabor\gitrepo\WebMozi\DTO\obj\Debug\netstandard2.0\DTO.dll
 D:\BME\programozas\Temalabor\gitrepo\WebMozi\DTO\obj\Debug\netstandard2.0\DTO.pdb
+C:\Users\User\Desktop\webmozi\webmozi\WebMozi\DTO\bin\Debug\netstandard2.0\DTO.deps.json
+C:\Users\User\Desktop\webmozi\webmozi\WebMozi\DTO\bin\Debug\netstandard2.0\DTO.dll
+C:\Users\User\Desktop\webmozi\webmozi\WebMozi\DTO\bin\Debug\netstandard2.0\DTO.pdb
+C:\Users\User\Desktop\webmozi\webmozi\WebMozi\DTO\obj\Debug\netstandard2.0\DTO.csprojAssemblyReference.cache
+C:\Users\User\Desktop\webmozi\webmozi\WebMozi\DTO\obj\Debug\netstandard2.0\DTO.csproj.CoreCompileInputs.cache
+C:\Users\User\Desktop\webmozi\webmozi\WebMozi\DTO\obj\Debug\netstandard2.0\DTO.AssemblyInfoInputs.cache
+C:\Users\User\Desktop\webmozi\webmozi\WebMozi\DTO\obj\Debug\netstandard2.0\DTO.AssemblyInfo.cs
+C:\Users\User\Desktop\webmozi\webmozi\WebMozi\DTO\obj\Debug\netstandard2.0\DTO.dll
+C:\Users\User\Desktop\webmozi\webmozi\WebMozi\DTO\obj\Debug\netstandard2.0\DTO.pdb

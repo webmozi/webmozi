@@ -6,6 +6,8 @@ namespace DTO
 {
     public class Room
     {
-        private readonly List<Seat> seats = new List<Seat>();      
+        public List<DTO.Seat> Seats { get; set; } = new List<DTO.Seat>();
+        public int Capacity { get; set; }
+        public int Number { get; set; }
     }
 }

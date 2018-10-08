@@ -2,19 +2,18 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
 namespace WebClient.Models
 {
     public interface ICinemaManager
     {
-        IEnumerable<Movie> ListMovies();
-        IEnumerable<MovieEvent> ListMovieEvents();
-        IEnumerable<Room> ListRooms();
-        void AddMovie(Movie m);
-        void AddMovieEvent(MovieEvent me);
+        IEnumerable<DTO.Movie> ListMovies();
+        IEnumerable<DTO.MovieEvent> ListMovieEvents();
+        IEnumerable<DTO.Room> ListRooms();
+        void AddMovie(DTO.Movie m);
+        void AddMovieEvent(DTO.MovieEvent me);
         void DeleteMovie(int i);
         void DeleteMovieEvent(int id);
-        Movie SelectMovie(int id);
+        DTO.Movie SelectMovie(int id);
         void SelectMovieEvent(int id);
         void CreateRoom(int capacity);
     }

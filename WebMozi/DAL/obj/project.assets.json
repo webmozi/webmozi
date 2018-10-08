@@ -3554,11 +3554,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\User\\Desktop\\webmozi\\webmozii\\WebMozi\\DAL\\DAL.csproj",
+      "projectUniqueName": "C:\\Users\\User\\Desktop\\webmozi\\webmozi\\WebMozi\\DAL\\DAL.csproj",
       "projectName": "DAL",
-      "projectPath": "C:\\Users\\User\\Desktop\\webmozi\\webmozii\\WebMozi\\DAL\\DAL.csproj",
+      "projectPath": "C:\\Users\\User\\Desktop\\webmozi\\webmozi\\WebMozi\\DAL\\DAL.csproj",
       "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\User\\Desktop\\webmozi\\webmozii\\WebMozi\\DAL\\obj\\",
+      "outputPath": "C:\\Users\\User\\Desktop\\webmozi\\webmozi\\WebMozi\\DAL\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

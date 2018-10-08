@@ -6,19 +6,17 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace WebApi.Controllers
 {
-    [Route("api/todo")]
+    [Route("api/values")]
     [ApiController]
-    public class TodoController : ControllerBase
+    public class ValuesController : ControllerBase
     {
-        private List<DTO.Movie> _dtolist = new List<DTO.Movie>();
-
+        private List<DTO.Movie> movielist = new List<DTO.Movie>();
 
         [HttpGet]
         public ActionResult<List<DTO.Movie>> Get()
         {
-            //_dallist.Add(new DAL.Movie { Title = "Item1", Director = "Hnaphajnalig" });
-            _dtolist.Add(new DTO.Movie { Title = "Faszom", Director = "Ebbe" });
-            return _dtolist;
+            movielist.Add(new DTO.Movie { Title = "Faszom", Director = "Ebbe" , MovieId =0});
+            return movielist;
         }
     }
 }

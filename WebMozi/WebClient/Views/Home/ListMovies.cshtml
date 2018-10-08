@@ -1,7 +1,7 @@
-﻿@model WebClient.Models.Movie
+﻿@model IEnumerable<DTO.Movie>
 
 @{
-    Layout = null;
+            Layout = null; 
 }
 <!DOCTYPE html>
 
@@ -23,8 +23,8 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var m in ViewBag.movies)
-                {
+                @foreach (var m in Model)
+    {
                     <tr>
                         <td>@m.Title</td>
                         <td>@m.Director</td>

@@ -11541,11 +11541,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\User\\Desktop\\webmozi\\webmozii\\WebMozi\\WebApi\\WebApi.csproj",
+      "projectUniqueName": "C:\\Users\\User\\Desktop\\webmozi\\webmozi\\WebMozi\\WebApi\\WebApi.csproj",
       "projectName": "WebApi",
-      "projectPath": "C:\\Users\\User\\Desktop\\webmozi\\webmozii\\WebMozi\\WebApi\\WebApi.csproj",
+      "projectPath": "C:\\Users\\User\\Desktop\\webmozi\\webmozi\\WebMozi\\WebApi\\WebApi.csproj",
       "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\User\\Desktop\\webmozi\\webmozii\\WebMozi\\WebApi\\obj\\",
+      "outputPath": "C:\\Users\\User\\Desktop\\webmozi\\webmozi\\WebMozi\\WebApi\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -11564,11 +11564,11 @@
       "frameworks": {
         "netcoreapp2.1": {
           "projectReferences": {
-            "C:\\Users\\User\\Desktop\\webmozi\\webmozii\\WebMozi\\DAL\\DAL.csproj": {
-              "projectPath": "C:\\Users\\User\\Desktop\\webmozi\\webmozii\\WebMozi\\DAL\\DAL.csproj"
+            "C:\\Users\\User\\Desktop\\webmozi\\webmozi\\WebMozi\\DAL\\DAL.csproj": {
+              "projectPath": "C:\\Users\\User\\Desktop\\webmozi\\webmozi\\WebMozi\\DAL\\DAL.csproj"
             },
-            "C:\\Users\\User\\Desktop\\webmozi\\webmozii\\WebMozi\\DTO\\DTO.csproj": {
-              "projectPath": "C:\\Users\\User\\Desktop\\webmozi\\webmozii\\WebMozi\\DTO\\DTO.csproj"
+            "C:\\Users\\User\\Desktop\\webmozi\\webmozi\\WebMozi\\DTO\\DTO.csproj": {
+              "projectPath": "C:\\Users\\User\\Desktop\\webmozi\\webmozi\\WebMozi\\DTO\\DTO.csproj"
             }
           }
         }
