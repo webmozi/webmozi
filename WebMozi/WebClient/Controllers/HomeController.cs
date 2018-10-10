@@ -16,54 +16,73 @@ namespace WebClient.Controllers
 
         public ViewResult Index() {
 
-            return ListMovies();
+            return View("MainView");
         }
         [HttpGet]
-        public ViewResult AddMovie()
+        public ViewResult AMain()
         {
-            return View();
+            return View("Admin/Main");
         }
+        [HttpGet]
+        public ViewResult UMain()
+        {
+            return View("User/Main");
+        }
+
+        [HttpGet]
+        public ViewResult AListMovies()
+        {
+            return View("Admin/ListMovies", icinemamanager.ListMovies());
+        }
+        [HttpGet]
+        public ViewResult UListMovies()
+        {
+            return View("User/ListMovies", icinemamanager.ListMovies());
+        }
+        [HttpGet]
+        public ViewResult AAddMovie()
+        {
+            return View("Admin/AddMovie");
+        }
+
         [HttpPost]
         public ViewResult AddMovie(DTO.Movie m)
         {
             icinemamanager.AddMovie(m);
-            return View("ListMovies", icinemamanager.ListMovies());
+            return AListMovies();
         }
-
         [HttpGet]
-        public ViewResult Edit(int MovieId)
+        public ViewResult ADelete(int ID)
         {
-            DTO.Movie EditingMovie = icinemamanager.SelectMovie(MovieId);
-
-            return View(EditingMovie);
+            TempData["message"] = $"{icinemamanager.SelectMovie(ID).Title} was removed";
+            icinemamanager.DeleteMovie(ID);
+            return AListMovies();
         }
-     
+        [HttpPost]
+        public ActionResult Delete(int ID)
+        {   
+            return RedirectToAction("ADelete",ID);
+        }
+        [HttpGet]
+        public ViewResult AEdit(int id)
+        {
+            DTO.Movie EditMovie = icinemamanager.SelectMovie(id);
+            return View("Admin/Edit", EditMovie);
+        }
         [HttpPost]
         public IActionResult Edit(DTO.Movie m)
-        {
-            if (ModelState.IsValid)
-            {
-                icinemamanager.DeleteMovie(m.MovieId);
-                icinemamanager.AddMovie(m);
-                return RedirectToAction("ListMovies", icinemamanager.ListMovies());
-            }
-            else
-            {
-                return View();
-            }
+        {  
+                icinemamanager.EditMovie(m);
+                TempData["message"] = $"{m.Title} has been saved";
+                return AListMovies();
         }
-       
-        public ViewResult ListMovies()
+        [HttpGet]
+        public ViewResult UDateSelect(int MovieId)
         {
-            return View("ListMovies", icinemamanager.ListMovies());
+            DTO.Movie SelectedMovie = icinemamanager.SelectMovie(MovieId);
+            return View("User/DateSelect", SelectedMovie);
         }
-        [HttpPost]
-        public IActionResult Delete(int ID)
-        {
-            icinemamanager.DeleteMovie(ID);
-            return RedirectToAction("ListMovies");
-        }
-       //View hiányzik
+        //View hiányzik
         public ViewResult ChooseMovieEvent(DTO.MovieEvent m)
         {
             ReservationID = ireservationmanager.AddReservation(m);

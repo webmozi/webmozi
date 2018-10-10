@@ -1,0 +1,27 @@
+﻿@{
+    ViewBag.Title = "Admin Main";
+    Layout = "_AdminLayout";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Admin View</title>
+    <link rel="stylesheet" href="~/css/styles.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+</head>
+<body>
+        <div class="panel-heading text-left">
+            <a class="btn btn-primary" asp-action="AListMovies">Movie List</a>
+        </div>
+        <div class="panel-heading text-left">
+            <a class="btn btn-primary" asp-action="AAddMovie">Add Movie</a>
+        </div>
+        <div class="text-left">
+            <a asp-action="Index" class="btn btn-primary">Back</a>
+        </div>
+</body>
+</html>
+

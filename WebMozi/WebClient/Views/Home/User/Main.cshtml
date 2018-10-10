@@ -1,0 +1,24 @@
+﻿@{
+    ViewBag.Title = "User Main";
+    Layout = "_UserLayout";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link rel="stylesheet" href="~/css/styles.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+</head>
+<body>
+    <h3>First please choose a movie</h3>
+    <div class="panel-heading text-center">
+        <a class="btn btn-primary" asp-action="UListMovies">Choose a movie</a>
+    </div>
+    <div class="text-left">
+        <a asp-action="Index" class="btn btn-primary">Back</a>
+    </div>
+</body>
+</html>

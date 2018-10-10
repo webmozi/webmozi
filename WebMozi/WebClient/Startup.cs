@@ -52,7 +52,8 @@ namespace WebClient
             app.UseStaticFiles();
             app.UseCookiePolicy();
 
-            app.UseMvc(routes =>
+            app.UseMvc(
+                routes =>
             {
                 routes.MapRoute(
                     name: "default",

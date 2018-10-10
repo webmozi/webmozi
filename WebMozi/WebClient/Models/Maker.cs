@@ -13,7 +13,7 @@ namespace WebClient.Models
         }
         public DTO.Reservation MakeReservation(DTO.MovieEvent m)
         {
-            DTO.Seat seat = roommanager.GetSeat(m.Room.Number);
+            DTO.Seat seat = roommanager.GetSeat(m.Room.FreeSeats);
             DTO.Reservation reservation = new DTO.Reservation();
             reservation.Seat = seat;
             return reservation;

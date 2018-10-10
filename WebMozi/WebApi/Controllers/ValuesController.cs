@@ -16,6 +16,7 @@ namespace WebApi.Controllers
         public ActionResult<List<DTO.Movie>> Get()
         {
             movielist.Add(new DTO.Movie { Title = "Faszom", Director = "Ebbe" , MovieId =0});
+            movielist.Add(new DTO.Movie { Title = "Mukodik", Director = "E", MovieId = 1 });
             return movielist;
         }
     }

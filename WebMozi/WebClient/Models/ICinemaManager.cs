@@ -14,7 +14,8 @@ namespace WebClient.Models
         void DeleteMovie(int i);
         void DeleteMovieEvent(int id);
         DTO.Movie SelectMovie(int id);
-        void SelectMovieEvent(int id);
+        DTO.MovieEvent SelectMovieEvent(int id);
+        void EditMovie(DTO.Movie m);
         void CreateRoom(int capacity);
     }
 }

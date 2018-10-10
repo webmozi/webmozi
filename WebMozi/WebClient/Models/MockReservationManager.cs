@@ -10,37 +10,59 @@ namespace WebClient.Models
         private  List<DTO.User> users;
         private List<DTO.Reservation> reservations;
         private Maker maker;
+        private static int reservationIDs = 0;
+        private static int userIDs = 0;
 
         public MockReservationManager() {
             users = new List<DTO.User>();
             reservations = new List<DTO.Reservation>();
             maker = new Maker();
         }
-        public int AddReservation(DTO.MovieEvent m) {
+        public int AddReservation(DTO.MovieEvent m)
+        {
             DTO.Reservation reservation = maker.MakeReservation(m);
             reservations.Add(reservation);
             int reservationID = reservations.Count;
             return reservationID;
         }
 
-        public DTO.Reservation GetReservation(int resID) {
-            return reservations.ElementAt(resID);
+        public DTO.Reservation GetReservation(int resID)
+        {
+            DTO.Reservation reservation = null;
+            foreach (DTO.Reservation re in reservations.ToList())
+            {
+                if (re.Id == resID)
+                {
+                    reservation = re;
+                }
+            }
+            return reservation;
         }
 
-        public int AddUser(DTO.User user) {
+        public int AddUser(DTO.User user)
+        {
+            user.Id = userIDs;
+            userIDs++;
             users.Add(user);
-            int userID = users.Count-1;
-            return userID;
+            return user.Id;
         }
 
         public DTO.User GetUser(int ID)
-        {     
-            return users.ElementAt(ID);
+        {
+            DTO.User user = null;
+            foreach (DTO.User us in users)
+            {
+                if (user.Id == ID)
+                {
+                    user = us;
+                }
+            }
+            return user;
         }
 
-        public void ReservationToUser(int UserID, int ReservationID) {
-            DTO.Reservation reservation = GetReservation(ReservationID);
-            users.ElementAt(UserID).Reservations.Add(reservation);
+        public void ReservationToUser(int UserID, int ReservationID)
+        {
+            GetUser(UserID).Reservations.Add(GetReservation(ReservationID));
         }
 
     }

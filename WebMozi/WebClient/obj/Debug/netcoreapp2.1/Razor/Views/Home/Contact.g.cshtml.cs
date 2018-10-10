@@ -14,17 +14,17 @@ namespace AspNetCore
     using Microsoft.AspNetCore.Mvc.Rendering;
     using Microsoft.AspNetCore.Mvc.ViewFeatures;
 #line 1 "C:\Users\User\Desktop\webmozi\webmozi\WebMozi\WebClient\Views\_ViewImports.cshtml"
-using WebClient;
-
-#line default
-#line hidden
-#line 2 "C:\Users\User\Desktop\webmozi\webmozi\WebMozi\WebClient\Views\_ViewImports.cshtml"
 using WebClient.Models;
 
 #line default
 #line hidden
+#line 2 "C:\Users\User\Desktop\webmozi\webmozi\WebMozi\WebClient\Views\_ViewImports.cshtml"
+using DTO;
+
+#line default
+#line hidden
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"b93df4061ff384cf01ca37cf92dff41c251f235f", @"/Views/Home/Contact.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"74eabcf7e030352eff2473b217adffa5ad5752fa", @"/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"300f5575039ed3f60fa0e1327244bc836b5d76a0", @"/Views/_ViewImports.cshtml")]
     public class Views_Home_Contact : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<dynamic>
     {
         #pragma warning disable 1998

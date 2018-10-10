@@ -10,9 +10,16 @@ namespace WebClient.Models
         private List<DTO.Movie> movies;
         private List<DTO.MovieEvent> movieevents;
         private RoomManager roommanager; 
+        private static int movieIDs=0;
 
         public MockCinemaManager() {
             movies = new List<DTO.Movie>();
+            DTO.Movie m1 = new DTO.Movie() { Director = "Akos", Title = "Franciska" };
+            DTO.Movie m2 = new DTO.Movie() { Director = "Francoka", Title = "Akimaki" };
+            DTO.Movie m3 = new DTO.Movie() { Director = "Frani", Title = "Akobako" };
+            AddMovie(m1);
+            AddMovie(m2);
+            AddMovie(m3);
             movieevents = new List<DTO.MovieEvent>();
             roommanager = new RoomManager();
         }
@@ -35,31 +42,69 @@ namespace WebClient.Models
         }
         public void AddMovie(DTO.Movie m)
         {
-            m.MovieId = movies.Count;
+            m.MovieId = movieIDs;
+            movieIDs++; ;
             movies.Add(m);
         }
 
         public void DeleteMovie(int id)
         {
-            movies.RemoveAt(id);
+            foreach (DTO.Movie m in movies.ToList())
+            {
+                if (m.MovieId == id)
+                {
+                    movies.Remove(m);
+                }
+            }
+        }
+        public void EditMovie(DTO.Movie m)
+        {
+            for (int i = 0; i < movies.Count; i++)
+            {
+                if (movies.ElementAt(i).MovieId == m.MovieId)
+                {
+                    movies.ElementAt(i).Director = m.Director;
+                    movies.ElementAt(i).Title = m.Title;
+                }
+            }
         }
         public void DeleteMovieEvent(int id)
         {
-            movieevents.RemoveAt(id);
+            foreach (DTO.MovieEvent me in movieevents.ToList())
+            {
+                if (me.ID == id)
+                {
+                    movieevents.Remove(me);
+                }
+            }
         }
         public DTO.Movie SelectMovie(int id)
         {
-            return movies.ElementAt(id);
+            DTO.Movie selectmovie = null;
+            foreach (DTO.Movie m in movies.ToList())
+            {
+                if (m.MovieId == id) {
+                    selectmovie = m;
+                }
+            }
+            return selectmovie;
         }
-        public void SelectMovieEvent(int id)
+        public DTO.MovieEvent SelectMovieEvent(int id)
         {
-            movieevents.ElementAt(id);
+            DTO.MovieEvent selectmovieevent = null;
+            foreach (DTO.MovieEvent me in movieevents)
+            {
+                if (me.ID == id)
+                {
+                    selectmovieevent = me;
+                }
+            }
+            return selectmovieevent;
         }
         public void CreateRoom(int capacity)
         {
             roommanager.CreateRoom(capacity);
         }
-
-     
+        
     }
 }

@@ -1,0 +1,17 @@
+﻿
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" asp-href-include="lib/bootstrap/dist/css/*.min.css" />
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+    <div class="panel panel-success">
+        <div class="panel-heading text-center"><h4>@ViewBag.Title</h4></div>
+    </div>
+    <div class="panel-body">
+        @RenderBody()
+    </div>
+</body>
+</html>

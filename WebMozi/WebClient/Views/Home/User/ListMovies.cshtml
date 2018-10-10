@@ -1,19 +1,22 @@
 ﻿@model IEnumerable<DTO.Movie>
 
 @{
-            Layout = null; 
+    ViewBag.Title = "List Movies";
+    Layout = "_UserLayout";
 }
+
+
 <!DOCTYPE html>
 
 <html>
 <head>
     <meta name="viewport" content="wirdt=device-width" />
-    <title>Movie List</title>
+    <title>@ViewBag.Title</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
 </head>
 <body>
     <div class="panel-body">
-        <h2>Here is the list of movies</h2>
+        <h2>Choose a movie on the list</h2>
         <table class="table table-sm table-striped table-bordered">
             <thead>
                 <tr>
@@ -24,20 +27,16 @@
             </thead>
             <tbody>
                 @foreach (var m in Model)
-    {
+                {
                     <tr>
-                        <td>@m.Title</td>
-                        <td>@m.Director</td>
+                        <td>   @Html.DisplayFor(modelItem => m.Title)</td>
+                        <td>   @Html.DisplayFor(modelItem => m.Director)</td>
                         <td class="text-center">
-                            <form asp-action="Delete" method="post">
-                                <a asp-action="Edit" class="btn btn-sm btn-warning"
+                            <form asp-action="Choose" method="post">
+                                <a asp-action="UDateSelect" class="btn btn-sm btn-warning"
                                    asp-route-productId="@m.MovieId">
-                                    Edit
+                                    Select a date
                                 </a>
-                                <input type="hidden" name="Title" value="@m.MovieId" />
-                                <button type="submit" class="btn btn-danger btn-sm">
-                                    Delete
-                                </button>
                             </form>
                         </td>
                     </tr>
@@ -46,7 +45,8 @@
         </table>
     </div>
     <div class="text-left">
-        <a asp-action="AddMovie" class="btn btn-primary">Add Movie</a>
+        <a asp-action="UMain" class="btn btn-primary">Back</a>
     </div>
 </body>
 </html>
+

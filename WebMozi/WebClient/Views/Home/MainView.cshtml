@@ -1,5 +1,5 @@
 ﻿@{
-
+    ViewBag.Title = "Cinema AKG";
     Layout = null;
 }
 
@@ -8,14 +8,18 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>MainView</title>
+    <title>Main View</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
 </head>
 <body>
-    <div class="text-center">
-        <h3>Cinema AKG</h3>
-        <h4>You can see the list of movies</h4>
-        <a class="btn btn-primary" asp-action="ListMovies">See Now</a>
+    <div class="panel panel-success">
+        <div class="panel-heading text-center"><h4>@ViewBag.Title</h4></div>
+    </div>
+    <div class="panel-heading text-center">
+        <a class="btn btn-primary" asp-action="AMain">Admin</a>
+    </div>
+    <div class="panel-heading text-center">
+        <a class="btn btn-primary" asp-action="UMain">User</a>
     </div>
 
 </body>

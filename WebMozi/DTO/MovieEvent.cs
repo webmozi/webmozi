@@ -8,7 +8,7 @@ namespace DTO
     {
         public Room Room { get; set; }
         public Movie Movie { get; set; }
-        public string Time { get; set; }
+        public DateTime Time { get; set; }
         public int ID { get; set; }
 
     }
