@@ -7,6 +7,9 @@ namespace DAL
 {
     public class CinemaContext : DbContext
     {
+
+        public CinemaContext() : base() { }
+
         public DbSet<Room> CinemaRooms { get; set; }
 
         public DbSet<Movie> Movies { get; set; }

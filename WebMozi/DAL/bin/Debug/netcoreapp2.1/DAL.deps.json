@@ -8,6 +8,7 @@
     ".NETCoreApp,Version=v2.1": {
       "DAL/1.0.0": {
         "dependencies": {
+          "Microsoft.EntityFrameworkCore": "2.1.4",
           "Microsoft.EntityFrameworkCore.SqlServer": "2.1.4",
           "Microsoft.EntityFrameworkCore.Tools": "2.1.4"
         },
@@ -760,7 +761,7 @@
     "System.Interactive.Async/3.1.1": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-6p268oQbMusEGOP1LSbZmVDk/GBJ2AxKvEQqTRFkghbPZi3l7y4Z6UhMAIbqKAy/Q8PheBlxY8wuANoTPh7WMQ==",
+      "sha512": "sha512-hZccYiIE5RS1/J9Tb/BNtosAGVggdlsJm4Ojdu+gDV0p4AIi+LUfUogMKkRacljQEJd2AG6vYzvcjhQFkqoZmw==",
       "path": "system.interactive.async/3.1.1",
       "hashPath": "system.interactive.async.3.1.1.nupkg.sha512"
     },
