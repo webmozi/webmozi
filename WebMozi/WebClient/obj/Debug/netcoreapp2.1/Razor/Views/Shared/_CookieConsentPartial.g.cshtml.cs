@@ -14,12 +14,12 @@ namespace AspNetCore
     using Microsoft.AspNetCore.Mvc.Rendering;
     using Microsoft.AspNetCore.Mvc.ViewFeatures;
 #line 1 "D:\BME\programozas\Temalabor\gitrepo\webmoziLOCAL\WebMozi\WebClient\Views\_ViewImports.cshtml"
-using WebClient;
+using WebClient.Models;
 
 #line default
 #line hidden
 #line 2 "D:\BME\programozas\Temalabor\gitrepo\webmoziLOCAL\WebMozi\WebClient\Views\_ViewImports.cshtml"
-using WebClient.Models;
+using DTO;
 
 #line default
 #line hidden
@@ -97,7 +97,7 @@ using Microsoft.AspNetCore.Http.Features;
                     ");
             EndContext();
             BeginContext(1234, 92, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "5e7815a1e20b4a1e91d73334fe81d542", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "42182df1d8434953b7e15fda0d4005f8", async() => {
                 BeginContext(1312, 10, true);
                 WriteLiteral("Learn More");
                 EndContext();

@@ -9,10 +9,17 @@ namespace DAL
 
         public int MovieEventId { get; set; }
 
-        public int TimeOfEvent { get; set; }
+        public DateTime TimeOfEvent { get; set; }
+
+
+
 
         public Room Room { get; set; }
 
+        public int RoomId { get; set; }
+
         public Movie Movie { get; set; }
+
+        public int MovieId { get; set; }
     }
 }

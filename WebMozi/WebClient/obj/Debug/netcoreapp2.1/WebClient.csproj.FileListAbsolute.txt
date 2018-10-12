@@ -129,11 +129,8 @@ D:\BME\programozas\Temalabor\gitrepo\webmoziLOCAL\WebMozi\WebClient\obj\Debug\ne
 D:\BME\programozas\Temalabor\gitrepo\webmoziLOCAL\WebMozi\WebClient\obj\Debug\netcoreapp2.1\WebClient.TagHelpers.output.cache
 D:\BME\programozas\Temalabor\gitrepo\webmoziLOCAL\WebMozi\WebClient\obj\Debug\netcoreapp2.1\WebClient.RazorCoreGenerate.cache
 D:\BME\programozas\Temalabor\gitrepo\webmoziLOCAL\WebMozi\WebClient\obj\Debug\netcoreapp2.1\Razor\Views\Home\About.g.cshtml.cs
-D:\BME\programozas\Temalabor\gitrepo\webmoziLOCAL\WebMozi\WebClient\obj\Debug\netcoreapp2.1\Razor\Views\Home\AddMovie.g.cshtml.cs
 D:\BME\programozas\Temalabor\gitrepo\webmoziLOCAL\WebMozi\WebClient\obj\Debug\netcoreapp2.1\Razor\Views\Home\Contact.g.cshtml.cs
-D:\BME\programozas\Temalabor\gitrepo\webmoziLOCAL\WebMozi\WebClient\obj\Debug\netcoreapp2.1\Razor\Views\Home\Edit.g.cshtml.cs
 D:\BME\programozas\Temalabor\gitrepo\webmoziLOCAL\WebMozi\WebClient\obj\Debug\netcoreapp2.1\Razor\Views\Home\Index.g.cshtml.cs
-D:\BME\programozas\Temalabor\gitrepo\webmoziLOCAL\WebMozi\WebClient\obj\Debug\netcoreapp2.1\Razor\Views\Home\ListMovies.g.cshtml.cs
 D:\BME\programozas\Temalabor\gitrepo\webmoziLOCAL\WebMozi\WebClient\obj\Debug\netcoreapp2.1\Razor\Views\Home\MainView.g.cshtml.cs
 D:\BME\programozas\Temalabor\gitrepo\webmoziLOCAL\WebMozi\WebClient\obj\Debug\netcoreapp2.1\Razor\Views\Home\Privacy.g.cshtml.cs
 D:\BME\programozas\Temalabor\gitrepo\webmoziLOCAL\WebMozi\WebClient\obj\Debug\netcoreapp2.1\Razor\Views\Shared\Error.g.cshtml.cs
@@ -149,3 +146,11 @@ D:\BME\programozas\Temalabor\gitrepo\webmoziLOCAL\WebMozi\WebClient\obj\Debug\ne
 D:\BME\programozas\Temalabor\gitrepo\webmoziLOCAL\WebMozi\WebClient\obj\Debug\netcoreapp2.1\WebClient.csproj.CopyComplete
 D:\BME\programozas\Temalabor\gitrepo\webmoziLOCAL\WebMozi\WebClient\obj\Debug\netcoreapp2.1\WebClient.dll
 D:\BME\programozas\Temalabor\gitrepo\webmoziLOCAL\WebMozi\WebClient\obj\Debug\netcoreapp2.1\WebClient.pdb
+D:\BME\programozas\Temalabor\gitrepo\webmoziLOCAL\WebMozi\WebClient\obj\Debug\netcoreapp2.1\Razor\Views\Home\Admin\AddMovie.g.cshtml.cs
+D:\BME\programozas\Temalabor\gitrepo\webmoziLOCAL\WebMozi\WebClient\obj\Debug\netcoreapp2.1\Razor\Views\Home\Admin\Edit.g.cshtml.cs
+D:\BME\programozas\Temalabor\gitrepo\webmoziLOCAL\WebMozi\WebClient\obj\Debug\netcoreapp2.1\Razor\Views\Home\Admin\ListMovies.g.cshtml.cs
+D:\BME\programozas\Temalabor\gitrepo\webmoziLOCAL\WebMozi\WebClient\obj\Debug\netcoreapp2.1\Razor\Views\Home\Admin\Main.g.cshtml.cs
+D:\BME\programozas\Temalabor\gitrepo\webmoziLOCAL\WebMozi\WebClient\obj\Debug\netcoreapp2.1\Razor\Views\Home\User\DateSelect.g.cshtml.cs
+D:\BME\programozas\Temalabor\gitrepo\webmoziLOCAL\WebMozi\WebClient\obj\Debug\netcoreapp2.1\Razor\Views\Home\User\ListMovies.g.cshtml.cs
+D:\BME\programozas\Temalabor\gitrepo\webmoziLOCAL\WebMozi\WebClient\obj\Debug\netcoreapp2.1\Razor\Views\Home\User\Main.g.cshtml.cs
+D:\BME\programozas\Temalabor\gitrepo\webmoziLOCAL\WebMozi\WebClient\obj\Debug\netcoreapp2.1\Razor\Views\Shared\_UserLayout.g.cshtml.cs

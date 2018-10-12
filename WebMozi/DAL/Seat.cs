@@ -14,5 +14,11 @@ namespace DAL
         public int SeatNumber { get; set; }
 
         public bool Reserved { get; set; }
+
+
+
+        public int RoomId { get; set; }
+
+        public int ReservationId { get; set; }
     }
 }
