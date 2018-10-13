@@ -8,8 +8,6 @@ namespace DAL
     {
  
         public int ReservationId { get; set; }
-        
-        public List<Seat> ReservedSeats { get; set; }
 
 
 
@@ -17,6 +15,10 @@ namespace DAL
         public MovieEvent MovieEvent { get; set; }
 
         public int MovieEventId { get; set; }
+
+        // public Seat ReservedSeat { get; set; }
+
+        public int SeatId { get; set; }
 
         public int UserId { get; set; }
     }

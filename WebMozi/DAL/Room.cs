@@ -11,7 +11,7 @@ namespace DAL
 
         public int RoomNumber { get; set; }
 
-        public int NumberOfSeats { get; set; }
+        public int Capacity { get; set; }
 
         public List<Seat> Seats { get; set; }
     }

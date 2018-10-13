@@ -9,6 +9,8 @@ namespace DAL
 
         public string Name { get; set; }
 
+        public string Email { get; set; }
+
         public string TelephoneNumber { get; set; }
 
         public List<Reservation> Reservations { get; set; }

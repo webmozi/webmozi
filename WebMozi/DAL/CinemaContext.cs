@@ -5,9 +5,14 @@ using System.Text;
 
 namespace DAL
 {
-
-    // Add-Migration FirstMigration -Context CinemaContext -Project DAL -StartUpProject WebApi
-    // update-database -Context CinemaContext -Project DAL -StartUpProject WebApi
+    // Package Manager Console COMMANDS
+    //      - new migration: Add-Migration      FirstMigration -Context CinemaContext -Project DAL -StartUpProject WebApi
+    //      - remove the last migration:        Remove-Migration -Context CinemaContext -Project DAL -StartUpProject WebApi
+    //      - drop database:                    drop-database -Context CinemaContext -Project DAL -StartUpProject WebApi
+    //
+    //
+    //
+    //      -create database based on the created migrations: update-database -Context CinemaContext -Project DAL -StartUpProject WebApi
     public class CinemaContext : DbContext
     {
 
@@ -69,20 +74,77 @@ namespace DAL
                 new Room
                 {
                     RoomId = 1,
-                    NumberOfSeats = 2,
+                    Capacity = 2,
                     RoomNumber = 1
                 },
 
                 new Room
                 {
                     RoomId = 2,
-                    NumberOfSeats = 3,
+                    Capacity = 3,
                     RoomNumber = 2
                 }
              );
 
 
-            //////////////////////////// MOVIEEVENTS //////////////////////////////////
+
+            //////////////////////////// SEATS //////////////////////////////////
+
+            modelBuilder.Entity<Seat>().HasData(
+                new Seat
+                {
+                    SeatId = 1,
+                    RowNumber = 1,
+                    SeatNumber = 1,
+
+                    RoomId = 1
+
+                },
+
+                new Seat
+                {
+                    SeatId = 2,
+                    RowNumber = 2,
+                    SeatNumber = 1,
+
+                    RoomId = 1
+
+                },
+
+                new Seat
+                {
+                    SeatId = 3,
+                    RowNumber = 3,
+                    SeatNumber = 1,
+
+                    RoomId = 1
+
+                },
+
+                new Seat
+                {
+                    SeatId = 4,
+                    RowNumber = 1,
+                    SeatNumber = 1,
+
+                    RoomId = 2
+
+                },
+
+                new Seat
+                {
+                    SeatId = 5,
+                    RowNumber = 1,
+                    SeatNumber = 2,
+
+                    RoomId = 2
+
+                }
+
+            );
+
+
+            //////////////////////////// MOVIE EVENTS //////////////////////////////////
 
             modelBuilder.Entity<MovieEvent>().HasData(
                 new MovieEvent
@@ -121,6 +183,7 @@ namespace DAL
                 {
                     UserId = 1,
                     Name = "Laci",
+                    Email = "laci@gmail.com",
                     TelephoneNumber = "06-70-707-0707"
                 },
                 
@@ -128,9 +191,11 @@ namespace DAL
                 {
                     UserId = 2,
                     Name = "Peti",
+                    Email = "peti@icloud.com",
                     TelephoneNumber = "06-70- 606-0606"
                 }
             );
+
 
 
             //////////////////////////// RESERVATIONS //////////////////////////////////
@@ -141,74 +206,34 @@ namespace DAL
                     ReservationId = 1,
 
                     MovieEventId = 1,
+                    SeatId = 4,
                     UserId = 2
 
                 },
+
 
                 new Reservation
                 {
                     ReservationId = 2,
 
+                    MovieEventId = 1,
+                    SeatId = 5,
+                    UserId = 2
+
+                },
+
+
+                new Reservation
+                {
+                    ReservationId = 3,
+
                     MovieEventId = 3,
+                    SeatId = 1,
                     UserId = 1
                 }
             );
 
-
-            //////////////////////////// SEATS //////////////////////////////////
-
-            modelBuilder.Entity<Seat>().HasData(
-                new Seat
-                {
-                   SeatId = 1,
-                   RowNumber = 1,
-                   SeatNumber = 1,
-
-                   RoomId = 1
-                    
-                },
-
-                new Seat
-                {
-                    SeatId = 2,
-                    RowNumber = 2,
-                    SeatNumber = 1,
-
-                    RoomId = 1
-
-                }, 
-                
-                new Seat
-                {
-                    SeatId = 3,
-                    RowNumber = 3,
-                    SeatNumber = 1,
-
-                    RoomId = 1
-
-                },
-
-                new Seat
-                {
-                    SeatId = 4,
-                    RowNumber = 1,
-                    SeatNumber = 1,
-
-                    RoomId = 2
-
-                },
-
-                new Seat
-                {
-                    SeatId = 5,
-                    RowNumber = 1,
-                    SeatNumber = 2,
-
-                    RoomId = 2
-
-                }
-                
-            );
+            
 
         }
 
