@@ -48,7 +48,7 @@ namespace DAL
         {
             using (var context = new CinemaContext())
             {
-                var item = context.Movies.Find(ig);
+                var item = context.Movies.SingleOrDefault(m=>m.MovieId == ig);
                 if (item == null)
                 {
                     return;

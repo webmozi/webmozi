@@ -18,15 +18,16 @@ namespace WebApi.Controllers
         {
             movielist = new List<DTO.Movie>();
             cinemamanager = new DAL.CinemaManager();
-            dallist = new List<DAL.Movie>();
             dallist = cinemamanager.ListMovies();
-            for (int i = 0; i < dallist.Count(); i++)
+
+            foreach(var movie in dallist)
             {
-                var movie = new DTO.Movie();
-                movie.MovieId = i;
-                movie.Title = dallist.ElementAt<DAL.Movie>(i).Title;
-                movie.Director = dallist.ElementAt<DAL.Movie>(i).Director;
-                movielist.Add(movie);
+                movielist.Add(new DTO.Movie
+                {
+                    Director = movie.Director,
+                    MovieId = movie.MovieId,
+                    Title = movie.Title                 
+                });
             }
         }
 
@@ -77,36 +78,24 @@ namespace WebApi.Controllers
         [HttpPut]
         public ActionResult<DTO.Movie> Update(DTO.Movie item)
         {
-            DTO.Movie dtomovie = null;
-            foreach (var x in movielist)
+            var movieDTO = movielist.SingleOrDefault(m => m.MovieId == item.MovieId);
+            movieDTO.Title = item.Title;
+            movieDTO.Director = item.Director;
+            movielist.RemoveAll(m => m.MovieId == item.MovieId);
+            movielist.Add(movieDTO);
+
+            var movieDal = dallist.SingleOrDefault(m => m.MovieId == item.MovieId);
+            dallist.Remove(movieDal);
+
+            var newDalMovie = new DAL.Movie
             {
-                if (x.MovieId == item.MovieId)
-                {
-                    dtomovie = new DTO.Movie();
-                    dtomovie.MovieId = item.MovieId;
-                    dtomovie.Director = item.Director;
-                    dtomovie.Title = item.Title;
-                }
-            }
+                Title = item.Title,
+                MovieId = item.MovieId,
+                Director = item.Director,
+            };
+            dallist.Add(newDalMovie);          
 
-            if (dtomovie == null)
-            {
-                return NotFound();
-            }
-
-            var item2 = item;
-            movielist.Remove(item);
-            movielist.Add(dtomovie);
-
-            var dalmovie = new DAL.Movie();
-            dalmovie.MovieId = dtomovie.MovieId;
-            dalmovie.Director = dtomovie.Director;
-            dalmovie.Title = dtomovie.Title;
-
-            dallist.RemoveAt(item.MovieId-1);
-            dallist.Add(dalmovie);
-
-            cinemamanager.Update(dalmovie);
+            cinemamanager.Update(newDalMovie);
 
             return NoContent();
         }
