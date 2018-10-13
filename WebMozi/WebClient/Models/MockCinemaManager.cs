@@ -40,14 +40,15 @@ namespace WebClient.Models
         public void AddMovieEvent(DTO.MovieEvent me) {
             movieevents.Add(me);
         }
-        public void AddMovie(DTO.Movie m)
+        public DTO.Movie AddMovie(DTO.Movie m)
         {
             m.MovieId = movieIDs;
             movieIDs++; ;
             movies.Add(m);
+            return m;
         }
 
-        public void DeleteMovie(int id)
+        public int DeleteMovie(int id)
         {
             foreach (DTO.Movie m in movies.ToList())
             {
@@ -56,8 +57,9 @@ namespace WebClient.Models
                     movies.Remove(m);
                 }
             }
+            return id;
         }
-        public void EditMovie(DTO.Movie m)
+        public DTO.Movie EditMovie(DTO.Movie m)
         {
             for (int i = 0; i < movies.Count; i++)
             {
@@ -67,6 +69,8 @@ namespace WebClient.Models
                     movies.ElementAt(i).Title = m.Title;
                 }
             }
+
+            return m;
         }
         public void DeleteMovieEvent(int id)
         {

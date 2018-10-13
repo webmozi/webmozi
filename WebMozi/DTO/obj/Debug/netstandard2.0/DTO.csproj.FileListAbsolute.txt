@@ -34,3 +34,12 @@ D:\BME\programozas\Temalabor\gitrepo\webmoziLOCAL\WebMozi\DTO\obj\Debug\netstand
 D:\BME\programozas\Temalabor\gitrepo\webmoziLOCAL\WebMozi\DTO\obj\Debug\netstandard2.0\DTO.AssemblyInfo.cs
 D:\BME\programozas\Temalabor\gitrepo\webmoziLOCAL\WebMozi\DTO\obj\Debug\netstandard2.0\DTO.dll
 D:\BME\programozas\Temalabor\gitrepo\webmoziLOCAL\WebMozi\DTO\obj\Debug\netstandard2.0\DTO.pdb
+C:\Users\ipoly\Desktop\TEMALABOR\webmozi\WebMozi\DTO\bin\Debug\netstandard2.0\DTO.deps.json
+C:\Users\ipoly\Desktop\TEMALABOR\webmozi\WebMozi\DTO\bin\Debug\netstandard2.0\DTO.dll
+C:\Users\ipoly\Desktop\TEMALABOR\webmozi\WebMozi\DTO\bin\Debug\netstandard2.0\DTO.pdb
+C:\Users\ipoly\Desktop\TEMALABOR\webmozi\WebMozi\DTO\obj\Debug\netstandard2.0\DTO.csprojResolveAssemblyReference.cache
+C:\Users\ipoly\Desktop\TEMALABOR\webmozi\WebMozi\DTO\obj\Debug\netstandard2.0\DTO.csproj.CoreCompileInputs.cache
+C:\Users\ipoly\Desktop\TEMALABOR\webmozi\WebMozi\DTO\obj\Debug\netstandard2.0\DTO.AssemblyInfoInputs.cache
+C:\Users\ipoly\Desktop\TEMALABOR\webmozi\WebMozi\DTO\obj\Debug\netstandard2.0\DTO.AssemblyInfo.cs
+C:\Users\ipoly\Desktop\TEMALABOR\webmozi\WebMozi\DTO\obj\Debug\netstandard2.0\DTO.dll
+C:\Users\ipoly\Desktop\TEMALABOR\webmozi\WebMozi\DTO\obj\Debug\netstandard2.0\DTO.pdb

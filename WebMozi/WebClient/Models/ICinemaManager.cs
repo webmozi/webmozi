@@ -9,13 +9,13 @@ namespace WebClient.Models
         IEnumerable<DTO.Movie> ListMovies();
         IEnumerable<DTO.MovieEvent> ListMovieEvents();
         IEnumerable<DTO.Room> ListRooms();
-        void AddMovie(DTO.Movie m);
+        DTO.Movie AddMovie(DTO.Movie m);
         void AddMovieEvent(DTO.MovieEvent me);
-        void DeleteMovie(int i);
+        int DeleteMovie(int i);
         void DeleteMovieEvent(int id);
         DTO.Movie SelectMovie(int id);
         DTO.MovieEvent SelectMovieEvent(int id);
-        void EditMovie(DTO.Movie m);
+        DTO.Movie EditMovie(DTO.Movie m);
         void CreateRoom(int capacity);
     }
 }
