@@ -11,16 +11,12 @@ namespace WebClient.Models
         private List<DTO.User> users;
         private List<DTO.Reservation> reservations;
         private Maker maker;
-        private static int reservationIDs = 0;
-        private static int userIDs = 0;
 
         public RealReservationManager()
         {
             GetUser();
             GetReservation();
-            users = new List<DTO.User>();
-            reservations = new List<DTO.Reservation>();
-
+         
             maker = new Maker();
         }
         private void GetUser()
@@ -45,7 +41,7 @@ namespace WebClient.Models
         {
             DTO.Reservation reservation = maker.MakeReservation(m);
             reservations.Add(reservation);
-            int reservationID = reservations.Count;
+            int reservationID = reservation.Id;
             return reservationID;
         }
 
@@ -62,12 +58,18 @@ namespace WebClient.Models
             return reservation;
         }
 
-        public int AddUser(DTO.User user)
+        public DTO.User AddUser(DTO.User user)
         {
-            user.Id = userIDs;
-            userIDs++;
-            users.Add(user);
-            return user.Id;
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("http://localhost:6544/");
+                var response = client.PostAsJsonAsync<DTO.User>("api/values", user).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    return response.Content.ReadAsAsync<DTO.User>().Result;
+                }
+                return null;
+            }
         }
 
         public DTO.User GetUser(int ID)

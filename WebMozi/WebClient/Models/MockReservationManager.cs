@@ -39,12 +39,12 @@ namespace WebClient.Models
             return reservation;
         }
 
-        public int AddUser(DTO.User user)
+        public DTO.User AddUser(DTO.User user)
         {
             user.Id = userIDs;
             userIDs++;
             users.Add(user);
-            return user.Id;
+            return user;
         }
 
         public DTO.User GetUser(int ID)

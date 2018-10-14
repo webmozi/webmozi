@@ -8,19 +8,17 @@ namespace WebClient.Models
 {
     public class RealCinemaManager :ICinemaManager
     {
-        private static List<DTO.Movie> movies;
-        private static  List<DTO.MovieEvent> movieevents;
+        private  List<DTO.Movie> movies;
+        private  List<DTO.MovieEvent> movieevents;
         private RoomManager roommanager;
-        private static int movieIDs = 0;
 
         public RealCinemaManager() {
             GetMovies();
             GetMovieEvents();            
-            //movieevents = new List<DTO.MovieEvent>();
-           // movies = new List<DTO.Movie>();
+          
             roommanager = new RoomManager();
         }
-        private static void GetMovieEvents()
+        private void GetMovieEvents()
         {
             HttpClient client = new HttpClient();
             var result = client.GetAsync("http://localhost:6544/api/values").Result;
@@ -29,7 +27,7 @@ namespace WebClient.Models
                 movieevents = result.Content.ReadAsAsync<List<DTO.MovieEvent>>().Result;
             }
         }
-        private static void GetMovies() {
+        private void GetMovies() {
             HttpClient client = new HttpClient();
             var result = client.GetAsync("http://localhost:6544/api/values").Result;
             if (result.IsSuccessStatusCode)
@@ -40,11 +38,13 @@ namespace WebClient.Models
         
         public IEnumerable<DTO.Movie> ListMovies()
         {
+            GetMovies();
             return movies;
         }
 
         public IEnumerable<DTO.MovieEvent> ListMovieEvents()
         {
+            GetMovieEvents();
             return movieevents;
         }
 
@@ -81,13 +81,10 @@ namespace WebClient.Models
         {
             movieevents.Add(me);
             
-            
         }
         public DTO.Movie AddMovie(DTO.Movie m)
         {
-            m.MovieId = movieIDs;
-            movieIDs++; ;
-            movies.Add(m);
+         
 
             using (var client = new HttpClient())
             {

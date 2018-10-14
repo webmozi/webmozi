@@ -90,7 +90,7 @@ namespace WebClient.Controllers
         }
         //View hiányzik
         public ViewResult CreateUser(DTO.User user) {
-            UserID= ireservationmanager.AddUser(user);
+            UserID= ireservationmanager.AddUser(user).Id;
             return View();
         }
         //View hiányzik

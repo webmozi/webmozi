@@ -9,7 +9,7 @@ namespace WebClient.Models
     {
         int AddReservation(DTO.MovieEvent m);
         DTO.Reservation GetReservation(int resID);
-        int AddUser(DTO.User user);
+        DTO.User AddUser(DTO.User user);
         DTO.User GetUser(int ID);
         void ReservationToUser(int UserID, int ReservationID);
         }
