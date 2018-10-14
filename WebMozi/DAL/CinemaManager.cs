@@ -7,6 +7,7 @@ namespace DAL
 {
     public class CinemaManager
     {
+
         public void AddMovie(Movie movie)
         {
             using (var context = new CinemaContext())
