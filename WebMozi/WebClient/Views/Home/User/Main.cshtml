@@ -13,9 +13,12 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
 </head>
 <body>
-    <h3>First please choose a movie</h3>
+    <h3>First please choose a movie or log in</h3>
     <div class="panel-heading text-center">
-        <a class="btn btn-primary" asp-action="UListMovies">Choose a movie</a>
+        <a class="btn btn-primary" asp-action="UListEvents">Choose a movie</a>
+    </div>
+    <div class="panel-heading text-center">
+        <a class="btn btn-primary" asp-action="ULogIn">Log in(nem mukodik)</a>
     </div>
     <div class="text-left">
         <a asp-action="Index" class="btn btn-primary">Back</a>

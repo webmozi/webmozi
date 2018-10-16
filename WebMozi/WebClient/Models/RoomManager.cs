@@ -17,14 +17,19 @@ namespace WebClient.Models
         public RoomManager() {
             rooms = new List<DTO.Room>();
         }
-        public void AddSeats(int roomID, int capacity)
+        public List<DTO.Seat> AddSeats(int capacity)
         {
+            List<DTO.Seat> seats = new List<DTO.Seat>();
             for (int i = 0; i < capacity; i++)
             {
                 DTO.Seat seat = new DTO.Seat();
                 seat.ID = i + 1;
-                SelectRoom(roomID).Seats.Add(seat);
+                seat.RowNumber = (i / 10)+1;
+                seat.SeatNumber = i + 1;
+                seat.isEnable = true;
+                seats.Add(seat);
             }
+            return seats;
         }
         public DTO.Room SelectRoom(int id) {
             DTO.Room room = null;
@@ -42,27 +47,32 @@ namespace WebClient.Models
             return SelectRoom(roomID).Seats;
         }
 
-        public DTO.Seat GetSeat(int roomID)
+        public DTO.Seat GetSeat(int seatID,int roomID)
         {
-            DTO.Seat seat = null;
             DTO.Room room = SelectRoom(roomID);
-            if (room.FreeSeats < room.Capacity)
+            foreach (DTO.Seat s in room.Seats.ToList()) 
             {
-                seat = room.Seats.ElementAt(room.FreeSeats);
-                room.FreeSeats++;
+                if (s.ID == seatID) {
+                    s.isEnable = false;
+                    return s;
+                }
             }
-            else
-            {
-                //Nincs több szék error
-            }
-            return seat;
+            return null;
         }
-        public void CreateRoom(int capacity) {
-            DTO.Room room = new DTO.Room();
-            room.Id = roomIDs;
+        public void CreateRoom(DTO.Room r) {
+            r.Id = roomIDs;
             roomIDs++;
-            room.Capacity = capacity;
-            rooms.Add(room);
+            r.Seats = AddSeats(r.Capacity);
+            rooms.Add(r);
+        }
+        public void DeleteRoom(int id) {
+            foreach (DTO.Room r in rooms.ToList())
+            {
+                if (r.Id == id)
+                {
+                    rooms.RemoveAt(id);
+                }
+            }
         }
     }
 }

@@ -16,6 +16,11 @@ namespace WebClient.Models
         DTO.Movie SelectMovie(int id);
         DTO.MovieEvent SelectMovieEvent(int id);
         DTO.Movie EditMovie(DTO.Movie m);
-        void CreateRoom(int capacity);
+        void CreateRoom(DTO.Room r);
+        IEnumerable<DTO.Seat> ListSeatsInRoom(int id);
+        DTO.Room SelectRoom(int id);
+        void DeleteRoom(int id);
+
+
     }
 }

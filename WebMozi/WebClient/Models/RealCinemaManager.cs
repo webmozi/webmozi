@@ -84,8 +84,6 @@ namespace WebClient.Models
         }
         public DTO.Movie AddMovie(DTO.Movie m)
         {
-         
-
             using (var client = new HttpClient())
             {
                 client.BaseAddress = new Uri("http://localhost:6544/");
@@ -154,9 +152,21 @@ namespace WebClient.Models
             }
             return selectmovieevent;
         }
-        public void CreateRoom(int capacity)
+        public DTO.Room SelectRoom(int id)
         {
-            roommanager.CreateRoom(capacity);
+            return roommanager.SelectRoom(id);
+        }
+        public void CreateRoom(DTO.Room r)
+        {
+            roommanager.CreateRoom(r);
+        }
+        public IEnumerable<DTO.Seat> ListSeatsInRoom(int id)
+        {
+            return roommanager.ListSeatsInRoom(id);
+        }
+        public void DeleteRoom(int id)
+        {
+            roommanager.DeleteRoom(id);
         }
     }
 }

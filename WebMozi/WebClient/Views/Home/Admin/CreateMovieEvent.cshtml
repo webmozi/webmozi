@@ -1,0 +1,49 @@
+﻿@model DTO.MovieEvent
+
+@{
+    ViewBag.Title = "Create Movie Event";
+    Layout = "_AdminLayout";
+}
+
+<!DOCTPYE html>
+
+    <html>
+    <head>
+        <meta name="viewport" content="wirdt=device-width" />
+        <title>@ViewBag.Title</title>
+        <link rel="stylesheet" href="~/css/styles.css" />
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+    </head>
+    <body>
+        @using (Html.BeginForm("CreateEvent", "Home", FormMethod.Post))
+        {
+            <div>
+
+                @Html.DropDownListFor(m => m.Movie.MovieId, ViewBag.movielist as SelectList, "Please Select Movie")
+            </div>
+                <div>
+
+                    @Html.DropDownListFor(m => m.Room.Id, ViewBag.roomlist as SelectList, "Please Select Room")
+                </div>
+
+                <form class="p-a-1" asp-action="CreateEvent" method="post">
+
+                    <div class="form-group">
+                        <label asp-for="Time">Time:</label>
+                        <input class="form-control" asp-for="Time" />
+                    </div>
+                    <div class="text-center">
+                        <button class="btn btn-primary" type="submit">
+                            Submit Movie Event
+                        </button>
+                    </div>
+                </form>
+
+                }
+                <div class="text-left">
+                    <a asp-action="AMain" class="btn btn-primary">Back</a>
+                </div>
+        </body>
+</html>
+
+

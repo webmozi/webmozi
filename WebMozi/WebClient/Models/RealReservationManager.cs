@@ -37,9 +37,9 @@ namespace WebClient.Models
                 reservations = result.Content.ReadAsAsync<List<DTO.Reservation>>().Result;
             }
         }
-        public int AddReservation(DTO.MovieEvent m)
+        public int AddReservation(DTO.MovieEvent m,int seatID)
         {
-            DTO.Reservation reservation = maker.MakeReservation(m);
+            DTO.Reservation reservation = maker.MakeReservation(m, seatID);
             reservations.Add(reservation);
             int reservationID = reservation.Id;
             return reservationID;

@@ -18,9 +18,9 @@ namespace WebClient.Models
             reservations = new List<DTO.Reservation>();
             maker = new Maker();
         }
-        public int AddReservation(DTO.MovieEvent m)
+        public int AddReservation(DTO.MovieEvent m,int seatID)
         {
-            DTO.Reservation reservation = maker.MakeReservation(m);
+            DTO.Reservation reservation = maker.MakeReservation(m,seatID);
             reservations.Add(reservation);
             int reservationID = reservations.Count;
             return reservationID;
