@@ -10,8 +10,8 @@ namespace DTO
 
         public MovieEvent MovieEvent { get; set; }
 
-        public Seat Seat { get; set; }
-
         public User User { get; set; }
+
+        public List<DTO.Seat> Seats { get; set; } = new List<DTO.Seat>();
     }
 }

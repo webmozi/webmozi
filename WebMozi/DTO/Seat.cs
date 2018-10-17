@@ -11,7 +11,7 @@ namespace DTO
         public int RowNumber { get; set; }
 
         public int SeatNumber { get; set; }
-        
-        public bool isEnable { get; set; }
+
+        public bool IsEnable { get; set; }
     }
 }

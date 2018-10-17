@@ -11,7 +11,7 @@ namespace WebClient.Models
         IEnumerable<DTO.Room> ListRooms();
         DTO.Movie AddMovie(DTO.Movie m);
         void AddMovieEvent(DTO.MovieEvent me);
-        int DeleteMovie(int i);
+        void DeleteMovie(int id);
         void DeleteMovieEvent(int id);
         DTO.Movie SelectMovie(int id);
         DTO.MovieEvent SelectMovieEvent(int id);
@@ -20,6 +20,7 @@ namespace WebClient.Models
         IEnumerable<DTO.Seat> ListSeatsInRoom(int id);
         DTO.Room SelectRoom(int id);
         void DeleteRoom(int id);
+        IEnumerable<DTO.Seat> ListEnableSeatsInRoom(int id);
 
 
     }

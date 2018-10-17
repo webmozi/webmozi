@@ -26,7 +26,7 @@ namespace WebClient.Models
                 seat.ID = i + 1;
                 seat.RowNumber = (i / 10)+1;
                 seat.SeatNumber = i + 1;
-                seat.isEnable = true;
+                seat.IsEnable = true;
                 seats.Add(seat);
             }
             return seats;
@@ -53,7 +53,7 @@ namespace WebClient.Models
             foreach (DTO.Seat s in room.Seats.ToList()) 
             {
                 if (s.ID == seatID) {
-                    s.isEnable = false;
+                    s.IsEnable = false;
                     return s;
                 }
             }

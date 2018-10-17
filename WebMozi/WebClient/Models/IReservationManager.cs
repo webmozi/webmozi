@@ -7,10 +7,15 @@ namespace WebClient.Models
 {
     public interface IReservationManager
     {
-        int AddReservation(DTO.MovieEvent m,int seatID);
+        IEnumerable<DTO.User> ListUsers();
+        int CreateReservationOnlyWithMovieEvent(DTO.MovieEvent me);
         DTO.Reservation GetReservation(int resID);
-        DTO.User AddUser(DTO.User user);
-        DTO.User GetUser(int ID);
-        void ReservationToUser(int UserID, int ReservationID);
+        void AddUser(DTO.User user);
+        DTO.User SelectUser(int ID);
+        DTO.User EditUser(DTO.User u);
+        void DeleteUser(int id);
+        DTO.Reservation AddSeatToReservation(int resID, DTO.Seat s);
+        DTO.Reservation AddUserToReservation(int resID, DTO.User u);
+
         }
-    }
+}

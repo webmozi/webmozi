@@ -22,7 +22,6 @@
             <tr>
                 <th>Seat Number</th>
                 <th>Row Number</th>
-                <th>Enable</th>
             </tr>
         </thead>
         <tbody>
@@ -36,20 +35,6 @@
                 <td>
                     @Html.DisplayFor(modelItem => m.RowNumber)
                 </td>
-                <td>
-                    @if (m.isEnable)
-                    {
-                    <p>
-                        Yes
-                    </p>
-                    }
-                   else
-                    {
-                    <p>
-                        No
-                    </p>
-                    }
-</td>
             </tr>
 
             }

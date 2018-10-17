@@ -73,7 +73,7 @@ namespace WebClient.Models
             return m;
         }
 
-        public int DeleteMovie(int id)
+        public void DeleteMovie(int id)
         {
             foreach (DTO.Movie m in movies.ToList())
             {
@@ -82,7 +82,6 @@ namespace WebClient.Models
                     movies.Remove(m);
                 }
             }
-            return id;
         }
         public DTO.Movie EditMovie(DTO.Movie m)
         {
@@ -146,6 +145,17 @@ namespace WebClient.Models
         public IEnumerable<DTO.Seat> ListSeatsInRoom(int id)
         {
             return roommanager.ListSeatsInRoom(id);
+        }
+        public IEnumerable<DTO.Seat> ListEnableSeatsInRoom(int id)
+        {
+            List<DTO.Seat> enableseats = new List<DTO.Seat>();
+            foreach (DTO.Seat s in roommanager.ListSeatsInRoom(id).ToList())
+            {
+                if (s.IsEnable) {
+                    enableseats.Add(s);
+                }
+            }
+            return enableseats;
         }
     }
 }

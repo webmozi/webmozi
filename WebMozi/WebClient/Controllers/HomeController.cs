@@ -13,9 +13,8 @@ namespace WebClient.Controllers
     {
         private static IReservationManager ireservationmanager = ManagerProvider.Instance.GetReservationManager();
         private static ICinemaManager icinemamanager = ManagerProvider.Instance.GetCinemaManager();
-        private int UserID;
-        private int ReservationID;
-
+        private  static int ReservationID;
+        private int idd;
         public ViewResult Index() {
 
             return View("MainView");
@@ -36,11 +35,7 @@ namespace WebClient.Controllers
         {
             return View("Admin/ListMovies", icinemamanager.ListMovies());
         }
-        [HttpGet]
-        public ViewResult UListMovies()
-        {
-            return View("User/ListMovies", icinemamanager.ListMovies());
-        }
+       
         [HttpGet]
         public ViewResult AAddMovie()
         {
@@ -64,16 +59,46 @@ namespace WebClient.Controllers
             return AListRooms();
         }
         [HttpGet]
+        public ViewResult UCreateUser()
+        {
+            return View("User/CreateUser");
+        }
+
+        [HttpPost]
+        public ViewResult CreateUser(DTO.User u)
+        {
+            ireservationmanager.AddUser(u);
+            ireservationmanager.AddUserToReservation(ReservationID, u);
+            return UListSeatsInMovieEvent();
+        }
+        [HttpGet]
         public ViewResult AAddRoom()
         {
             return View("Admin/AddRoom");
         }
-
+        [HttpGet]
+        public ViewResult UListSeatsInMovieEvent()
+        {
+            DTO.Reservation res=ireservationmanager.GetReservation(ReservationID);
+            return View("User/ListSeatsInMovieEvent",res.MovieEvent.Room.Seats);
+        }
+        [HttpGet]
+        public ViewResult UReservation()
+        {
+            return View("User/Reservation", ireservationmanager.GetReservation(ReservationID));
+        }
         [HttpPost]
         public ViewResult AddMovie(DTO.Movie m)
         {
             icinemamanager.AddMovie(m);
             return AListMovies();
+        }
+        [HttpGet]
+        public ViewResult ADeleteUser(int ID)
+        {
+            TempData["message"] = $"{ireservationmanager.SelectUser(ID).Name} was removed";
+            ireservationmanager.DeleteUser(ID);
+            return AListUsers();
         }
         [HttpGet]
         public ViewResult ADeleteMovie(int ID)
@@ -97,10 +122,22 @@ namespace WebClient.Controllers
             return AListEvents();
         }
         [HttpGet]
-        public ViewResult AEdit(int id)
+        public ViewResult AEditUser(int id)
+        {
+            DTO.User edituser = ireservationmanager.SelectUser(id);
+            return View("Admin/EditUser", edituser);
+        }
+        [HttpGet]
+        public ViewResult AEditMovie(int id)
         {
             DTO.Movie editmovie = icinemamanager.SelectMovie(id);
             return View("Admin/EditMovie", editmovie);
+        }
+        [HttpGet]
+        public ViewResult UID(int id)
+        {
+            idd = id;
+            return UChooseSeat(idd);
         }
         [HttpGet]
         public ViewResult AListEvents()
@@ -115,6 +152,33 @@ namespace WebClient.Controllers
             ViewBag.movielist = listmovie;
             ViewBag.roomlist = listroom;
             return View("Admin/CreateMovieEvent");
+        }
+
+        [HttpGet]
+        public ViewResult USelectedMovieEvent(int meId)
+        {
+            DTO.MovieEvent me = icinemamanager.SelectMovieEvent(meId);
+            ReservationID = ireservationmanager.CreateReservationOnlyWithMovieEvent(me);
+            return View("User/ChooseSeats", me.Room.Seats.ToList());
+        }
+        [HttpGet]
+        public ViewResult UChooseSeatMore()
+        {
+            return View("User/ChooseSeats", ireservationmanager.GetReservation(ReservationID).MovieEvent.Room.Seats);
+        }
+        [HttpGet]
+        public ViewResult UChooseSeat(int seatid)
+        {
+            DTO.Reservation res = ireservationmanager.GetReservation(ReservationID);
+            for (int i = 0; i < res.MovieEvent.Room.Seats.Count; i++)
+            {
+                if (res.MovieEvent.Room.Seats.ElementAt(i).ID == seatid)
+                {
+                    res.MovieEvent.Room.Seats.ElementAt(i).IsEnable = false;
+                    res = ireservationmanager.AddSeatToReservation(ReservationID, res.MovieEvent.Room.Seats.ElementAt(i));
+                }
+            }
+            return UChooseSeatMore();
         }
         [HttpPost]
         public IActionResult CreateEvent(DTO.MovieEvent me)
@@ -133,44 +197,43 @@ namespace WebClient.Controllers
             return View("User/ListMovieEvents", icinemamanager.ListMovieEvents());
         }
         [HttpGet]
+        public ViewResult AListUsers()
+        {
+            return View("Admin/ListUsers", ireservationmanager.ListUsers());
+        }
+        [HttpGet]
         public ViewResult AEvent(int id)
         {
             DTO.MovieEvent selectedevent = icinemamanager.SelectMovieEvent(id);
             return View("Admin/ListMovieEvents", selectedevent);
         }
         [HttpPost]
-        public IActionResult Edit(DTO.Movie m)
+        public IActionResult EditMovie(DTO.Movie m)
         {  
-                icinemamanager.EditMovie(m);
-                TempData["message"] = $"{m.Title} has been saved";
+                DTO.Movie movie=icinemamanager.EditMovie(m);
+                TempData["message"] = $"{movie.Title} has been saved";
                 return AListMovies();
         }
-        [HttpGet]
-        public ViewResult UDateSelect(int MovieId)
+       
+        [HttpPost]
+        public IActionResult EditUser(DTO.User u)
         {
-            DTO.Movie SelectedMovie = icinemamanager.SelectMovie(MovieId);
-            return View("User/DateSelect", SelectedMovie);
+            DTO.User user=ireservationmanager.EditUser(u);
+            TempData["message"] = $"{user.Name} has been saved";
+            return AListUsers();
         }
-        //View hiányzik
-        public ViewResult ChooseMovieEvent(DTO.MovieEvent m,int seatID)
-        {
-            ReservationID = ireservationmanager.AddReservation(m, seatID);
-            return View();
-        }
-        //View hiányzik
-        public ViewResult CreateUser(DTO.User user) {
-            UserID= ireservationmanager.AddUser(user).Id;
-            return View();
-        }
-        //View hiányzik
+       
+      
+        
+       /* //View hiányzik
         public ViewResult MakingReservation() {
             ireservationmanager.ReservationToUser(UserID, ReservationID);
             return View();
         }
         //View hiányzik
         public ViewResult GetTicket() {
-            DTO.User user = ireservationmanager.GetUser(UserID);
+            DTO.User user = ireservationmanager.SelectUser(UserID);
             return View(user.Reservations);
-        }
+        }*/
     }
 }

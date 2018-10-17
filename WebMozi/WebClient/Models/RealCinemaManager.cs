@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using DTO;
 
 namespace WebClient.Models
 {
@@ -96,7 +97,7 @@ namespace WebClient.Models
             }
         }
 
-        public int DeleteMovie(int id)
+        public void DeleteMovie(int id)
         {
             foreach (DTO.Movie m in movies.ToList())
             {
@@ -110,11 +111,6 @@ namespace WebClient.Models
             {
                 client.BaseAddress = new Uri("http://localhost:6544/");
                 var response = client.DeleteAsync("api/values/" + (id)).Result;
-                if (response.IsSuccessStatusCode)
-                {
-                    return id;
-                }
-                return -1;
             }            
         }
 
@@ -167,6 +163,11 @@ namespace WebClient.Models
         public void DeleteRoom(int id)
         {
             roommanager.DeleteRoom(id);
+        }
+
+        public IEnumerable<Seat> ListEnableSeatsInRoom(int id)
+        {
+            throw new NotImplementedException();
         }
     }
 }
