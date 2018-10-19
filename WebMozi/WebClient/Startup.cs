@@ -56,8 +56,8 @@ namespace WebClient
                 routes =>
             {
                 routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                      name: "default",
+                      template: "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }

@@ -15,13 +15,13 @@
 <body>
     <h3>First please choose a movie or log in</h3>
     <div class="panel-heading text-center">
-        <a class="btn btn-primary" asp-action="UListEvents">Choose a movie</a>
+        <a class="btn btn-primary" asp-controller="User"  asp-action="ListEvents">Choose a movie</a>
     </div>
     <div class="panel-heading text-center">
-        <a class="btn btn-primary" asp-action="ULogIn">Login(Not working)</a>
+        <a class="btn btn-primary" asp-controller="User" asp-action="LogIn">Login(Not working)</a>
     </div>
     <div class="text-left">
-        <a asp-action="Index" class="btn btn-primary">Back</a>
+        <a asp-controller="Home" asp-action="Index" class="btn btn-primary">Back</a>
     </div>
 </body>
 </html>

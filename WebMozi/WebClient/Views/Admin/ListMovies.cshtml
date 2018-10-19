@@ -38,9 +38,9 @@
                             </td>
                             <td class="text-center">
                                 <input type="button" class="btn btn-sm btn-warning" value="Edit"
-                                       onclick="location.href='@Url.Action("AEditMovie", new { id = m.MovieId })'" />
+                                       onclick="location.href='@Url.Action("EditMovie","Admin", new { id = m.MovieId })'" />
                                 <input type="button" class="btn btn-danger btn-sm" value="Delete"
-                                       onclick="location.href='@Url.Action("ADeleteMovie", new { id = m.MovieId })'" />
+                                       onclick="location.href='@Url.Action("DeleteMovie","Admin", new { id = m.MovieId })'" />
                             </td>
                         </tr>
                         
@@ -48,7 +48,7 @@
                 </tbody>
         </table>
     <div class="text-left">
-        <a asp-action="AMain" class="btn btn-primary">Back</a>
+        <a asp-controller="Admin" asp-action="Main" class="btn btn-primary">Back</a>
     </div>
 </body>
 </html>

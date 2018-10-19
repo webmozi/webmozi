@@ -15,7 +15,7 @@
 </head>
 <body>
        <div class="panel-body">
-            <form asp-action="EditMovie" method="post">
+            <form asp-controller="Admin" asp-action="EditMovie" method="post">
                 <input type="hidden" asp-for="MovieId" />
                 <div class="form-group">
                     <label asp-for="Title"></label>
@@ -26,7 +26,7 @@
                     <textarea asp-for="Director" class="form-control"></textarea>
                 </div>    <div class="text-center">
                     <button class="btn btn-primary" type="submit">Save</button>
-                    <a asp-action="AListMovies" class="btn btn-secondary">Cancel</a>
+                    <a asp-controller="Admin" asp-action="ListMovies" class="btn btn-secondary">Cancel</a>
                 </div>
             </form>
        </div>

@@ -9,13 +9,14 @@
 
     <html>
     <head>
+
         <meta name="viewport" content="wirdt=device-width" />
         <title>@ViewBag.Title</title>
         <link rel="stylesheet" href="~/css/styles.css" />
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
     </head>
     <body>
-        @using (Html.BeginForm("CreateEvent", "Home", FormMethod.Post))
+        @using (Html.BeginForm("CreateEvent", "Admin", "Home", FormMethod.Post))
         {
             <div>
 
@@ -26,7 +27,7 @@
                     @Html.DropDownListFor(m => m.Room.Id, ViewBag.roomlist as SelectList, "Please Select Room")
                 </div>
 
-                <form class="p-a-1" asp-action="CreateEvent" method="post">
+                <form class="p-a-1" asp-controller="Admin" asp-action="CreateEvent" method="post">
 
                     <div class="form-group">
                         <label asp-for="Time">Time:</label>
@@ -41,7 +42,7 @@
 
                 }
                 <div class="text-left">
-                    <a asp-action="AMain" class="btn btn-primary">Back</a>
+                    <a asp-controller="Admin" asp-action="Main" class="btn btn-primary">Back</a>
                 </div>
         </body>
 </html>

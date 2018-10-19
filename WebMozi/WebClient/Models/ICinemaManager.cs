@@ -20,8 +20,5 @@ namespace WebClient.Models
         IEnumerable<DTO.Seat> ListSeatsInRoom(int id);
         DTO.Room SelectRoom(int id);
         void DeleteRoom(int id);
-        IEnumerable<DTO.Seat> ListEnableSeatsInRoom(int id);
-
-
     }
 }

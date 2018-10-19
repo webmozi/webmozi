@@ -39,27 +39,34 @@ namespace WebClient.Models
         {
             return users;
         }
-        public int CreateReservationOnlyWithMovieEvent(DTO.MovieEvent me)
-        {
-            DTO.Reservation reservation = new DTO.Reservation();
-           /* reservation.Id = reservationIDs;
-            reservationIDs++;*/
-            reservation.MovieEvent = me;
-            reservations.Add(reservation);
-            return reservation.Id;
-        }
+        
 
-        public DTO.Reservation GetReservation(int resID)
+
+        public void AddUser(DTO.User user)
         {
-            DTO.Reservation reservation = null;
-            foreach (DTO.Reservation re in reservations.ToList())
+            users.Add(user);
+        }
+        public DTO.User SelectUser(int ID)
+        {
+            DTO.User user = null;
+            foreach (DTO.User us in users)
             {
-                if (re.Id == resID)
+                if (us.Id == ID)
                 {
-                    reservation = re;
+                    user = us;
                 }
             }
-            return reservation;
+            return user;
+        }
+        public void DeleteUser(int id)
+        {
+            foreach (DTO.User u in users.ToList())
+            {
+                if (u.Id == id)
+                {
+                    users.Remove(u);
+                }
+            }
         }
         public DTO.User EditUser(DTO.User u)
         {
@@ -72,38 +79,17 @@ namespace WebClient.Models
                     users.ElementAt(i).Email = u.Email;
                 }
             }
-
             return u;
         }
-        public void AddUser(DTO.User user)
-        {
-            users.Add(user);
-        }
 
-        public DTO.User SelectUser(int ID)
-        {
-            DTO.User user = null;
-            foreach (DTO.User us in users.ToList())
-            {
-                if (us.Id == ID)
-                {
-                    user = us;
-                }
-            }
-            return user;
-        }
 
-        
 
-        public void DeleteUser(int id)
+        public int CreateReservationOnlyWithMovieEvent(DTO.MovieEvent me)
         {
-            foreach (DTO.User u in users.ToList())
-            {
-                if (u.Id == id)
-                {
-                    users.Remove(u);
-                }
-            }
+            DTO.Reservation reservation = new DTO.Reservation();
+            reservation.MovieEvent = me;
+            reservations.Add(reservation);
+            return reservation.Id;
         }
         public DTO.Reservation AddSeatToReservation(int resID, DTO.Seat s)
         {
@@ -111,16 +97,34 @@ namespace WebClient.Models
             {
                 if (reservations.ElementAt(i).Id == resID)
                 {
-                    reservations.ElementAt(i).Seats.ToList().Add(s);
+                    reservations.ElementAt(i).Seats.Add(s);
                     return reservations.ElementAt(i);
                 }
             }
             return null;
         }
-
-        public Reservation AddUserToReservation(int resID, User u)
+        public DTO.Reservation AddUserToReservation(int resID, DTO.User u)
         {
-            throw new NotImplementedException();
+            for (int i = 0; i < reservations.Count; i++)
+            {
+                if (reservations.ElementAt(i).Id == resID)
+                {
+                    reservations.ElementAt(i).User = u;
+                    return reservations.ElementAt(i);
+                }
+            }
+            return null;
+        }
+        public DTO.Reservation GetReservation(int resID)
+        {
+            foreach (DTO.Reservation re in reservations.ToList())
+            {
+                if (re.Id == resID)
+                {
+                    return re;
+                }
+            }
+            return null;
         }
     }
 }

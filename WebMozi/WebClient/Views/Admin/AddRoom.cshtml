@@ -1,7 +1,7 @@
-﻿@model DTO.Movie
+﻿@model DTO.Room
 
 @{
-    ViewBag.Title = "Add Movie";
+    ViewBag.Title = "Add Room";
     Layout = "_AdminLayout";
 }
 
@@ -10,30 +10,29 @@
 <html>
 <head>
     <meta name="viewport" content="widt=device-width" />
-    <title>Add Movie</title>
+    <title>Add Room</title>
     <link rel="stylesheet" href="~/css/styles.css" />
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
 </head>
 <body>
-    <form class="p-a-1" asp-action="AddMovie" method="post">
+    <form class="p-a-1" asp-controller="Admin" asp-action="AddRoom" method="post">
         <div asp-validation-summary="All"></div>
         <div class="form-group">
-            <label asp-for="Title">Movie title:</label>
-            <input class="form-control" asp-for="Title" />
+            <label asp-for="RoomNumber">Room Number:</label>
+            <input class="form-control" asp-for="RoomNumber" />
         </div>
         <div class="form-group">
-            <label asp-for="Director">Director:</label>
-            <input class="form-control" asp-for="Director" />
+            <label asp-for="Capacity">Capacity:</label>
+            <input class="form-control" asp-for="Capacity" />
         </div>
         <div class="text-center">
             <button class="btn btn-primary" type="submit">
-                Submit Movie
+                Submit Room
             </button>
         </div>
     </form>
     <div class="text-left">
-        <a asp-action="AMain" class="btn btn-primary">Back</a>
+        <a asp-controller="Admin" asp-action="Main" class="btn btn-primary">Back</a>
     </div>
 </body>
 </html>
-

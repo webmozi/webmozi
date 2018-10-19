@@ -8,20 +8,67 @@ namespace WebClient.Models
     public class MockReservationManager : IReservationManager
     {
         private  List<DTO.User> users;
-        private List<DTO.Reservation> reservations;
+        private  List<DTO.Reservation> reservations;
         private  int reservationIDs = 0;
         private  int userIDs = 0;
         
         public MockReservationManager() {
             users = new List<DTO.User>();
             reservations = new List<DTO.Reservation>();
-            DTO.User u = new DTO.User() { Name = "Ako", TelephoneNumber = "06307777777", Email = "dj@h.hu" };
+            DTO.User u = new DTO.User() { Name = "Ako", TelephoneNumber = "06308888888", Email = "ako@hotmail.com" };
             AddUser(u);
+            DTO.User u2 = new DTO.User() { Name = "Gabo", TelephoneNumber = "06207777777", Email = "gabo@gmail.com" };
+            AddUser(u2);
         }
+
         public IEnumerable<DTO.User> ListUsers()
         {
             return users;
         }
+        public void AddUser(DTO.User user)
+        {
+            user.Id = userIDs;
+            userIDs++;
+            users.Add(user);
+        }
+        public DTO.User SelectUser(int ID)
+        {
+            DTO.User user = null;
+            foreach (DTO.User us in users)
+            {
+                if (us.Id == ID)
+                {
+                    user = us;
+                }
+            }
+            return user;
+        }
+        public void DeleteUser(int id)
+        {
+            foreach (DTO.User u in users.ToList())
+            {
+                if (u.Id == id)
+                {
+                    users.Remove(u);
+                }
+            }
+        }
+        public DTO.User EditUser(DTO.User u)
+        {
+            for (int i = 0; i < users.Count; i++)
+            {
+                if (users.ElementAt(i).Id == u.Id)
+                {
+                    users.ElementAt(i).Name = u.Name;
+                    users.ElementAt(i).TelephoneNumber = u.TelephoneNumber;
+                    users.ElementAt(i).Email = u.Email;
+                }
+            }
+            return u;
+        }
+
+
+        
         public int CreateReservationOnlyWithMovieEvent(DTO.MovieEvent me)
         {
             DTO.Reservation reservation = new DTO.Reservation();            
@@ -61,56 +108,9 @@ namespace WebClient.Models
                 if (re.Id == resID)
                 {
                     return re;
-
                 }
             }
             return null;
         }
-
-        public void AddUser(DTO.User user)
-        {
-            user.Id = userIDs;
-            userIDs++;
-            users.Add(user);
-        }
-
-        public DTO.User SelectUser(int ID)
-        {
-            DTO.User user = null;
-            foreach (DTO.User us in users)
-            {
-                if (us.Id == ID)
-                {
-                    user = us;
-                }
-            }
-            return user;
-        }
-        public void DeleteUser(int id)
-        {
-            foreach (DTO.User u in users.ToList())
-            {
-                if (u.Id == id)
-                {
-                    users.Remove(u);
-                }
-            }
-        }
-     
-        public DTO.User EditUser(DTO.User u)
-        {
-            for (int i = 0; i < users.Count; i++)
-            {
-                if (users.ElementAt(i).Id == u.Id)
-                {
-                    users.ElementAt(i).Name = u.Name;
-                    users.ElementAt(i).TelephoneNumber = u.TelephoneNumber;
-                    users.ElementAt(i).Email = u.Email;
-                }
-            }
-
-            return u;
-        }
-       
     }
 }
