@@ -46,7 +46,10 @@ namespace WebClient.Controllers
             ReservationID = ireservationmanager.CreateReservationOnlyWithMovieEvent(me);
             return View("ChooseSeats", me.Room.Seats.ToList());
         }
-
+        [HttpGet]
+        public ViewResult SelectMovieEvent(int id) {
+            return SelectedMovieEvent(id);
+        }
 
 
         [HttpGet]
