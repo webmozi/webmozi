@@ -10,6 +10,7 @@ namespace WebClient.Models
     public class RealCinemaManager :ICinemaManager
     {
         private  List<DTO.Movie> movies;
+        private List<DTO.Room> rooms;
         private  List<DTO.MovieEvent> movieevents;
         private RoomManager roommanager;
 
@@ -36,9 +37,23 @@ namespace WebClient.Models
                 movies = result.Content.ReadAsAsync<List<DTO.Movie>>().Result;
             }
         }
-        
 
-        
+        private void GetRooms()
+        {
+            HttpClient client = new HttpClient();
+            var result = client.GetAsync("http://localhost:6544/api/rooms").Result;
+            if (result.IsSuccessStatusCode)
+            {
+                rooms = result.Content.ReadAsAsync<List<DTO.Room>>().Result;
+            }
+        }
+
+        public IEnumerable<DTO.Room> ListRooms()
+        {
+            GetRooms();
+            return rooms;
+        }
+
         public IEnumerable<DTO.Movie> ListMovies()
         {
             GetMovies();
@@ -111,10 +126,7 @@ namespace WebClient.Models
 
 
 
-        public IEnumerable<DTO.Room> ListRooms()
-        {
-            return roommanager.ListRooms();
-        }
+        
         public void CreateRoom(DTO.Room r)
         {
             roommanager.CreateRoom(r);
@@ -125,10 +137,19 @@ namespace WebClient.Models
         }
         public void DeleteRoom(int id)
         {
-            roommanager.DeleteRoom(id);
+            foreach (DTO.Room m in rooms.ToList())
+            {
+                if (m.Id == id)
+                {
+                    rooms.Remove(m);
+                }
+            }
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("http://localhost:6544/");
+                var response = client.DeleteAsync("api/rooms/" + (id)).Result;
+            }
         }
-
-
 
         public IEnumerable<DTO.MovieEvent> ListMovieEvents()
         {
@@ -170,6 +191,44 @@ namespace WebClient.Models
         {
             return roommanager.ListSeatsInRoom(id);
         }
-        
+
+        public Room AddRoom(Room r)
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("http://localhost:6544/");
+                var response = client.PostAsJsonAsync<DTO.Room>("api/rooms", r).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    return response.Content.ReadAsAsync<DTO.Room>().Result;
+                }
+                return null;
+            }
+        }
+
+        public Room EditRoom(Room m)
+        {
+            int k = 0;
+            for (int i = 0; i < rooms.Count; i++)
+            {
+                if (rooms.ElementAt(i).Id == m.Id)
+                {
+                    rooms.ElementAt(i).Capacity = m.Capacity;
+                    rooms.ElementAt(i).RoomNumber = m.RoomNumber;
+                    k = i;
+                }
+            }
+            var item = rooms.ElementAt(k);
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("http://localhost:6544/");
+                var response = client.PutAsJsonAsync<DTO.Room>("api/rooms", item).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    return response.Content.ReadAsAsync<DTO.Room>().Result;
+                }
+                return null;
+            }
+        }
     }
 }

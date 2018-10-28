@@ -19,6 +19,11 @@ namespace WebClient.Models
         void CreateRoom(DTO.Room r);
         IEnumerable<DTO.Seat> ListSeatsInRoom(int id);
         DTO.Room SelectRoom(int id);
+        
+
+        //Room
+        DTO.Room AddRoom(DTO.Room r);
+        DTO.Room EditRoom(DTO.Room r);
         void DeleteRoom(int id);
     }
 }

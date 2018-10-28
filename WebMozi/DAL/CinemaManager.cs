@@ -19,12 +19,31 @@ namespace DAL
             }
         }
 
+        public void AddRoom(Room movie)
+        {
+            using (var context = new CinemaContext())
+            {
+                context.CinemaRooms
+                    .Add(movie);
+
+                context.SaveChanges();
+            }
+        }
+
         public List<Movie> ListMovies()
         {
             using (var context = new CinemaContext())
             {
                 return context.Movies
                     .ToList();
+            }
+        }
+
+        public List<Room> ListRooms()
+        {
+            using (var context = new CinemaContext())
+            {
+                return context.CinemaRooms.ToList();
             }
         }
 
@@ -45,6 +64,23 @@ namespace DAL
             }
         }
 
+        public void UpdateRoom(DAL.Room movie)
+        {
+            using (var context = new CinemaContext())
+            {
+                var item = context.CinemaRooms.Find(movie.RoomId);
+                if (item == null)
+                {
+                    return;
+                }
+                item.RoomId = movie.RoomId;
+                item.Capacity = movie.Capacity;
+                item.RoomNumber = movie.RoomNumber;
+                context.CinemaRooms.Update(item);
+                context.SaveChanges();
+            }
+        }
+
         public void Delete(int ig)
         {
             using (var context = new CinemaContext())
@@ -55,6 +91,20 @@ namespace DAL
                     return;
                 }
                 context.Movies.Remove(item);
+                context.SaveChanges();
+            }
+        }
+
+        public void DeleteRoom(int id)
+        {
+            using (var context = new CinemaContext())
+            {
+                var item = context.CinemaRooms.SingleOrDefault(m => m.RoomId == id);
+                if (item == null)
+                {
+                    return;
+                }
+                context.CinemaRooms.Remove(item);
                 context.SaveChanges();
             }
         }

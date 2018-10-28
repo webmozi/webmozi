@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DTO;
 
 namespace WebClient.Models
 {
@@ -149,6 +150,16 @@ namespace WebClient.Models
         public IEnumerable<DTO.Seat> ListSeatsInRoom(int id)
         {
             return roommanager.ListSeatsInRoom(id);
+        }
+
+        public Room AddRoom(Room r)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Room EditRoom(Room r)
+        {
+            throw new NotImplementedException();
         }
     }
 }
