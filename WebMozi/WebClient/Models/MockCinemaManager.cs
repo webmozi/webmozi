@@ -30,15 +30,15 @@ namespace WebClient.Models
             roommanager.CreateRoom(r2);
             DTO.MovieEvent me1 = new DTO.MovieEvent();
             me1.Movie = m1;
-            me1.Room = roommanager.SelectRoom(r.Id);
+            me1.Room = roommanager.SelectRoom(r.RoomId);
             me1.Time = new DateTime(2018, 10, 16, 14, 00, 00);
             DTO.MovieEvent me2 = new DTO.MovieEvent();
             me2.Movie = m2;
-            me2.Room = roommanager.SelectRoom(r.Id);
+            me2.Room = roommanager.SelectRoom(r.RoomId);
             me2.Time = new DateTime(2018, 10, 16,18,00,00);
             DTO.MovieEvent me3 = new DTO.MovieEvent();
             me3.Movie = m3;
-            me3.Room = roommanager.SelectRoom(r2.Id);
+            me3.Room = roommanager.SelectRoom(r2.RoomId);
             me3.Time = new DateTime(2018, 10, 17, 18, 00, 00);
             AddMovieEvent(me1);
             AddMovieEvent(me2);
@@ -121,7 +121,7 @@ namespace WebClient.Models
         }
         public void AddMovieEvent(DTO.MovieEvent me)
         {
-            me.ID = movieeventIDs;
+            me.MovieEventId = movieeventIDs;
             movieeventIDs++; 
             movieevents.Add(me);
         }
@@ -130,7 +130,7 @@ namespace WebClient.Models
             DTO.MovieEvent selectmovieevent = null;
             foreach (DTO.MovieEvent me in movieevents)
             {
-                if (me.ID == id)
+                if (me.MovieEventId == id)
                 {
                     selectmovieevent = me;
                 }
@@ -141,7 +141,7 @@ namespace WebClient.Models
         {
             foreach (DTO.MovieEvent me in movieevents.ToList())
             {
-                if (me.ID == id)
+                if (me.MovieEventId == id)
                 {
                     movieevents.Remove(me);
                 }

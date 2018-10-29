@@ -27,7 +27,7 @@ namespace WebClient.Models
         }
         public void AddUser(DTO.User user)
         {
-            user.Id = userIDs;
+            user.UserId = userIDs;
             userIDs++;
             users.Add(user);
         }
@@ -36,7 +36,7 @@ namespace WebClient.Models
             DTO.User user = null;
             foreach (DTO.User us in users)
             {
-                if (us.Id == ID)
+                if (us.UserId == ID)
                 {
                     user = us;
                 }
@@ -47,7 +47,7 @@ namespace WebClient.Models
         {
             foreach (DTO.User u in users.ToList())
             {
-                if (u.Id == id)
+                if (u.UserId == id)
                 {
                     users.Remove(u);
                 }
@@ -57,7 +57,7 @@ namespace WebClient.Models
         {
             for (int i = 0; i < users.Count; i++)
             {
-                if (users.ElementAt(i).Id == u.Id)
+                if (users.ElementAt(i).UserId == u.UserId)
                 {
                     users.ElementAt(i).Name = u.Name;
                     users.ElementAt(i).TelephoneNumber = u.TelephoneNumber;
@@ -72,16 +72,16 @@ namespace WebClient.Models
         public int CreateReservationOnlyWithMovieEvent(DTO.MovieEvent me)
         {
             DTO.Reservation reservation = new DTO.Reservation();            
-            reservation.Id = reservationIDs;
+            reservation.ReservationId = reservationIDs;
             reservationIDs++;
             reservation.MovieEvent = me;
             reservations.Add(reservation);
-            return reservation.Id;
+            return reservation.ReservationId;
         }
         public DTO.Reservation AddSeatToReservation(int resID, DTO.Seat s) {
             for (int i = 0; i < reservations.Count; i++)
             {
-                if (reservations.ElementAt(i).Id == resID)
+                if (reservations.ElementAt(i).ReservationId== resID)
                 {
                     reservations.ElementAt(i).Seats.Add(s);
                     return reservations.ElementAt(i);
@@ -93,7 +93,7 @@ namespace WebClient.Models
         {
             for (int i = 0; i < reservations.Count; i++)
             {
-                if (reservations.ElementAt(i).Id == resID)
+                if (reservations.ElementAt(i).ReservationId == resID)
                 {
                     reservations.ElementAt(i).User=u;
                     return reservations.ElementAt(i);
@@ -105,7 +105,7 @@ namespace WebClient.Models
         {
             foreach (DTO.Reservation re in reservations.ToList())
             {
-                if (re.Id == resID)
+                if (re.ReservationId == resID)
                 {
                     return re;
                 }

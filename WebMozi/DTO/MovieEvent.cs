@@ -9,7 +9,7 @@ namespace DTO
         public Room Room { get; set; }
         public Movie Movie { get; set; }
         public DateTime Time { get; set; }
-        public int ID { get; set; }
+        public int MovieEventId { get; set; }
 
     }
 }

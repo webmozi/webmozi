@@ -6,7 +6,7 @@ namespace DTO
 {
     public class Reservation
     {
-        public int Id { get; set; }
+        public int ReservationId { get; set; }
 
         public MovieEvent MovieEvent { get; set; }
 

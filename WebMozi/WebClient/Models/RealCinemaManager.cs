@@ -12,13 +12,11 @@ namespace WebClient.Models
         private  List<DTO.Movie> movies;
         private List<DTO.Room> rooms;
         private  List<DTO.MovieEvent> movieevents;
-        private RoomManager roommanager;
 
         public RealCinemaManager() {
             GetMovies();
             GetMovieEvents();            
           
-            roommanager = new RoomManager();        //IDE EZ NEM IS FOG KELLENE
         }
         private void GetMovieEvents()
         {
@@ -121,43 +119,7 @@ namespace WebClient.Models
             }
         }
 
-
-
         
-       
-
-        public IEnumerable<DTO.MovieEvent> ListMovieEvents()
-        {
-            GetMovieEvents();
-            return movieevents;
-        }
-        public void AddMovieEvent(DTO.MovieEvent me)
-        {
-            movieevents.Add(me);
-
-        }
-        public DTO.MovieEvent SelectMovieEvent(int id)
-        {
-            DTO.MovieEvent selectmovieevent = null;
-            foreach (DTO.MovieEvent me in movieevents)
-            {
-                if (me.ID == id)
-                {
-                    selectmovieevent = me;
-                }
-            }
-            return selectmovieevent;
-        }
-        public void DeleteMovieEvent(int id)
-        {
-            foreach (DTO.MovieEvent me in movieevents.ToList())
-            {
-                if (me.ID == id)
-                {
-                    movieevents.Remove(me);
-                }
-            }
-        }
 
 
         public IEnumerable<DTO.Room> ListRooms()
@@ -180,7 +142,7 @@ namespace WebClient.Models
             DTO.Room selectroom = null;
             foreach (DTO.Room r in rooms.ToList())
             {
-                if (r.Id == id)
+                if (r.RoomId == id)
                 {
                     selectroom = r;
                 }
@@ -191,7 +153,7 @@ namespace WebClient.Models
         {
             foreach (DTO.Room m in rooms.ToList())
             {
-                if (m.Id == id)
+                if (m.RoomId == id)
                 {
                     rooms.Remove(m);
                 }
@@ -202,12 +164,47 @@ namespace WebClient.Models
                 var response = client.DeleteAsync("api/rooms/" + (id)).Result;
             }
         }
-
         public IEnumerable<DTO.Seat> ListSeatsInRoom(int id)
         {
             return SelectRoom(id).Seats;
         }
 
+
+
+
+
+        public IEnumerable<DTO.MovieEvent> ListMovieEvents()
+        {
+            GetMovieEvents();
+            return movieevents;
+        }
+        public void AddMovieEvent(DTO.MovieEvent me)
+        {
+            movieevents.Add(me);
+
+        }
+        public DTO.MovieEvent SelectMovieEvent(int id)
+        {
+            DTO.MovieEvent selectmovieevent = null;
+            foreach (DTO.MovieEvent me in movieevents)
+            {
+                if (me.MovieEventId == id)
+                {
+                    selectmovieevent = me;
+                }
+            }
+            return selectmovieevent;
+        }
+        public void DeleteMovieEvent(int id)
+        {
+            foreach (DTO.MovieEvent me in movieevents.ToList())
+            {
+                if (me.MovieEventId == id)
+                {
+                    movieevents.Remove(me);
+                }
+            }
+        }
 
     }
 }

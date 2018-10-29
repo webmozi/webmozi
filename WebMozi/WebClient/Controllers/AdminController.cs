@@ -100,7 +100,7 @@ namespace WebClient.Controllers
         {
             DTO.MovieEvent mevent = new DTO.MovieEvent();
             mevent.Movie = icinemamanager.SelectMovie(me.Movie.MovieId);
-            mevent.Room = icinemamanager.SelectRoom(me.Room.Id);
+            mevent.Room = icinemamanager.SelectRoom(me.Room.RoomId);
             mevent.Time = me.Time;
             icinemamanager.AddMovieEvent(mevent);
             TempData["message"] = $"{mevent.Movie.Title} has been saved";

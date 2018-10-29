@@ -22,7 +22,7 @@ namespace WebClient.Models
         }
         public void CreateRoom(DTO.Room r)
         {
-            r.Id = roomIDs;
+            r.RoomId = roomIDs;
             roomIDs++;
             r.Seats = AddSeats(r.Capacity);
             rooms.Add(r);
@@ -32,7 +32,7 @@ namespace WebClient.Models
             DTO.Room room = null;
             foreach (DTO.Room r in rooms)
             {
-                if (r.Id == id)
+                if (r.RoomId == id)
                 {
                     room = r;
                 }
@@ -43,7 +43,7 @@ namespace WebClient.Models
         {
             foreach (DTO.Room r in rooms.ToList())
             {
-                if (r.Id == id)
+                if (r.RoomId == id)
                 {
                     rooms.RemoveAt(id);
                 }
@@ -61,7 +61,7 @@ namespace WebClient.Models
             for (int i = 0; i < capacity; i++)
             {
                 DTO.Seat seat = new DTO.Seat();
-                seat.ID = i + 1;
+                seat.SeatId = i + 1;
                 seat.RowNumber = (i / 10)+1;
                 seat.SeatNumber = i + 1;
                 seat.IsEnable = true;
@@ -74,7 +74,7 @@ namespace WebClient.Models
             DTO.Room room = SelectRoom(roomID);
             foreach (DTO.Seat s in room.Seats.ToList()) 
             {
-                if (s.ID == seatID) {
+                if (s.SeatId == seatID) {
                     s.IsEnable = false;
                     return s;
                 }

@@ -133,6 +133,8 @@ namespace DAL.Migrations
                     b.HasIndex("RoomId");
 
                     b.ToTable("Seats");
+                   
+
 
                     b.HasData(
                         new { SeatId = 1, RoomId = 1, RowNumber = 1, SeatNumber = 1 },

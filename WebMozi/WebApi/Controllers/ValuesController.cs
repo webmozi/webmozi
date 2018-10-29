@@ -64,7 +64,7 @@ namespace WebApi.Controllers
                     dallist.RemoveAt(i);
                 }
             }
-            cinemamanager.Delete(id);
+            cinemamanager.DeleteMovie(id);
             return NoContent();
         }
 
@@ -101,7 +101,7 @@ namespace WebApi.Controllers
             };
             dallist.Add(newDalMovie);          
 
-            cinemamanager.Update(newDalMovie);
+            cinemamanager.UpdateMovie(newDalMovie);
 
             return NoContent();
         }

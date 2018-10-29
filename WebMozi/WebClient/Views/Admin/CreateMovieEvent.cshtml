@@ -24,7 +24,7 @@
             </div>
                 <div>
 
-                    @Html.DropDownListFor(m => m.Room.Id, ViewBag.roomlist as SelectList, "Please Select Room")
+                    @Html.DropDownListFor(m => m.Room.RoomId, ViewBag.roomlist as SelectList, "Please Select Room")
                 </div>
 
                 <form class="p-a-1" asp-controller="Admin" asp-action="CreateEvent" method="post">

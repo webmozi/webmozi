@@ -70,7 +70,7 @@ namespace WebClient.Controllers
             DTO.Reservation res = ireservationmanager.GetReservation(ReservationID);
             for (int i = 0; i < res.MovieEvent.Room.Seats.Count; i++)
             {
-                if (res.MovieEvent.Room.Seats.ElementAt(i).ID == seatid)
+                if (res.MovieEvent.Room.Seats.ElementAt(i).SeatId == seatid)
                 {
                     res.MovieEvent.Room.Seats.ElementAt(i).IsEnable = false;
                     res = ireservationmanager.AddSeatToReservation(ReservationID, res.MovieEvent.Room.Seats.ElementAt(i));
