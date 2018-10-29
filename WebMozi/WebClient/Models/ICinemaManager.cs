@@ -8,7 +8,6 @@ namespace WebClient.Models
     {
         IEnumerable<DTO.Movie> ListMovies();
         IEnumerable<DTO.MovieEvent> ListMovieEvents();
-        IEnumerable<DTO.Room> ListRooms();
         DTO.Movie AddMovie(DTO.Movie m);
         void AddMovieEvent(DTO.MovieEvent me);
         void DeleteMovie(int id);
@@ -16,14 +15,10 @@ namespace WebClient.Models
         DTO.Movie SelectMovie(int id);
         DTO.MovieEvent SelectMovieEvent(int id);
         DTO.Movie EditMovie(DTO.Movie m);
-        void CreateRoom(DTO.Room r);
-        IEnumerable<DTO.Seat> ListSeatsInRoom(int id);
         DTO.Room SelectRoom(int id);
-        
-
-        //Room
-        DTO.Room AddRoom(DTO.Room r);
-        DTO.Room EditRoom(DTO.Room r);
+        IEnumerable<DTO.Room> ListRooms();
+        IEnumerable<DTO.Seat> ListSeatsInRoom(int id);
+        void AddRoom(DTO.Room r);
         void DeleteRoom(int id);
     }
 }

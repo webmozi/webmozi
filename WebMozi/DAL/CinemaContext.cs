@@ -96,7 +96,7 @@ namespace DAL
                     SeatId = 1,
                     RowNumber = 1,
                     SeatNumber = 1,
-
+                    IsEnable = true,
                     RoomId = 1
 
                 },
@@ -106,7 +106,7 @@ namespace DAL
                     SeatId = 2,
                     RowNumber = 2,
                     SeatNumber = 1,
-
+                    IsEnable = true,
                     RoomId = 1
 
                 },
@@ -116,7 +116,7 @@ namespace DAL
                     SeatId = 3,
                     RowNumber = 3,
                     SeatNumber = 1,
-
+                    IsEnable = true,
                     RoomId = 1
 
                 },
@@ -136,7 +136,7 @@ namespace DAL
                     SeatId = 5,
                     RowNumber = 1,
                     SeatNumber = 2,
-
+                    IsEnable = true,
                     RoomId = 2
 
                 }

@@ -19,12 +19,22 @@ namespace DAL
             }
         }
 
-        public void AddRoom(Room movie)
+        public void AddRoom(Room room)
         {
             using (var context = new CinemaContext())
             {
-                context.CinemaRooms
-                    .Add(movie);
+                List<DAL.Seat> seats = new List<DAL.Seat>();
+                for (int i = 0; i < room.Capacity; i++)
+                {
+                    DAL.Seat seat = new DAL.Seat();
+                    seat.RowNumber = (i / 10) + 1;
+                    seat.SeatNumber = i + 1;
+                    seat.IsEnable = true;
+                    seats.Add(seat);
+                }
+                room.Seats = seats;
+                   context.CinemaRooms
+                    .Add(room);
 
                 context.SaveChanges();
             }
@@ -61,25 +71,11 @@ namespace DAL
                 item.Title = movie.Title;
                 context.Movies.Update(item);
                 context.SaveChanges();
+               
             }
         }
 
-        public void UpdateRoom(DAL.Room movie)
-        {
-            using (var context = new CinemaContext())
-            {
-                var item = context.CinemaRooms.Find(movie.RoomId);
-                if (item == null)
-                {
-                    return;
-                }
-                item.RoomId = movie.RoomId;
-                item.Capacity = movie.Capacity;
-                item.RoomNumber = movie.RoomNumber;
-                context.CinemaRooms.Update(item);
-                context.SaveChanges();
-            }
-        }
+        
 
         public void Delete(int ig)
         {

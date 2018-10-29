@@ -18,7 +18,7 @@ namespace WebClient.Models
             GetMovies();
             GetMovieEvents();            
           
-            roommanager = new RoomManager();
+            roommanager = new RoomManager();        //IDE EZ NEM IS FOG KELLENE
         }
         private void GetMovieEvents()
         {
@@ -48,11 +48,7 @@ namespace WebClient.Models
             }
         }
 
-        public IEnumerable<DTO.Room> ListRooms()
-        {
-            GetRooms();
-            return rooms;
-        }
+        
 
         public IEnumerable<DTO.Movie> ListMovies()
         {
@@ -118,38 +114,17 @@ namespace WebClient.Models
                 var response = client.PutAsJsonAsync<DTO.Movie>("api/values", item).Result;
                 if (response.IsSuccessStatusCode)
                 {
-                    return response.Content.ReadAsAsync<DTO.Movie>().Result;
+                    return SelectMovie(item.MovieId);
+                    //    return response.Content.ReadAsAsync<DTO.Movie>().Result;
                 }
-                return null;
+                return null;;
             }
         }
 
 
 
         
-        public void CreateRoom(DTO.Room r)
-        {
-            roommanager.CreateRoom(r);
-        }
-        public DTO.Room SelectRoom(int id)
-        {
-            return roommanager.SelectRoom(id);
-        }
-        public void DeleteRoom(int id)
-        {
-            foreach (DTO.Room m in rooms.ToList())
-            {
-                if (m.Id == id)
-                {
-                    rooms.Remove(m);
-                }
-            }
-            using (var client = new HttpClient())
-            {
-                client.BaseAddress = new Uri("http://localhost:6544/");
-                var response = client.DeleteAsync("api/rooms/" + (id)).Result;
-            }
-        }
+       
 
         public IEnumerable<DTO.MovieEvent> ListMovieEvents()
         {
@@ -185,50 +160,54 @@ namespace WebClient.Models
         }
 
 
-
-
-        public IEnumerable<DTO.Seat> ListSeatsInRoom(int id)
+        public IEnumerable<DTO.Room> ListRooms()
         {
-            return roommanager.ListSeatsInRoom(id);
+            GetRooms();
+            return rooms;
         }
-
-        public Room AddRoom(Room r)
+        public void AddRoom(Room r)
         {
             using (var client = new HttpClient())
             {
                 client.BaseAddress = new Uri("http://localhost:6544/");
                 var response = client.PostAsJsonAsync<DTO.Room>("api/rooms", r).Result;
-                if (response.IsSuccessStatusCode)
-                {
-                    return response.Content.ReadAsAsync<DTO.Room>().Result;
-                }
-                return null;
+
             }
         }
 
-        public Room EditRoom(Room m)
+        public DTO.Room SelectRoom(int id)
         {
-            int k = 0;
-            for (int i = 0; i < rooms.Count; i++)
+            DTO.Room selectroom = null;
+            foreach (DTO.Room r in rooms.ToList())
             {
-                if (rooms.ElementAt(i).Id == m.Id)
+                if (r.Id == id)
                 {
-                    rooms.ElementAt(i).Capacity = m.Capacity;
-                    rooms.ElementAt(i).RoomNumber = m.RoomNumber;
-                    k = i;
+                    selectroom = r;
                 }
             }
-            var item = rooms.ElementAt(k);
+            return selectroom;
+        }
+        public void DeleteRoom(int id)
+        {
+            foreach (DTO.Room m in rooms.ToList())
+            {
+                if (m.Id == id)
+                {
+                    rooms.Remove(m);
+                }
+            }
             using (var client = new HttpClient())
             {
                 client.BaseAddress = new Uri("http://localhost:6544/");
-                var response = client.PutAsJsonAsync<DTO.Room>("api/rooms", item).Result;
-                if (response.IsSuccessStatusCode)
-                {
-                    return response.Content.ReadAsAsync<DTO.Room>().Result;
-                }
-                return null;
+                var response = client.DeleteAsync("api/rooms/" + (id)).Result;
             }
         }
+
+        public IEnumerable<DTO.Seat> ListSeatsInRoom(int id)
+        {
+            return SelectRoom(id).Seats;
+        }
+
+
     }
 }

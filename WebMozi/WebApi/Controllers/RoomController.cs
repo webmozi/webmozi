@@ -80,28 +80,11 @@ namespace WebApi.Controllers
             var dalitem = new DAL.Room();
             dalitem.RoomId = item.Id;
             dalitem.RoomNumber = item.RoomNumber;
+            dalitem.Capacity = item.Capacity;
             dalrooms.Add(dalitem);
             cinemamanager.AddRoom(dalitem);
             return Created("http://localhost:6544/api/rooms", item);
         }
 
-        [HttpPut]
-        public ActionResult<DTO.Room> Update(DTO.Room item)
-        {           
-            var movieDal = dalrooms.SingleOrDefault(m => m.RoomId == item.Id);
-            dalrooms.Remove(movieDal);
-
-            var newDalMovie = new DAL.Room
-            {
-                RoomId = item.Id,
-                RoomNumber = item.RoomNumber,
-                Capacity = item.Capacity,
-            };
-            dalrooms.Add(newDalMovie);
-
-            cinemamanager.UpdateRoom(newDalMovie);
-
-            return NoContent();
-        }        
     }
 }

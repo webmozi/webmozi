@@ -98,7 +98,7 @@ namespace WebClient.Models
         {
             return roommanager.ListRooms();
         }
-        public void CreateRoom(DTO.Room r)
+        public void AddRoom(DTO.Room r)
         {
             roommanager.CreateRoom(r);
         }
@@ -110,8 +110,10 @@ namespace WebClient.Models
         {
             roommanager.DeleteRoom(id);
         }
-
-
+        public Room EditRoom(Room r)
+        {
+            throw new NotImplementedException();
+        }
 
         public IEnumerable<DTO.MovieEvent> ListMovieEvents()
         {
@@ -152,14 +154,6 @@ namespace WebClient.Models
             return roommanager.ListSeatsInRoom(id);
         }
 
-        public Room AddRoom(Room r)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Room EditRoom(Room r)
-        {
-            throw new NotImplementedException();
-        }
+       
     }
 }

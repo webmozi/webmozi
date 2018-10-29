@@ -23,7 +23,7 @@ namespace WebClient.Models
         }
         public ICinemaManager GetCinemaManager()
         {
-            return new MockCinemaManager();
+            return new RealCinemaManager();
         }
     }
 }

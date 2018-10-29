@@ -68,7 +68,7 @@ namespace WebClient.Controllers
         [HttpPost]
         public ViewResult AddRoom(DTO.Room m)
         {
-            icinemamanager.CreateRoom(m);
+            icinemamanager.AddRoom(m);
             return ListRooms();
         }
         [HttpGet]
