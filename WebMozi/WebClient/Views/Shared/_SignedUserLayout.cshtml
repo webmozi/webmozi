@@ -1,0 +1,21 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" asp-href-include="lib/bootstrap/dist/css/*.min.css" />
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+    <div class="panel panel-success">
+        <div class="panel-heading text-center"><h4>@ViewBag.Title</h4></div>
+        <div class="panel-heading text-right">@ViewBag.User <a class="btn btn-sm btn-primary" asp-action="Logout" asp-controller="User">Log Out</a></div>
+    </div>
+    <div class="panel-body">
+        @if (TempData["message"] != null)
+        {
+        <div class="alert alert-success">@TempData["message"]</div>
+        }
+        @RenderBody()
+    </div>
+</body>
+</html>

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DTO;
 
 namespace WebClient.Models
 {
@@ -11,13 +12,14 @@ namespace WebClient.Models
         private  List<DTO.Reservation> reservations;
         private  int reservationIDs = 0;
         private  int userIDs = 0;
-        
+        private DTO.User signedUser;
+        private int chosedreservationid = -1;
         public MockReservationManager() {
             users = new List<DTO.User>();
             reservations = new List<DTO.Reservation>();
-            DTO.User u = new DTO.User() { Name = "Ako", TelephoneNumber = "06308888888", Email = "ako@hotmail.com" };
+            DTO.User u = new DTO.User() { Name = "Ako", Password="Ako",TelephoneNumber = "06308888888", Email = "ako@hotmail.com" };
             AddUser(u);
-            DTO.User u2 = new DTO.User() { Name = "Gabo", TelephoneNumber = "06207777777", Email = "gabo@gmail.com" };
+            DTO.User u2 = new DTO.User() { Name = "Gabo", Password = "Gabo", TelephoneNumber = "06207777777", Email = "gabo@gmail.com" };
             AddUser(u2);
         }
 
@@ -66,17 +68,39 @@ namespace WebClient.Models
             }
             return u;
         }
+        public void LogInUser(DTO.User u)
+        {
+            DTO.User user = null;
+            foreach (DTO.User us in users)
+            {
+                if (us.Name==u.Name && us.Password==u.Password)
+                {
+                    user = us;
+                }
+            }
+            if (user != null) {
+                signedUser = user;
+            }
+        }
+        public void Loggingout()
+        {
+            signedUser = null;
+            chosedreservationid = -1;
+        }
+     
+        public DTO.User SignedUser()
+        {
+            return signedUser;
+        }
 
-
-        
-        public int CreateReservationOnlyWithMovieEvent(DTO.MovieEvent me)
+        public void CreateReservationOnlyWithMovieEvent(DTO.MovieEvent me)
         {
             DTO.Reservation reservation = new DTO.Reservation();            
             reservation.ReservationId = reservationIDs;
             reservationIDs++;
             reservation.MovieEvent = me;
             reservations.Add(reservation);
-            return reservation.ReservationId;
+            chosedreservationid = reservation.ReservationId;
         }
         public DTO.Reservation AddSeatToReservation(int resID, DTO.Seat s) {
             for (int i = 0; i < reservations.Count; i++)
@@ -112,5 +136,11 @@ namespace WebClient.Models
             }
             return null;
         }
+
+        public int getChosedReservationId()
+        {
+            return chosedreservationid;
+        }
+        
     }
 }

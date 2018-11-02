@@ -26,7 +26,6 @@
             <tbody>
                 @foreach (var m in Model)
                 {
-
                     <tr>
                         <td>
                             @Html.DisplayFor(modelItem => m.SeatNumber)
@@ -47,7 +46,7 @@
             </tbody>
         </table>
         <div class="text-center">
-            <a asp-controller="User" asp-action="CreateUser" class="btn btn-primary">Get Enough Seats</a>
+            <a asp-controller="User" asp-action="CreateUserOrLogin" class="btn btn-primary">Get Enough Seats</a>
         </div>
         <div class="text-left">
             <a asp-controller="User" asp-action="Main" class="btn btn-primary">Back</a>

@@ -84,12 +84,11 @@ namespace WebClient.Models
 
 
 
-        public int CreateReservationOnlyWithMovieEvent(DTO.MovieEvent me)
+        public void CreateReservationOnlyWithMovieEvent(DTO.MovieEvent me)
         {
             DTO.Reservation reservation = new DTO.Reservation();
             reservation.MovieEvent = me;
             reservations.Add(reservation);
-            return reservation.ReservationId;
         }
         public DTO.Reservation AddSeatToReservation(int resID, DTO.Seat s)
         {
@@ -125,6 +124,28 @@ namespace WebClient.Models
                 }
             }
             return null;
+        }
+
+        public void LogInUser(DTO.User u)
+        {
+            throw new NotImplementedException();
+        }
+
+        
+
+        public DTO.User SignedUser()
+        {
+            throw new NotImplementedException();
+        }
+
+        public int getChosedReservationId()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Loggingout()
+        {
+            throw new NotImplementedException();
         }
     }
 }

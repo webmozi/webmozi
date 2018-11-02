@@ -90,7 +90,7 @@ namespace WebClient.Controllers
         public ViewResult CreateEvent()
         {
             SelectList listmovie = new SelectList(icinemamanager.ListMovies(), "MovieId", "Title");
-            SelectList listroom = new SelectList(icinemamanager.ListRooms(), "Id", "RoomNumber");
+            SelectList listroom = new SelectList(icinemamanager.ListRooms(), "RoomId", "RoomNumber");
             ViewBag.movielist = listmovie;
             ViewBag.roomlist = listroom;
             return View("CreateMovieEvent");

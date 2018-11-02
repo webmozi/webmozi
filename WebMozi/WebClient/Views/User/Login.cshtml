@@ -1,0 +1,30 @@
+﻿@model DTO.User
+@{ ViewBag.Title = "Log In";
+    Layout = "_UserLayout";
+}
+<div class="text-danger" asp-validation-summary="All"></div>
+<form asp-action="Login" asp-controller="User" method="post">
+    <div class="form-group">
+        <label asp-for="Name"></label>
+        <div>
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>        <input asp-for="Name" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Password"></label>
+        <div><span asp-validation-for="Password" class="text-danger"></span></div>
+        <input type="password" asp-for="Password" class="form-control" />
+
+    </div>
+    <div class="form-group">
+        <button class="btn btn-primary" type="submit">Log In</button>
+        <input type="button" class="btn btn-sm btn-warning" value="Register"
+               onclick="location.href='@Url.Action("RegisterUser","User")'" />
+    </div>
+    <div class="form-group">
+        <div class="text-left">
+            <a asp-controller="User" asp-action="Main" class="btn btn-primary">Back</a>
+        </div>
+    </div>
+</form>
+
