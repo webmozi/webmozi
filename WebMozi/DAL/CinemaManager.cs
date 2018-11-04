@@ -108,5 +108,75 @@ namespace DAL
                 context.SaveChanges();
             }
         }
+
+
+        public List<MovieEvent> ListMovieEvents()
+        {
+            using( CinemaContext ctx = new CinemaContext())
+            {
+                return ctx.MovieEvents.ToList();
+            }
+        }
+
+        public List<Reservation> ListReservations()
+        {
+            using( CinemaContext ctx = new CinemaContext())
+            {
+                return ctx.Reservations.ToList();
+            }
+        }
+
+
+        public List<Seat> ListFreeSeatsForMovieEvent(int movieEventId)
+        {
+            using( CinemaContext ctx = new CinemaContext() )
+            {
+                var allSeatsForMovieEvent = ctx.MovieEvents
+                    .Where(m => m.MovieEventId == movieEventId)
+                    .Select(m => m.Room.Seats)
+                    .FirstOrDefault();
+                
+                    
+
+                var reservedSeatIdsForMovieEvent = from r in ctx.Reservations
+                                                 where r.MovieEventId == movieEventId
+                                                 select r.SeatId;
+
+                var reservedSeatsForMovieEvent = from s in ctx.Seats
+                                                  where reservedSeatIdsForMovieEvent.Contains(s.SeatId)
+                                                  select s;
+
+                return (allSeatsForMovieEvent.Except(reservedSeatsForMovieEvent)).ToList();
+                
+            }
+        }
+
+
+        public void AddReservation(int movieEventId, int seatId, int userId)
+        {
+            using( CinemaContext ctx = new CinemaContext() )
+            {
+                Reservation reservation = new Reservation();
+                reservation.MovieEventId = movieEventId;
+                reservation.MovieEvent = ctx.MovieEvents.Find(movieEventId);
+                reservation.SeatId = seatId;
+                reservation.UserId = userId;
+
+                ctx.Reservations.Add(reservation);
+                ctx.SaveChanges();
+            }
+        }
+
+
+        public List<Reservation> listUserReservations(int userId)
+        {
+            using( CinemaContext ctx = new CinemaContext() )
+            {
+                var query = ctx.Reservations
+                                .Where(r => r.UserId == userId)
+                                .ToList();
+                return query;
+            }
+        }
     }
 }
