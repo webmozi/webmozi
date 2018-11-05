@@ -7,7 +7,7 @@ namespace WebClient.Models
     public interface ICinemaManager
     {
         IEnumerable<DTO.Movie> ListMovies();
-        IEnumerable<DTO.MovieEvent> ListMovieEvents();
+        IEnumerable<DTO.MovieEventHeader> ListMovieEventsWithoutSeats();
         DTO.Movie AddMovie(DTO.Movie m);
         void AddMovieEvent(DTO.MovieEvent me);
         void DeleteMovie(int id);
@@ -17,7 +17,7 @@ namespace WebClient.Models
         DTO.Movie EditMovie(DTO.Movie m);
         DTO.Room SelectRoom(int id);
         IEnumerable<DTO.Room> ListRooms();
-        IEnumerable<DTO.Seat> ListSeatsInRoom(int id);
+        IEnumerable<DTO.MovieEventSeat> ListSeatsInRoom(int id);
         void AddRoom(DTO.Room r);
         void DeleteRoom(int id);
     }

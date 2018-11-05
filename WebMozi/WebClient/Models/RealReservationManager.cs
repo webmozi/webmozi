@@ -90,7 +90,7 @@ namespace WebClient.Models
             reservation.MovieEvent = me;
             reservations.Add(reservation);
         }
-        public DTO.Reservation AddSeatToReservation(int resID, DTO.Seat s)
+        public DTO.Reservation AddSeatToReservation(int resID, DTO.MovieEventSeat s)
         {
             for (int i = 0; i < reservations.Count; i++)
             {

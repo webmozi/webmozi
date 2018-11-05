@@ -10,26 +10,32 @@ namespace WebClient.Models
     public class RealCinemaManager :ICinemaManager
     {
         private  List<DTO.Movie> movies;
-        private List<DTO.Room> rooms;
+        private  List<DTO.Room> rooms;
         private  List<DTO.MovieEvent> movieevents;
+        private  List<DTO.MovieEventHeader> movieeventheaders;
 
-        public RealCinemaManager() {
-            GetMovies();
-            GetMovieEvents();            
-          
-        }
+
         private void GetMovieEvents()
         {
             HttpClient client = new HttpClient();
-            var result = client.GetAsync("http://localhost:6544/api/values").Result;
+            var result = client.GetAsync("http://localhost:6544/api/movieevents").Result;
             if (result.IsSuccessStatusCode)
             {
                 movieevents = result.Content.ReadAsAsync<List<DTO.MovieEvent>>().Result;
             }
         }
+        private void GetMovieEventHeaders()
+        {
+            HttpClient client = new HttpClient();
+            var result = client.GetAsync("http://localhost:6544/api/movieeventheader").Result;
+            if (result.IsSuccessStatusCode)
+            {
+                movieeventheaders = result.Content.ReadAsAsync<List<DTO.MovieEventHeader>>().Result;
+            }
+        }
         private void GetMovies() {
             HttpClient client = new HttpClient();
-            var result = client.GetAsync("http://localhost:6544/api/values").Result;
+            var result = client.GetAsync("http://localhost:6544/api/movie").Result;
             if (result.IsSuccessStatusCode)
             {
                 movies = result.Content.ReadAsAsync<List<DTO.Movie>>().Result;
@@ -58,7 +64,7 @@ namespace WebClient.Models
             using (var client = new HttpClient())
             {
                 client.BaseAddress = new Uri("http://localhost:6544/");
-                var response = client.PostAsJsonAsync<DTO.Movie>("api/values", m).Result;
+                var response = client.PostAsJsonAsync<DTO.Movie>("api/movie", m).Result;
                 if (response.IsSuccessStatusCode)
                 {
                     return response.Content.ReadAsAsync<DTO.Movie>().Result;
@@ -90,7 +96,7 @@ namespace WebClient.Models
             using (var client = new HttpClient())
             {
                 client.BaseAddress = new Uri("http://localhost:6544/");
-                var response = client.DeleteAsync("api/values/" + (id)).Result;
+                var response = client.DeleteAsync("api/movie/" + (id)).Result;
             }
         }
         public DTO.Movie EditMovie(DTO.Movie m)
@@ -109,11 +115,10 @@ namespace WebClient.Models
             using (var client = new HttpClient())
             {
                 client.BaseAddress = new Uri("http://localhost:6544/");
-                var response = client.PutAsJsonAsync<DTO.Movie>("api/values", item).Result;
+                var response = client.PutAsJsonAsync<DTO.Movie>("api/movie", item).Result;
                 if (response.IsSuccessStatusCode)
                 {
                     return SelectMovie(item.MovieId);
-                    //    return response.Content.ReadAsAsync<DTO.Movie>().Result;
                 }
                 return null;;
             }
@@ -164,7 +169,7 @@ namespace WebClient.Models
                 var response = client.DeleteAsync("api/rooms/" + (id)).Result;
             }
         }
-        public IEnumerable<DTO.Seat> ListSeatsInRoom(int id)
+        public IEnumerable<DTO.MovieEventSeat> ListSeatsInRoom(int id)
         {
             return SelectRoom(id).Seats;
         }
@@ -173,15 +178,20 @@ namespace WebClient.Models
 
 
 
-        public IEnumerable<DTO.MovieEvent> ListMovieEvents()
+        public IEnumerable<DTO.MovieEventHeader> ListMovieEventsWithoutSeats()
         {
-            GetMovieEvents();
-            return movieevents;
+            GetMovieEventHeaders();
+            return movieeventheaders;
         }
         public void AddMovieEvent(DTO.MovieEvent me)
         {
-            movieevents.Add(me);
 
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("http://localhost:6544/");
+                var response = client.PostAsJsonAsync<DTO.MovieEvent>("api/movieevents", me).Result;
+
+            }
         }
         public DTO.MovieEvent SelectMovieEvent(int id)
         {
@@ -203,6 +213,11 @@ namespace WebClient.Models
                 {
                     movieevents.Remove(me);
                 }
+            }
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("http://localhost:6544/");
+                var response = client.DeleteAsync("api/movieevents/" + (id)).Result;
             }
         }
 

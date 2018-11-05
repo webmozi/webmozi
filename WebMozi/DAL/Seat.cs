@@ -13,9 +13,6 @@ namespace DAL
 
         public int SeatNumber { get; set; }
 
-      //  public bool IsEnable { get; set; }
-
-
         public int RoomId { get; set; }
     }
 }

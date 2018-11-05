@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -54,6 +57,11 @@ namespace WebClient.Controllers
         [HttpPost]
         public ViewResult Login(DTO.User u)
         {
+
+          /*  var claims = new List<Claim> { new Claim(ClaimTypes.Name, u.Name) };
+            var claimsIdentity = new ClaimsIdentity (claims, CookieAuthenticationDefaults.AuthenticationScheme);
+            var authProperties = new AuthenticationProperties { };
+            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity), authProperties);*/
             ireservationmanager.LogInUser(u);
             DTO.User user = ireservationmanager.SignedUser();
             if (user == null)
@@ -105,7 +113,7 @@ namespace WebClient.Controllers
         [HttpGet]
         public ViewResult ListEvents()
         {
-            return View("ListMovieEvents", icinemamanager.ListMovieEvents());
+            return View("ListMovieEvents", icinemamanager.ListMovieEventsWithoutSeats());
         }
         [HttpGet]
         public ViewResult SelectedMovieEvent(int meId)

@@ -84,7 +84,7 @@ namespace WebClient.Controllers
         [HttpGet]
         public ViewResult ListEvents()
         {
-            return View("ListMovieEvents", icinemamanager.ListMovieEvents());
+            return View("ListMovieEvents", icinemamanager.ListMovieEventsWithoutSeats());
         }
         [HttpGet]
         public ViewResult CreateEvent()
@@ -141,13 +141,12 @@ namespace WebClient.Controllers
             TempData["message"] = $"{user.Name} has been saved";
             return ListUsers();
         }
-
-
+        
 
         [HttpGet]
         public ViewResult ListSeats(int id)
         {
-            IEnumerable<DTO.Seat> seatslist = icinemamanager.ListSeatsInRoom(id);
+            IEnumerable<DTO.MovieEventSeat> seatslist = icinemamanager.ListSeatsInRoom(id);
             return View("ListSeats", seatslist);
         }
     }

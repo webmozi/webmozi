@@ -14,7 +14,7 @@ namespace WebClient.Models
         DTO.User SelectUser(int ID);
         DTO.User EditUser(DTO.User u);
         void DeleteUser(int id);
-        DTO.Reservation AddSeatToReservation(int resID, DTO.Seat s);
+        DTO.Reservation AddSeatToReservation(int resID, DTO.MovieEventSeat s);
         DTO.Reservation AddUserToReservation(int resID, DTO.User u);
         void LogInUser(DTO.User u);
         void Loggingout();

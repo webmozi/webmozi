@@ -12,6 +12,6 @@ namespace DTO
 
         public User User { get; set; }
 
-        public List<DTO.Seat> Seats { get; set; } = new List<DTO.Seat>();
+        public List<DTO.MovieEventSeat> Seats { get; set; } = new List<DTO.MovieEventSeat>();
     }
 }

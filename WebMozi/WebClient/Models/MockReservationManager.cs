@@ -10,11 +10,14 @@ namespace WebClient.Models
     {
         private  List<DTO.User> users;
         private  List<DTO.Reservation> reservations;
-        private  int reservationIDs = 0;
-        private  int userIDs = 0;
+        private  int reservationIDs;
+        private  int userIDs;
         private DTO.User signedUser;
-        private int chosedreservationid = -1;
+        private int chosedreservationid;
         public MockReservationManager() {
+            userIDs = 0;
+            chosedreservationid = -1;
+            reservationIDs = 0;
             users = new List<DTO.User>();
             reservations = new List<DTO.Reservation>();
             DTO.User u = new DTO.User() { Name = "Ako", Password="Ako",TelephoneNumber = "06308888888", Email = "ako@hotmail.com" };
@@ -102,7 +105,7 @@ namespace WebClient.Models
             reservations.Add(reservation);
             chosedreservationid = reservation.ReservationId;
         }
-        public DTO.Reservation AddSeatToReservation(int resID, DTO.Seat s) {
+        public DTO.Reservation AddSeatToReservation(int resID, DTO.MovieEventSeat s) {
             for (int i = 0; i < reservations.Count; i++)
             {
                 if (reservations.ElementAt(i).ReservationId== resID)

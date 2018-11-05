@@ -11,9 +11,13 @@ namespace WebClient.Controllers
 {
     public class HomeController : Controller
     {
-        protected static IReservationManager ireservationmanager = ManagerProvider.Instance.GetReservationManager();
-        protected static ICinemaManager icinemamanager = ManagerProvider.Instance.GetCinemaManager();
+        protected static IReservationManager ireservationmanager;
+        protected static ICinemaManager icinemamanager ;
 
+        public HomeController() {
+            ireservationmanager = ManagerProvider.Instance.GetReservationManager();
+             icinemamanager = ManagerProvider.Instance.GetCinemaManager();
+        }
         public ViewResult Index() {
 
             return View("MainView");

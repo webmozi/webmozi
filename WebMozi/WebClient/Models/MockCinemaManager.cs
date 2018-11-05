@@ -10,14 +10,17 @@ namespace WebClient.Models
     {
         private List<DTO.Movie> movies;
         private List<DTO.MovieEvent> movieevents;
-        private RoomManager roommanager; 
-        private static int movieIDs=0;
-        private static int movieeventIDs = 0;
-
+        private List<DTO.MovieEventHeader> movieeventheaders;
+        private RoomManager roommanager;
+        private static int movieIDs;
+        private static int movieeventIDs;
         public MockCinemaManager() {
+            movieIDs = 0;
+            movieeventIDs = 0;
             movies = new List<DTO.Movie>();
             roommanager = new RoomManager();
             movieevents = new List<DTO.MovieEvent>();
+            movieeventheaders = new List<DTO.MovieEventHeader>();
             DTO.Movie m1 = new DTO.Movie() { Title = "Venom", Director = "Ruben Fleischer" };
             DTO.Movie m2 = new DTO.Movie() { Title = "Az első ember", Director = "Damien Chazelle" };
             DTO.Movie m3 = new DTO.Movie() { Title = "Egy kis szívesség", Director = "Paul Feig" };
@@ -43,6 +46,10 @@ namespace WebClient.Models
             AddMovieEvent(me1);
             AddMovieEvent(me2);
             AddMovieEvent(me3);
+            AddMovieEventHeader(movieevents.ElementAt(0));
+            AddMovieEventHeader(movieevents.ElementAt(1));
+            AddMovieEventHeader(movieevents.ElementAt(2));
+
         }
 
         public IEnumerable<DTO.Movie> ListMovies()
@@ -115,15 +122,27 @@ namespace WebClient.Models
             throw new NotImplementedException();
         }
 
-        public IEnumerable<DTO.MovieEvent> ListMovieEvents()
+        public IEnumerable<DTO.MovieEventHeader> ListMovieEventsWithoutSeats()
         {
-            return movieevents;
+            return movieeventheaders;
         }
         public void AddMovieEvent(DTO.MovieEvent me)
         {
             me.MovieEventId = movieeventIDs;
             movieeventIDs++; 
             movieevents.Add(me);
+        }
+        public void AddMovieEventHeader(DTO.MovieEvent me)
+        {
+            DTO.MovieEventHeader meh = new DTO.MovieEventHeader();
+            meh.Room = new DTO.RoomHeader();
+            meh.Movie = new DTO.Movie();
+            meh.MovieEventId = me.MovieEventId;
+            meh.Movie = me.Movie;
+            meh.Room.RoomId = me.Room.RoomId;
+            meh.Room.RoomNumber = me.Room.RoomNumber;
+            meh.Time = me.Time;
+            movieeventheaders.Add(meh);
         }
         public DTO.MovieEvent SelectMovieEvent(int id)
         {
@@ -149,7 +168,7 @@ namespace WebClient.Models
         }
 
 
-        public IEnumerable<DTO.Seat> ListSeatsInRoom(int id)
+        public IEnumerable<DTO.MovieEventSeat> ListSeatsInRoom(int id)
         {
             return roommanager.ListSeatsInRoom(id);
         }

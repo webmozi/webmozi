@@ -30,16 +30,15 @@ namespace WebApi.Controllers
                 r.RoomId = room.RoomId;
                 r.Capacity = room.Capacity;
                 r.RoomNumber = room.RoomNumber;
-                r.Seats = new List<DTO.Seat>();
+                r.Seats = new List<DTO.MovieEventSeat>();
 
                 for (int i = 0; i < dalseats.Count; i++) {
                     if (dalseats.ElementAt(i).RoomId == r.RoomId)
                     {
-                        DTO.Seat s = new DTO.Seat();
+                        DTO.MovieEventSeat s = new DTO.MovieEventSeat();
                         s.SeatId = dalseats.ElementAt(i).SeatId;
                         s.RowNumber = dalseats.ElementAt(i).RowNumber;
                         s.SeatNumber = dalseats.ElementAt(i).SeatNumber;
-                        // s.IsEnable = dalseats.ElementAt(i).IsEnable;
                         r.Seats.Add(s);
                     }
                 }
@@ -74,11 +73,14 @@ namespace WebApi.Controllers
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
+            dtorooms = new List<DTO.Room>();
+            cinemamanager = new DAL.CinemaManager();
+            dalrooms = cinemamanager.ListRooms();
+
             for (int i = 0; i < dtorooms.Count; i++)
             {
                 if (dtorooms.ElementAt(i).RoomId == id)
                 {
-                    // movielist.RemoveAt(i);
                     dalrooms.RemoveAt(i);
                 }
             }

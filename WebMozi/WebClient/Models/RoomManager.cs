@@ -8,11 +8,12 @@ namespace WebClient.Models
     public class RoomManager
     {
         private List<DTO.Room> rooms;
-        private static int roomIDs = 0;
+        private static int roomIDs;
 
         public RoomManager()
         {
             rooms = new List<DTO.Room>();
+            roomIDs = 0;
         }
 
 
@@ -51,28 +52,28 @@ namespace WebClient.Models
         }
 
 
-        public IEnumerable<DTO.Seat> ListSeatsInRoom(int roomID)
+        public IEnumerable<DTO.MovieEventSeat> ListSeatsInRoom(int roomID)
         {
             return SelectRoom(roomID).Seats;
         }
-        public List<DTO.Seat> AddSeats(int capacity)
+        public List<DTO.MovieEventSeat> AddSeats(int capacity)
         {
-            List<DTO.Seat> seats = new List<DTO.Seat>();
+            List<DTO.MovieEventSeat> seats = new List<DTO.MovieEventSeat>();
             for (int i = 0; i < capacity; i++)
             {
-                DTO.Seat seat = new DTO.Seat();
+                DTO.MovieEventSeat seat = new DTO.MovieEventSeat();
                 seat.SeatId = i + 1;
-                seat.RowNumber = (i / 10)+1;
-                seat.SeatNumber = i + 1;
+                seat.SeatNumber = (i / 10)+1;
+                seat.RowNumber = i + 1;
                 seat.IsEnable = true;
                 seats.Add(seat);
             }
             return seats;
         }
-        public DTO.Seat GetSeat(int seatID,int roomID)
+        public DTO.MovieEventSeat GetSeat(int seatID,int roomID)
         {
             DTO.Room room = SelectRoom(roomID);
-            foreach (DTO.Seat s in room.Seats.ToList()) 
+            foreach (DTO.MovieEventSeat s in room.Seats.ToList()) 
             {
                 if (s.SeatId == seatID) {
                     s.IsEnable = false;

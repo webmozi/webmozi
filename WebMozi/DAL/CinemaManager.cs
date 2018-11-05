@@ -83,9 +83,8 @@ namespace DAL
                 for (int i = 0; i < room.Capacity; i++)
                 {
                     DAL.Seat seat = new DAL.Seat();
-                    seat.RowNumber = (i / 10) + 1;
-                    seat.SeatNumber = i + 1;
-                    // seat.IsEnable = true;
+                    seat.SeatNumber = (i / 10) + 1;
+                    seat.RowNumber = i + 1;
                     seats.Add(seat);
                 }
                 room.Seats = seats;
@@ -108,16 +107,54 @@ namespace DAL
                 context.SaveChanges();
             }
         }
+        public void AddMovieEvent(MovieEvent me)
+        {
+            using (var context = new CinemaContext())
+            {
+
+                context.MovieEvents.Add(me);
+
+                context.SaveChanges();
+            }
+        }
+        public void DeleteMovieEvent(int id)
+        {
+            using (var context = new CinemaContext())
+            {
+                var item = context.MovieEvents.SingleOrDefault(me => me.MovieEventId == id);
+                if (item == null)
+                {
+                    return;
+                }
+                context.MovieEvents.Remove(item);
+                context.SaveChanges();
+            }
+        }
 
 
         public List<MovieEvent> ListMovieEvents()
         {
             using( CinemaContext ctx = new CinemaContext())
             {
+
                 return ctx.MovieEvents.ToList();
             }
         }
-
+        public MovieEvent GetMovieEventById(int id) {
+            using (CinemaContext ctx = new CinemaContext())
+            {
+                return ctx.MovieEvents.SingleOrDefault(me => me.MovieEventId == id);
+            }
+         }
+        public List<MovieEvent> ListMovieEventsWithRoomAndMovie()
+        {
+            using (CinemaContext ctx = new CinemaContext())
+            {
+                //var item= (from me in ctx.MovieEvents).Inculde()
+              
+                return ctx.MovieEvents.ToList();
+            }
+        }
         public List<Reservation> ListReservations()
         {
             using( CinemaContext ctx = new CinemaContext())
