@@ -14,72 +14,81 @@ namespace WebClient.Models
 
         public RealReservationManager()
         {
-            GetUser();
-            GetReservation();
         }
         private void GetUser()
         {
             HttpClient client = new HttpClient();
-            var result = client.GetAsync("http://localhost:6544/api/values").Result;
+            var result = client.GetAsync("http://localhost:6544/api/user").Result;
             if (result.IsSuccessStatusCode)
             {
                 users = result.Content.ReadAsAsync<List<DTO.User>>().Result;
             }
         }
-        private void GetReservation()
+       /* private void GetReservation()
         {
             HttpClient client = new HttpClient();
-            var result = client.GetAsync("http://localhost:6544/api/values").Result;
+            var result = client.GetAsync("http://localhost:6544/api/reservation").Result;
             if (result.IsSuccessStatusCode)
             {
                 reservations = result.Content.ReadAsAsync<List<DTO.Reservation>>().Result;
             }
-        }
+        }*/
+
+
         public IEnumerable<DTO.User> ListUsers()
         {
+            GetUser();
             return users;
         }
-        
-
-
         public void AddUser(DTO.User user)
         {
-            users.Add(user);
-        }
-        public DTO.User SelectUser(int ID)
-        {
-            DTO.User user = null;
-            foreach (DTO.User us in users)
+            using (var client = new HttpClient())
             {
-                if (us.UserId == ID)
-                {
-                    user = us;
-                }
+                client.BaseAddress = new Uri("http://localhost:6544/");
+                var response = client.PostAsJsonAsync<DTO.User>("api/user", user).Result;
+              
             }
-            return user;
+        }
+        public DTO.User SelectUser(int id)
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("http://localhost:6544/");
+                var response = client.GetAsync("api/user/" + id).Result;
+                return response.Content.ReadAsAsync<DTO.User>().Result;
+
+            }
         }
         public void DeleteUser(int id)
         {
-            foreach (DTO.User u in users.ToList())
+            using (var client = new HttpClient())
             {
-                if (u.UserId == id)
-                {
-                    users.Remove(u);
-                }
+                client.BaseAddress = new Uri("http://localhost:6544/");
+                var response = client.DeleteAsync("api/user/" + (id)).Result;
             }
         }
         public DTO.User EditUser(DTO.User u)
         {
-            for (int i = 0; i < users.Count; i++)
+            using (var client = new HttpClient())
             {
-                if (users.ElementAt(i).UserId == u.UserId)
+                client.BaseAddress = new Uri("http://localhost:6544/");
+                var response = client.PutAsJsonAsync<DTO.User>("api/user", u).Result;
+                if (response.IsSuccessStatusCode)
                 {
-                    users.ElementAt(i).Name = u.Name;
-                    users.ElementAt(i).TelephoneNumber = u.TelephoneNumber;
-                    users.ElementAt(i).Email = u.Email;
+                    return SelectUser(u.UserId);
                 }
+                return null;
             }
-            return u;
+        }
+
+        public DTO.Reservation SelectReservation(int id)
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("http://localhost:6544/");
+                var response = client.GetAsync("api/reservation/" + id).Result;
+                return response.Content.ReadAsAsync<DTO.Reservation>().Result;
+            }
         }
 
 
@@ -88,7 +97,12 @@ namespace WebClient.Models
         {
             DTO.Reservation reservation = new DTO.Reservation();
             reservation.MovieEvent = me;
-            reservations.Add(reservation);
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("http://localhost:6544/");
+                var response = client.PostAsJsonAsync<DTO.Reservation>("api/reservation/onlywithmovieevent", reservation).Result;
+
+            }
         }
         public DTO.Reservation AddSeatToReservation(int resID, DTO.MovieEventSeat s)
         {
@@ -114,43 +128,32 @@ namespace WebClient.Models
             }
             return null;
         }
-        public DTO.Reservation GetReservation(int resID)
+       
+        public int getChosedReservationId()
         {
-            foreach (DTO.Reservation re in reservations.ToList())
-            {
-                if (re.ReservationId == resID)
-                {
-                    return re;
-                }
-            }
-            return null;
+            throw new NotImplementedException();
         }
 
         public void LogInUser(DTO.User u)
         {
-            throw new NotImplementedException();
         }
 
         
 
         public DTO.User SignedUser()
         {
-            throw new NotImplementedException();
+            return null;
         }
 
-        public int getChosedReservationId()
-        {
-            throw new NotImplementedException();
-        }
+        
 
         public void Loggingout()
         {
-            throw new NotImplementedException();
         }
 
         public IEnumerable<Reservation> ListReservations()
         {
-            throw new NotImplementedException();
+            return null;
         }
     }
 }

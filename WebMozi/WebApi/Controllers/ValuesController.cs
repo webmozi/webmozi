@@ -11,5 +11,10 @@ namespace WebApi.Controllers
     [ApiController]
     public class ValuesController : ControllerBase
     {
+        [HttpGet]
+        public ActionResult<String> Get() {
+            return "Web Api elindult!";
+        }
+        
     }
 }

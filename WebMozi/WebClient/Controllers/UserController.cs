@@ -134,7 +134,7 @@ namespace WebClient.Controllers
         [HttpGet]
         public ViewResult ListSeatsInMovieEvent()
         {
-            DTO.Reservation res = ireservationmanager.GetReservation(ireservationmanager.getChosedReservationId());
+            DTO.Reservation res = ireservationmanager.SelectReservation(ireservationmanager.getChosedReservationId());
             Models.EnableAndDisableSeats seats = new Models.EnableAndDisableSeats();
             seats.AllSeats = icinemamanager.SelectMovieEvent(res.MovieEvent.MovieEventId).Room.Seats;
             seats.EnableSeats= icinemamanager.getEnableSeats(res.MovieEvent.MovieEventId, ireservationmanager.ListReservations().ToList());
@@ -150,7 +150,7 @@ namespace WebClient.Controllers
         public ViewResult ChooseSeat(int seatid)
         {
            
-            DTO.Reservation res = ireservationmanager.GetReservation(ireservationmanager.getChosedReservationId());
+            DTO.Reservation res = ireservationmanager.SelectReservation(ireservationmanager.getChosedReservationId());
             for (int i = 0; i < res.MovieEvent.Room.Seats.Count; i++)
             {
                 if (res.MovieEvent.Room.Seats.ElementAt(i).SeatId == seatid)
@@ -163,7 +163,7 @@ namespace WebClient.Controllers
         [HttpGet]
         public ViewResult ChooseSeatMore()
         {
-            int movieeventid = ireservationmanager.GetReservation(ireservationmanager.getChosedReservationId()).MovieEvent.MovieEventId;
+            int movieeventid = ireservationmanager.SelectReservation(ireservationmanager.getChosedReservationId()).MovieEvent.MovieEventId;
             Models.EnableAndDisableSeats seats = new Models.EnableAndDisableSeats();
             seats.AllSeats = icinemamanager.SelectMovieEvent(movieeventid).Room.Seats;
             seats.EnableSeats = icinemamanager.getEnableSeats(movieeventid, ireservationmanager.ListReservations().ToList());
@@ -174,7 +174,7 @@ namespace WebClient.Controllers
         [HttpGet]
         public ViewResult Reservation()
         {
-            return View("Reservation", ireservationmanager.GetReservation(ireservationmanager.getChosedReservationId()));
+            return View("Reservation", ireservationmanager.SelectReservation(ireservationmanager.getChosedReservationId()));
         }
     }
 }

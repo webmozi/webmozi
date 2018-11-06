@@ -27,6 +27,16 @@ namespace DAL
                 context.SaveChanges();
             }
         }
+        public void AddUser(User user)
+        {
+            using (var context = new CinemaContext())
+            {
+                context.Users
+                    .Add(user);
+
+                context.SaveChanges();
+            }
+        }
         public void UpdateMovie(DAL.Movie movie)
         {
             using (var context = new CinemaContext())
@@ -40,6 +50,24 @@ namespace DAL
                 item.Director = movie.Director;
                 item.Title = movie.Title;
                 context.Movies.Update(item);
+                context.SaveChanges();
+
+            }
+        }
+        public void UpdateUser(DAL.User user)
+        {
+            using (var context = new CinemaContext())
+            {
+                var item = context.Users.Find(user.UserId);
+                if (item == null)
+                {
+                    return;
+                }
+                item.UserId = user.UserId;
+                item.Name = user.Name;
+                item.TelephoneNumber = user.TelephoneNumber;
+                item.Email = user.Email;
+                context.Users.Update(item);
                 context.SaveChanges();
 
             }
@@ -86,6 +114,13 @@ namespace DAL
                 return context.Movies.SingleOrDefault(m => m.MovieId == id);
             }
         }
+        public DAL.User GetUserById(int id)
+        {
+            using (var context = new CinemaContext())
+            {
+                return context.Users.SingleOrDefault(u=> u.UserId == id);
+            }
+        }
         public List<Seat> ListSeatsInMovieEvent(int id)
         {
             using (var context = new CinemaContext())
@@ -127,6 +162,19 @@ namespace DAL
                     return;
                 }
                 context.CinemaRooms.Remove(item);
+                context.SaveChanges();
+            }
+        }
+        public void DeleteUser(int id)
+        {
+            using (var context = new CinemaContext())
+            {
+                var item = context.Users.SingleOrDefault(u=> u.UserId == id);
+                if (item == null)
+                {
+                    return;
+                }
+                context.Users.Remove(item);
                 context.SaveChanges();
             }
         }
@@ -188,8 +236,22 @@ namespace DAL
                 return ctx.Reservations.ToList();
             }
         }
+        public List<User> ListUsers()
+        {
+            using (CinemaContext ctx = new CinemaContext())
+            {
+                var AllUsers = ctx.Users.Include(u => u.Reservations);
+                return AllUsers.ToList();
+            }
+        }
+        public List<User> ListUsersWithoutReservation()
+        {
+            using (CinemaContext ctx = new CinemaContext())
+            {
 
-
+                return ctx.Users.ToList();
+            }
+        }
         public List<Seat> ListFreeSeatsForMovieEvent(int movieEventId)
         {
             using( CinemaContext ctx = new CinemaContext() )

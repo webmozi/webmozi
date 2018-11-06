@@ -19,7 +19,7 @@ namespace WebClient.Models
         protected ManagerProvider() {
         }
         public  IReservationManager GetReservationManager() {
-            return new MockReservationManager();
+            return new RealReservationManager();
         }
         public ICinemaManager GetCinemaManager()
         {

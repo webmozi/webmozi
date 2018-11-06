@@ -10,7 +10,7 @@ namespace WebClient.Models
         IEnumerable<DTO.User> ListUsers();
         IEnumerable<DTO.Reservation> ListReservations();
         void CreateReservationOnlyWithMovieEvent(DTO.MovieEvent me);
-        DTO.Reservation GetReservation(int resID);
+        DTO.Reservation SelectReservation(int id);
         void AddUser(DTO.User user);
         DTO.User SelectUser(int ID);
         DTO.User EditUser(DTO.User u);

@@ -56,7 +56,7 @@ namespace WebApi.Controllers
             dalitem.Director = item.Director;
             dalitem.Title = item.Title;
             cinemamanager.AddMovie(dalitem);
-            return Created("http://localhost:6544/api/values", item);
+            return Created("http://localhost:6544/api/movie", item);
         }
         [HttpPut]
         public ActionResult<DTO.Movie> Update(DTO.Movie item)

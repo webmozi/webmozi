@@ -133,11 +133,11 @@ namespace WebClient.Models
             }
             return null;
         }
-        public DTO.Reservation GetReservation(int resID)
+        public DTO.Reservation SelectReservation(int id)
         {
             foreach (DTO.Reservation re in reservations.ToList())
             {
-                if (re.ReservationId == resID)
+                if (re.ReservationId == id)
                 {
                     return re;
                 }

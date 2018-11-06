@@ -85,13 +85,7 @@ namespace WebClient.Models
         }
         public void DeleteMovie(int id)
         {
-            foreach (DTO.Movie m in movies.ToList())
-            {
-                if (m.MovieId == id)
-                {
-                    movies.Remove(m);
-                }
-            }
+           
             using (var client = new HttpClient())
             {
                 client.BaseAddress = new Uri("http://localhost:6544/");
@@ -100,24 +94,13 @@ namespace WebClient.Models
         }
         public DTO.Movie EditMovie(DTO.Movie m)
         {
-            int k = 0;
-            for (int i = 0; i < movies.Count; i++)
-            {
-                if (movies.ElementAt(i).MovieId == m.MovieId)
-                {
-                    movies.ElementAt(i).Director = m.Director;
-                    movies.ElementAt(i).Title = m.Title;
-                    k = i;
-                }
-            }
-            var item = movies.ElementAt(k);
             using (var client = new HttpClient())
             {
                 client.BaseAddress = new Uri("http://localhost:6544/");
-                var response = client.PutAsJsonAsync<DTO.Movie>("api/movie", item).Result;
+                var response = client.PutAsJsonAsync<DTO.Movie>("api/movie", m).Result;
                 if (response.IsSuccessStatusCode)
                 {
-                    return SelectMovie(item.MovieId);
+                    return SelectMovie(m.MovieId);
                 }
                 return null;
             }
@@ -161,7 +144,6 @@ namespace WebClient.Models
                 client.BaseAddress = new Uri("http://localhost:6544/");
                 var response = client.DeleteAsync("api/rooms/" + (id)).Result;
             }
-            GetRooms();
         }
         public IEnumerable<DTO.MovieEventSeat> ListSeatsInRoom(int id)
         {
