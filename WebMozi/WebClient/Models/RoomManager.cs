@@ -9,11 +9,13 @@ namespace WebClient.Models
     {
         private List<DTO.Room> rooms;
         private static int roomIDs;
+        private static int seatIDs;
 
         public RoomManager()
         {
             rooms = new List<DTO.Room>();
             roomIDs = 0;
+            seatIDs = 0;
         }
 
 
@@ -62,10 +64,10 @@ namespace WebClient.Models
             for (int i = 0; i < capacity; i++)
             {
                 DTO.MovieEventSeat seat = new DTO.MovieEventSeat();
-                seat.SeatId = i + 1;
+                seat.SeatId = seatIDs;
+                seatIDs++;
                 seat.SeatNumber = (i / 10)+1;
                 seat.RowNumber = i + 1;
-                seat.IsEnable = true;
                 seats.Add(seat);
             }
             return seats;
@@ -76,7 +78,6 @@ namespace WebClient.Models
             foreach (DTO.MovieEventSeat s in room.Seats.ToList()) 
             {
                 if (s.SeatId == seatID) {
-                    s.IsEnable = false;
                     return s;
                 }
             }

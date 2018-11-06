@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -65,14 +66,36 @@ namespace DAL
         {
             using (var context = new CinemaContext())
             {
-                return context.CinemaRooms.ToList();
+                var AllRooms = context.CinemaRooms.Include(r => r.Seats);
+                return AllRooms.ToList();
             }
         }
-        public List<Seat> ListSeats()
+
+        public DAL.Room GetRoomById(int id)
         {
             using (var context = new CinemaContext())
             {
-                return context.Seats.ToList();
+                var AllRooms = context.CinemaRooms.Include(r => r.Seats);
+                return AllRooms.SingleOrDefault(r => r.RoomId == id);
+            }
+        }
+        public DAL.Movie GetMovieById(int id)
+        {
+            using (var context = new CinemaContext())
+            {
+                return context.Movies.SingleOrDefault(m => m.MovieId == id);
+            }
+        }
+        public List<Seat> ListSeatsInMovieEvent(int id)
+        {
+            using (var context = new CinemaContext())
+            {
+                var allSeatsForMovieEvent = context.MovieEvents
+                     .Where(m => m.MovieEventId == id)
+                     .Select(m => m.Room.Seats)
+                     .FirstOrDefault();
+
+                return allSeatsForMovieEvent.ToList();
             }
         }
         public void AddRoom(Room room)
@@ -143,16 +166,19 @@ namespace DAL
         public MovieEvent GetMovieEventById(int id) {
             using (CinemaContext ctx = new CinemaContext())
             {
-                return ctx.MovieEvents.SingleOrDefault(me => me.MovieEventId == id);
+                var AllMoviesEvents = ctx.MovieEvents.Include(me => me.Room)
+                                               .Include(me => me.Movie)
+                                               .Include(me => me.Room.Seats);
+                return AllMoviesEvents.SingleOrDefault(me => me.MovieEventId == id);
             }
          }
         public List<MovieEvent> ListMovieEventsWithRoomAndMovie()
         {
             using (CinemaContext ctx = new CinemaContext())
             {
-                //var item= (from me in ctx.MovieEvents).Inculde()
-              
-                return ctx.MovieEvents.ToList();
+                var AllMoviesEvents = ctx.MovieEvents.Include(me => me.Room)
+                                               .Include(me => me.Movie);
+                return AllMoviesEvents.ToList();
             }
         }
         public List<Reservation> ListReservations()
@@ -170,8 +196,7 @@ namespace DAL
             {
                 var allSeatsForMovieEvent = ctx.MovieEvents
                     .Where(m => m.MovieEventId == movieEventId)
-                    .Select(m => m.Room.Seats)
-                    .FirstOrDefault();
+                    .Select(m => m.Room.Seats).FirstOrDefault();
                 
                     
 
@@ -183,8 +208,7 @@ namespace DAL
                                                   where reservedSeatIdsForMovieEvent.Contains(s.SeatId)
                                                   select s;
 
-                return (allSeatsForMovieEvent.Except(reservedSeatsForMovieEvent)).ToList();
-                
+                 return (allSeatsForMovieEvent.Except(reservedSeatsForMovieEvent)).ToList();
             }
         }
 

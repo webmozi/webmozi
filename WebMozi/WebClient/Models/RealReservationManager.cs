@@ -147,5 +147,10 @@ namespace WebClient.Models
         {
             throw new NotImplementedException();
         }
+
+        public IEnumerable<Reservation> ListReservations()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

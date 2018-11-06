@@ -8,6 +8,7 @@ namespace WebClient.Models
     public interface IReservationManager
     {
         IEnumerable<DTO.User> ListUsers();
+        IEnumerable<DTO.Reservation> ListReservations();
         void CreateReservationOnlyWithMovieEvent(DTO.MovieEvent me);
         DTO.Reservation GetReservation(int resID);
         void AddUser(DTO.User user);

@@ -10,8 +10,8 @@ namespace WebClient.Models
     {
         private  List<DTO.User> users;
         private  List<DTO.Reservation> reservations;
-        private  int reservationIDs;
-        private  int userIDs;
+        private  static int reservationIDs;
+        private static int userIDs;
         private DTO.User signedUser;
         private int chosedreservationid;
         public MockReservationManager() {
@@ -29,6 +29,10 @@ namespace WebClient.Models
         public IEnumerable<DTO.User> ListUsers()
         {
             return users;
+        }
+        public IEnumerable<DTO.Reservation> ListReservations()
+        {
+            return reservations;
         }
         public void AddUser(DTO.User user)
         {
@@ -103,6 +107,7 @@ namespace WebClient.Models
             reservationIDs++;
             reservation.MovieEvent = me;
             reservations.Add(reservation);
+           
             chosedreservationid = reservation.ReservationId;
         }
         public DTO.Reservation AddSeatToReservation(int resID, DTO.MovieEventSeat s) {
@@ -144,6 +149,6 @@ namespace WebClient.Models
         {
             return chosedreservationid;
         }
-        
+      
     }
 }

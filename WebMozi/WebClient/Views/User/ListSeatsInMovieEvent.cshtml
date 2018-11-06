@@ -1,4 +1,4 @@
-﻿@model IEnumerable<DTO.MovieEventSeat>
+﻿@model EnableAndDisableSeats
 
     @{
     ViewBag.Title = "List Seats";
@@ -29,19 +29,24 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var m in Model)
+                @foreach (var m in Model.AllSeats)
                 {
 
-                    <tr>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => m.SeatNumber)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => m.RowNumber)
+                    </td>
+                    @foreach (var n in Model.EnableSeats) {
+                        if (n.SeatId == m.SeatId)
+                        {
+                            Model.IsEnable = true;
+                        }
+                    }
                         <td>
-                            @Html.DisplayFor(modelItem => m.SeatNumber)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => m.RowNumber)
-                        </td>
-
-                        <td>
-                            @if (m.IsEnable)
+                            @if (Model.IsEnable)
                             {
                                 <p>
                                     Yes
@@ -52,9 +57,10 @@
                                 <p>
                                     No
                                 </p>
+                                Model.IsEnable = false;
                             }
                         </td>
-                    </tr>
+                </tr>
 
                 }
             </tbody>

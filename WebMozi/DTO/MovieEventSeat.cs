@@ -12,6 +12,5 @@ namespace DTO
 
         public int SeatNumber { get; set; }
 
-        public bool IsEnable { get; set; }
     }
 }

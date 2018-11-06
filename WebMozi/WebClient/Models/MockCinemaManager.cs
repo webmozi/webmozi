@@ -6,7 +6,7 @@ using DTO;
 
 namespace WebClient.Models
 {
-    public class MockCinemaManager :ICinemaManager
+    public class MockCinemaManager : ICinemaManager
     {
         private List<DTO.Movie> movies;
         private List<DTO.MovieEvent> movieevents;
@@ -14,7 +14,8 @@ namespace WebClient.Models
         private RoomManager roommanager;
         private static int movieIDs;
         private static int movieeventIDs;
-        public MockCinemaManager() {
+        public MockCinemaManager()
+        {
             movieIDs = 0;
             movieeventIDs = 0;
             movies = new List<DTO.Movie>();
@@ -27,7 +28,7 @@ namespace WebClient.Models
             AddMovie(m1);
             AddMovie(m2);
             AddMovie(m3);
-            DTO.Room r = new DTO.Room() { RoomNumber = 5, Capacity = 20};
+            DTO.Room r = new DTO.Room() { RoomNumber = 5, Capacity = 20 };
             DTO.Room r2 = new DTO.Room() { RoomNumber = 4, Capacity = 30 };
             roommanager.CreateRoom(r);
             roommanager.CreateRoom(r2);
@@ -38,7 +39,7 @@ namespace WebClient.Models
             DTO.MovieEvent me2 = new DTO.MovieEvent();
             me2.Movie = m2;
             me2.Room = roommanager.SelectRoom(r.RoomId);
-            me2.Time = new DateTime(2018, 10, 16,18,00,00);
+            me2.Time = new DateTime(2018, 10, 16, 18, 00, 00);
             DTO.MovieEvent me3 = new DTO.MovieEvent();
             me3.Movie = m3;
             me3.Room = roommanager.SelectRoom(r2.RoomId);
@@ -129,7 +130,7 @@ namespace WebClient.Models
         public void AddMovieEvent(DTO.MovieEvent me)
         {
             me.MovieEventId = movieeventIDs;
-            movieeventIDs++; 
+            movieeventIDs++;
             movieevents.Add(me);
         }
         public void AddMovieEventHeader(DTO.MovieEvent me)
@@ -173,6 +174,35 @@ namespace WebClient.Models
             return roommanager.ListSeatsInRoom(id);
         }
 
-       
+      
+        public List<MovieEventSeat> getEnableSeats(int id,List<DTO.Reservation> reservations)
+        {
+            DTO.MovieEvent movieevent = null;
+            List<DTO.MovieEventSeat> enablelist = new List<DTO.MovieEventSeat>();
+            foreach (var me in movieevents)
+            {
+                if (me.MovieEventId == id)
+                {
+                    movieevent = me;
+                }
+            }
+            foreach (var r in reservations)
+            {
+                for (int i = 0; i < r.Seats.Count; i++)
+                {
+                    for (int j = 0; j < movieevent.Room.Seats.Count; j++)
+                    {
+
+                        if (r.Seats.ElementAt(i).SeatId == movieevent.Room.Seats.ElementAt(j).SeatId)
+                        {
+                            enablelist.Add(movieevent.Room.Seats.ElementAt(j));
+
+                        }
+                    }
+                }
+            }
+            return enablelist;
+        }
+
     }
 }

@@ -20,5 +20,6 @@ namespace WebClient.Models
         IEnumerable<DTO.MovieEventSeat> ListSeatsInRoom(int id);
         void AddRoom(DTO.Room r);
         void DeleteRoom(int id);
+        List<DTO.MovieEventSeat> getEnableSeats(int id,List<DTO.Reservation> l);
     }
 }

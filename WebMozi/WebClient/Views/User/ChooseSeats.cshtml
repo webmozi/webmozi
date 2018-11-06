@@ -1,5 +1,4 @@
-﻿@model IEnumerable<DTO.MovieEventSeat>
-
+﻿@model EnableAndDisableSeats
 @{
     ViewBag.Title = "Choose Seat";
     Layout = "_UserLayout";
@@ -24,23 +23,34 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var m in Model)
+                @foreach (var m in Model.AllSeats)
                 {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => m.SeatNumber)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => m.RowNumber)
-                        </td>
-                        @if (m.IsEnable)
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => m.SeatNumber)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => m.RowNumber)
+                    </td>
+                    @foreach (var n in Model.EnableSeats)
+                    {
+                        if (n.SeatId == m.SeatId)
                         {
+                            Model.IsEnable = true;
+                        }
+                    }
+                    @if (Model.IsEnable)
+                    {
                         <td class="text-center">
                             <input type="button" class="btn btn-sm btn-warning" value="Choose"
-                                   onclick="location.href='@Url.Action("SetSeatId","User", new { id = m.SeatId })'" />
+                                   onclick="location.href='@Url.Action("SetSeatId", "User", new { id = m.SeatId })'" />
                         </td>
-                        }
-                    </tr>
+                    }
+                    else {
+
+                   Model.IsEnable = false;
+                    }
+                </tr>
 
                 }
             </tbody>
