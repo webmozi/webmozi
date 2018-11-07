@@ -1,12 +1,9 @@
-﻿@model DTO.Reservation
-
+﻿@model IEnumerable<DTO.Reservation>
 @{
     ViewBag.Title = "Reservation";
     Layout = "_UserLayout";
 }
-
 <!DOCTPYE html>
-
     <html>
     <head>
         <meta name="viewport" content="wirdt=device-width" />
@@ -25,55 +22,49 @@
                     <th>Room Number</th>
                     <th>Seat,Row Number</th>
 
-
             </thead>
             <tbody>
-                <tr>
-
-                    <td>
-                        @Html.DisplayFor(modelItem => Model.User.Name)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => Model.MovieEvent.Movie.Title)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => Model.MovieEvent.Time)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => Model.MovieEvent.Room.RoomNumber)
-                    </td>
-                    @for (int i = 0; i < Model.Seats.Count; i++)
-                    {
+                @for (int i = 0; i < Model.ToList().Count; i++)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => Model.ElementAt(i).User.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => Model.ElementAt(i).MovieEvent.Movie.Title)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => Model.ElementAt(i).MovieEvent.Time)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => Model.ElementAt(i).MovieEvent.Room.RoomNumber)
+                        </td>
                         @if (i == 0)
                         {
                             <td>
-                                @Html.DisplayFor(modelItem => Model.Seats.ElementAt(i).SeatNumber)
-
-                                @Html.DisplayFor(modelItem => Model.Seats.ElementAt(i).RowNumber)
+                                @Html.DisplayFor(modelItem => Model.ElementAt(i).Seat.SeatNumber)
+                                @Html.DisplayFor(modelItem => Model.ElementAt(i).Seat.RowNumber)
                             </td>
                         }
                         @if (i != 0)
                         {
                         <tr>
-
                             <td>  </td>
                             <td>  </td>
                             <td>  </td>
                             <td>  </td>
                             <td>
-                                @Html.DisplayFor(modelItem => Model.Seats.ElementAt(i).SeatNumber)
-
-                                @Html.DisplayFor(modelItem => Model.Seats.ElementAt(i).RowNumber)
+                                @Html.DisplayFor(modelItem => Model.ElementAt(i).Seat.SeatNumber)
+                                @Html.DisplayFor(modelItem => Model.ElementAt(i).Seat.RowNumber)
                             </td>
                         </tr>
-                        }
                     }
-                </tbody>
-
-                </table>
-            <div class="text-left">
-                <a asp-controller="User" asp-action="Main" class="btn btn-primary">Back</a>
-            </div>
+                        </tr>
+                    }
+            </tbody>
+        </table>
+        <div class="text-left">
+            <a asp-controller="User" asp-action="Main" class="btn btn-primary">Back</a>
+        </div>
     </body>
 </html>
-

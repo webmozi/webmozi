@@ -11,7 +11,9 @@ namespace WebClient.Models
         IEnumerable<DTO.Reservation> ListReservations();
         void CreateReservationOnlyWithMovieEvent(DTO.MovieEvent me);
         DTO.Reservation SelectReservation(int id);
-        void AddUser(DTO.User user);
+        DTO.Reservation SelectReservationWithMovieEvent(int id);
+        DTO.Reservation SelectReservationAllIn(int id);
+        int AddUser(DTO.User user);
         DTO.User SelectUser(int ID);
         DTO.User EditUser(DTO.User u);
         void DeleteUser(int id);
@@ -21,5 +23,6 @@ namespace WebClient.Models
         void Loggingout();
         DTO.User SignedUser();
         int getChosedReservationId();
+        void setChosedReservationId(int id);
     }
 }

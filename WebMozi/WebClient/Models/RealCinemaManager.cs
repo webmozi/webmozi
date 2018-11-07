@@ -153,6 +153,7 @@ namespace WebClient.Models
         {
             HttpClient client = new HttpClient();
             var result = client.GetAsync("http://localhost:6544/api/movieevents/enableseats/" + id).Result;
+
             return result.Content.ReadAsAsync<List<DTO.MovieEventSeat>>().Result;
         }
 

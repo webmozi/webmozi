@@ -115,7 +115,7 @@ namespace WebClient.Models
             {
                 if (reservations.ElementAt(i).ReservationId== resID)
                 {
-                    reservations.ElementAt(i).Seats.Add(s);
+                    reservations.ElementAt(i).Seat = s;
                     return reservations.ElementAt(i);
                 }
             }
@@ -149,6 +149,25 @@ namespace WebClient.Models
         {
             return chosedreservationid;
         }
-      
+
+        public Reservation SelectReservationWithMovieEvent(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Reservation SelectReservationAllIn(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void setChosedReservationId(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        int IReservationManager.AddUser(User user)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

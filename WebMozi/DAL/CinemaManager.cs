@@ -99,6 +99,13 @@ namespace DAL
             }
         }
 
+        public List<Reservation> ListResevation()
+        {
+            using (var context = new CinemaContext())
+            {
+                return context.Reservations.ToList();
+            }
+        }
         public DAL.Room GetRoomById(int id)
         {
             using (var context = new CinemaContext())
@@ -184,9 +191,42 @@ namespace DAL
             {
 
                 context.MovieEvents.Add(me);
-
+               
                 context.SaveChanges();
             }
+        }
+        public void AddReservationOnlyWithMovieEvent(Reservation res)
+        {
+            using (var context = new CinemaContext())
+            {
+                res.UserId = 1;     //ITT MÉG NEM TUDJUK EZEKET ÉS MEG KÉNE OLDANI HA LEHET, HOGY NE LÉTEZŐKRE MUTASSANAK
+                res.SeatId = 4;            //ITT MÉG NEM TUDJUK EZEKET ÉS MEG KÉNE OLDANI HA LEHET, HOGY NE LÉTEZŐKRE MUTASSANAK
+                context.Reservations.Add(res);     
+                context.SaveChanges();
+            }
+
+        }
+        public void AddSeatToReservation(Reservation res)
+        {
+            using (var context = new CinemaContext())
+            {
+                Reservation reservation= context.Reservations.Find(res.ReservationId);
+                reservation.SeatId = res.SeatId;
+                context.SaveChanges();
+            }
+
+        }
+        
+        public void AddUserToReservation(Reservation res)
+        {
+            using (var context = new CinemaContext())
+            {
+
+                Reservation reservation = context.Reservations.Find(res.ReservationId);
+                reservation.UserId = res.UserId;                        
+                context.SaveChanges();
+            }
+
         }
         public void DeleteMovieEvent(int id)
         {
@@ -220,6 +260,32 @@ namespace DAL
                 return AllMoviesEvents.SingleOrDefault(me => me.MovieEventId == id);
             }
          }
+        public Reservation GetReservationById(int id)
+        {
+            using (CinemaContext ctx = new CinemaContext())
+            {
+                var AllReservation = ctx.Reservations;
+                return AllReservation.SingleOrDefault(r => r.ReservationId == id);
+            }
+        }
+         public Seat GetSeatById(int id)
+            {
+                using (CinemaContext ctx = new CinemaContext())
+                {
+                    return ctx.Seats.SingleOrDefault(s => s.SeatId == id);
+                }
+            }
+            
+        public Reservation GetReservationByIdWithMovieEvent(int id)
+        {
+            using (CinemaContext ctx = new CinemaContext())
+            {
+                var AllReservation = ctx.Reservations.Include(r =>r.MovieEvent)
+                    .Include(r=>r.MovieEvent.Movie).Include(r=>r.MovieEvent.Room).Include(r=>r.MovieEvent.Room.Seats);//////////////EZMINDKELL?
+                return AllReservation.SingleOrDefault(r => r.ReservationId == id);
+            }
+        }
+     
         public List<MovieEvent> ListMovieEventsWithRoomAndMovie()
         {
             using (CinemaContext ctx = new CinemaContext())

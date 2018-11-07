@@ -188,18 +188,16 @@ namespace WebClient.Models
             }
             foreach (var r in reservations)
             {
-                for (int i = 0; i < r.Seats.Count; i++)
-                {
+              
                     for (int j = 0; j < movieevent.Room.Seats.Count; j++)
                     {
 
-                        if (r.Seats.ElementAt(i).SeatId == movieevent.Room.Seats.ElementAt(j).SeatId)
+                        if (r.Seat.SeatId == movieevent.Room.Seats.ElementAt(j).SeatId)
                         {
                             enablelist.Add(movieevent.Room.Seats.ElementAt(j));
-
                         }
                     }
-                }
+                
             }
             return enablelist;
         }

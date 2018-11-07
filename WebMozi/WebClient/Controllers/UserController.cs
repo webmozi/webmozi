@@ -103,7 +103,8 @@ namespace WebClient.Controllers
         [HttpPost]
         public ViewResult CreateUserOrLogin(DTO.User u)
         {
-            ireservationmanager.AddUser(u);
+            int userid=ireservationmanager.AddUser(u);
+            u.UserId = userid;
             ireservationmanager.AddUserToReservation(ireservationmanager.getChosedReservationId(), u);
             return ListSeatsInMovieEvent();
         }
@@ -120,9 +121,10 @@ namespace WebClient.Controllers
         {
             DTO.MovieEvent me = icinemamanager.SelectMovieEvent(meId);
             ireservationmanager.CreateReservationOnlyWithMovieEvent(me);
+            ireservationmanager.setChosedReservationId(ireservationmanager.ListReservations().ToList().ElementAt((ireservationmanager.ListReservations().ToList().Count)-1).ReservationId);
             Models.EnableAndDisableSeats seats = new Models.EnableAndDisableSeats();
             seats.AllSeats = icinemamanager.SelectMovieEvent(me.MovieEventId).Room.Seats;
-            seats.EnableSeats = icinemamanager.getEnableSeats(me.MovieEventId, ireservationmanager.ListReservations().ToList());
+            seats.EnableSeats = icinemamanager.getEnableSeats(me.MovieEventId, null);
             return View("ChooseSeats", seats);
         }
         [HttpGet]
@@ -134,7 +136,7 @@ namespace WebClient.Controllers
         [HttpGet]
         public ViewResult ListSeatsInMovieEvent()
         {
-            DTO.Reservation res = ireservationmanager.SelectReservation(ireservationmanager.getChosedReservationId());
+            DTO.Reservation res = ireservationmanager.SelectReservationWithMovieEvent(ireservationmanager.getChosedReservationId());
             Models.EnableAndDisableSeats seats = new Models.EnableAndDisableSeats();
             seats.AllSeats = icinemamanager.SelectMovieEvent(res.MovieEvent.MovieEventId).Room.Seats;
             seats.EnableSeats= icinemamanager.getEnableSeats(res.MovieEvent.MovieEventId, ireservationmanager.ListReservations().ToList());
@@ -150,7 +152,7 @@ namespace WebClient.Controllers
         public ViewResult ChooseSeat(int seatid)
         {
            
-            DTO.Reservation res = ireservationmanager.SelectReservation(ireservationmanager.getChosedReservationId());
+            DTO.Reservation res = ireservationmanager.SelectReservationWithMovieEvent(ireservationmanager.getChosedReservationId());
             for (int i = 0; i < res.MovieEvent.Room.Seats.Count; i++)
             {
                 if (res.MovieEvent.Room.Seats.ElementAt(i).SeatId == seatid)
@@ -163,7 +165,7 @@ namespace WebClient.Controllers
         [HttpGet]
         public ViewResult ChooseSeatMore()
         {
-            int movieeventid = ireservationmanager.SelectReservation(ireservationmanager.getChosedReservationId()).MovieEvent.MovieEventId;
+            int movieeventid = ireservationmanager.SelectReservationWithMovieEvent(ireservationmanager.getChosedReservationId()).MovieEvent.MovieEventId;
             Models.EnableAndDisableSeats seats = new Models.EnableAndDisableSeats();
             seats.AllSeats = icinemamanager.SelectMovieEvent(movieeventid).Room.Seats;
             seats.EnableSeats = icinemamanager.getEnableSeats(movieeventid, ireservationmanager.ListReservations().ToList());
@@ -174,7 +176,7 @@ namespace WebClient.Controllers
         [HttpGet]
         public ViewResult Reservation()
         {
-            return View("Reservation", ireservationmanager.SelectReservation(ireservationmanager.getChosedReservationId()));
+            return View("Reservation", ireservationmanager.SelectReservationAllIn(ireservationmanager.getChosedReservationId()));//IDE KELL HOGY MINDEN EHHEZ A USERHEZ TARTOZÓ RESERVATION ÁTMENJEN
         }
     }
 }

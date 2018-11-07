@@ -16,7 +16,6 @@ namespace DAL
 
         public int MovieEventId { get; set; }
 
-        // public Seat ReservedSeat { get; set; }
 
         public int SeatId { get; set; }
 
