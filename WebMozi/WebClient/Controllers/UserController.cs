@@ -17,9 +17,9 @@ namespace WebClient.Controllers
         [HttpGet]
         public ViewResult Main()
         {
-            if (ireservationmanager.SignedUser()!=null)
+            if (ireservationmanager.SignedUserId()!=-1)
             {
-                ViewBag.User = ireservationmanager.SignedUser().Name;
+                ViewBag.User = ireservationmanager.SelectUser(ireservationmanager.SignedUserId()).Name;
                 return View("SignedMain");
             }
             else
@@ -63,51 +63,21 @@ namespace WebClient.Controllers
             var authProperties = new AuthenticationProperties { };
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity), authProperties);*/
             ireservationmanager.LogInUser(u);
-            DTO.User user = ireservationmanager.SignedUser();
-            if (user == null)
+
+            int uid = ireservationmanager.SignedUserId();
+            if (uid == -1)
             {
                 TempData["message"] = $"Invalid username or password";
                 return Login();
             }
             else
             {
-                if (ireservationmanager.getChosedReservationId()!=-1)
-                {
-                    ireservationmanager.AddUserToReservation(ireservationmanager.getChosedReservationId(), ireservationmanager.SignedUser());
-                    return ListSeatsInMovieEvent();
-                }
-                else
-                {
+                
                     TempData["message"] = $"Successfull log in!";
-                    return ListEvents();
-                }
+                    return Main();
             }
         }
 
-
-
-        [HttpGet]
-        public ViewResult CreateUserOrLogin()
-        {
-
-            if (ireservationmanager.SignedUser()!=null)
-            {
-                ireservationmanager.AddUserToReservation(ireservationmanager.getChosedReservationId(), ireservationmanager.SignedUser());
-                return ListSeatsInMovieEvent();
-            }
-            else
-            {
-                return View("CreateUserOrLogin");
-            }
-        }
-        [HttpPost]
-        public ViewResult CreateUserOrLogin(DTO.User u)
-        {
-            int userid=ireservationmanager.AddUser(u);
-            u.UserId = userid;
-            ireservationmanager.AddUserToReservation(ireservationmanager.getChosedReservationId(), u);
-            return ListSeatsInMovieEvent();
-        }
 
 
 
@@ -119,9 +89,8 @@ namespace WebClient.Controllers
         [HttpGet]
         public ViewResult SelectedMovieEvent(int meId)
         {
+            ireservationmanager.SaveMovieEventForReservation(meId);
             DTO.MovieEvent me = icinemamanager.SelectMovieEvent(meId);
-            ireservationmanager.CreateReservationOnlyWithMovieEvent(me);
-            ireservationmanager.setChosedReservationId(ireservationmanager.ListReservations().ToList().ElementAt((ireservationmanager.ListReservations().ToList().Count)-1).ReservationId);
             Models.EnableAndDisableSeats seats = new Models.EnableAndDisableSeats();
             seats.AllSeats = icinemamanager.SelectMovieEvent(me.MovieEventId).Room.Seats;
             seats.EnableSeats = icinemamanager.getEnableSeats(me.MovieEventId, null);
@@ -136,10 +105,9 @@ namespace WebClient.Controllers
         [HttpGet]
         public ViewResult ListSeatsInMovieEvent()
         {
-            DTO.Reservation res = ireservationmanager.SelectReservationWithMovieEvent(ireservationmanager.getChosedReservationId());
             Models.EnableAndDisableSeats seats = new Models.EnableAndDisableSeats();
-            seats.AllSeats = icinemamanager.SelectMovieEvent(res.MovieEvent.MovieEventId).Room.Seats;
-            seats.EnableSeats= icinemamanager.getEnableSeats(res.MovieEvent.MovieEventId, ireservationmanager.ListReservations().ToList());
+            seats.AllSeats = icinemamanager.SelectMovieEvent(ireservationmanager.getChosedMovieEventId()).Room.Seats;
+            seats.EnableSeats= icinemamanager.getEnableSeats(ireservationmanager.getChosedMovieEventId(), ireservationmanager.ListReservations().ToList());
             return View("ListSeatsInMovieEvent",seats);
         }
         [HttpGet]
@@ -151,21 +119,14 @@ namespace WebClient.Controllers
         [HttpGet]
         public ViewResult ChooseSeat(int seatid)
         {
-           
-            DTO.Reservation res = ireservationmanager.SelectReservationWithMovieEvent(ireservationmanager.getChosedReservationId());
-            for (int i = 0; i < res.MovieEvent.Room.Seats.Count; i++)
-            {
-                if (res.MovieEvent.Room.Seats.ElementAt(i).SeatId == seatid)
-                {
-                    res = ireservationmanager.AddSeatToReservation(ireservationmanager.getChosedReservationId(), res.MovieEvent.Room.Seats.ElementAt(i));
-                }
-            }
+            ireservationmanager.SaveSeatForReservation(seatid);
+            ireservationmanager.MakeReservation();
             return ChooseSeatMore();
         }
         [HttpGet]
         public ViewResult ChooseSeatMore()
         {
-            int movieeventid = ireservationmanager.SelectReservationWithMovieEvent(ireservationmanager.getChosedReservationId()).MovieEvent.MovieEventId;
+            int movieeventid = ireservationmanager.getChosedMovieEventId();
             Models.EnableAndDisableSeats seats = new Models.EnableAndDisableSeats();
             seats.AllSeats = icinemamanager.SelectMovieEvent(movieeventid).Room.Seats;
             seats.EnableSeats = icinemamanager.getEnableSeats(movieeventid, ireservationmanager.ListReservations().ToList());
@@ -176,7 +137,9 @@ namespace WebClient.Controllers
         [HttpGet]
         public ViewResult Reservation()
         {
-            return View("Reservation", ireservationmanager.SelectReservationAllIn(ireservationmanager.getChosedReservationId()));//IDE KELL HOGY MINDEN EHHEZ A USERHEZ TARTOZÓ RESERVATION ÁTMENJEN
+            List<DTO.Reservation> reservationlist = new List<DTO.Reservation>();
+            reservationlist = ireservationmanager.GetReservationsByUser(ireservationmanager.SignedUserId());
+            return View("Reservation", reservationlist);
         }
     }
 }

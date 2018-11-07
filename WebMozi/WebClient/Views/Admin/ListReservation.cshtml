@@ -1,0 +1,56 @@
+﻿@model IEnumerable<DTO.Reservation>
+@{
+    ViewBag.Title = "List Reservation";
+    Layout = "_AdminLayout";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="wirdt=device-width" />
+    <title>@ViewBag.Title</title>
+    <link rel="stylesheet" href="~/css/styles.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+</head>
+<body>
+    <h4>Here is the list of users</h4>
+    <table class="table table-sm table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>Reservation Id</th>
+                <th>User Name</th>
+                <th>Movie Name</th>
+                <th>Time</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var m in Model)
+            {
+
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => m.ReservationId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => m.User.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => m.MovieEvent.Movie.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => m.MovieEvent.Time)
+                </td>
+                <td class="text-center">
+                    <input type="button" class="btn btn-danger btn-sm" value="Delete"
+                           onclick="location.href='@Url.Action("DeleteReservation","Admin", new { id = m.ReservationId })'" />
+                </td>
+            </tr>
+
+            }
+        </tbody>
+    </table>
+    <div class="text-left">
+        <a asp-controller="Admin" asp-action="Main" class="btn btn-primary">Back</a>
+    </div>
+</body>
+</html>

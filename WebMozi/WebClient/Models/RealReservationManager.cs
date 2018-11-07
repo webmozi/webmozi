@@ -11,12 +11,16 @@ namespace WebClient.Models
     {
         private List<DTO.User> users;
         private List<DTO.Reservation> reservations;
-        private int chosedreservationid;
+        private static int chosedmovieeventid;
+        private static int chosedseatid;
+        private static int signuserid;
 
         public RealReservationManager()
         {
-            chosedreservationid = -1;
-        }
+            chosedmovieeventid=-1;
+            chosedseatid = -1;
+            signuserid = -1;
+    }
         private void GetUser()
         {
             HttpClient client = new HttpClient();
@@ -42,7 +46,7 @@ namespace WebClient.Models
             GetUser();
             return users;
         }
-        public int AddUser(DTO.User user)
+        public void AddUser(DTO.User user)
         {
             using (var client = new HttpClient())
             {
@@ -50,12 +54,6 @@ namespace WebClient.Models
                 var response = client.PostAsJsonAsync<DTO.User>("api/user", user).Result;
               
             }
-            GetUser();
-            foreach (var u in users)
-            {
-                if (u.Name == user.Name) { return u.UserId; }
-            }
-            return -1;
         }
         public DTO.User SelectUser(int id)
         {
@@ -101,6 +99,14 @@ namespace WebClient.Models
             GetReservation();
             return reservations;
         }
+        public void DeleteReservation(int id)
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("http://localhost:6544/");
+                var response = client.DeleteAsync("api/reservation/" + id).Result;
+            }
+        }
         public DTO.Reservation SelectReservation(int id)
         {
             using (var client = new HttpClient())
@@ -110,92 +116,64 @@ namespace WebClient.Models
                 return response.Content.ReadAsAsync<DTO.Reservation>().Result;
             }
         }
-         public DTO.Reservation SelectReservationWithMovieEventAndSeat(int id)
+        public void SaveMovieEventForReservation(int movieeventid)
         {
-            using (var client = new HttpClient())
-            {
-                client.BaseAddress = new Uri("http://localhost:6544/");
-                var response = client.GetAsync("api/reservation/withmeandseat/" + id).Result;
-                return response.Content.ReadAsAsync<DTO.Reservation>().Result;
-            }
-        }
-        public Reservation SelectReservationAllIn(int id)
-        {
-            using (var client = new HttpClient())
-            {
-                client.BaseAddress = new Uri("http://localhost:6544/");
-                var response = client.GetAsync("api/reservation/allin/" + id).Result;
-                return response.Content.ReadAsAsync<DTO.Reservation>().Result;
-            }
-        }
-        public DTO.Reservation SelectReservationWithMovieEvent(int id)
-        {
-            using (var client = new HttpClient())
-            {
-                client.BaseAddress = new Uri("http://localhost:6544/");
-                var response = client.GetAsync("api/reservation/withmovieevent/" + id).Result;
-                return response.Content.ReadAsAsync<DTO.Reservation>().Result;
-            }
-        }
-        public void CreateReservationOnlyWithMovieEvent(DTO.MovieEvent me)
-        {
-            DTO.Reservation reservation = new DTO.Reservation();
-            reservation.MovieEvent = me;
-            using (var client = new HttpClient())
-            {
-                client.BaseAddress = new Uri("http://localhost:6544/");
-                var response = client.PostAsJsonAsync<DTO.Reservation>("api/reservation/onlywithmovieevent", reservation).Result;
 
-            }
+            chosedmovieeventid = movieeventid;
         }
-        public DTO.Reservation AddSeatToReservation(int resId, DTO.MovieEventSeat s)
+        public int getChosedMovieEventId() {
+            return chosedmovieeventid;
+        }
+        public void SaveSeatForReservation(int seatid)
         {
-            DTO.Reservation reservation= SelectReservationWithMovieEvent(resId);
-            reservation.Seat = s;
+            chosedseatid = seatid;
+        }
+        public void MakeReservation() {
+            DTO.Reservation res = new DTO.Reservation();
+            res.MovieEvent = new DTO.MovieEvent();
+            res.MovieEvent.MovieEventId = chosedmovieeventid;
+            res.User = new DTO.User();
+            res.User.UserId = signuserid;
+            res.Seat = new DTO.MovieEventSeat();
+            res.Seat.SeatId = chosedseatid;
             using (var client = new HttpClient())
             {
                 client.BaseAddress = new Uri("http://localhost:6544/");
-                var response = client.PostAsJsonAsync<DTO.Reservation>("api/reservation/seattoreservation", reservation).Result;
+                var response = client.PostAsJsonAsync<DTO.Reservation>("api/reservation", res).Result;
             }
-            return reservation;
+            
         }
-        public DTO.Reservation AddUserToReservation(int resId, DTO.User u)
-        {
-            DTO.Reservation reservation = SelectReservationWithMovieEventAndSeat(resId);
-            reservation.User = u;
-            using (var client = new HttpClient())
-            {
-                client.BaseAddress = new Uri("http://localhost:6544/");
-                var response = client.PostAsJsonAsync<DTO.Reservation>("api/reservation/usertoreservation", reservation).Result;
-            }
-            return reservation;
+        public List<DTO.Reservation> GetReservationsByUser(int id) {
+            HttpClient client = new HttpClient();
+            var result = client.GetAsync("http://localhost:6544/api/reservation/resbyuser/" + id).Result;
+            return result.Content.ReadAsAsync<List<DTO.Reservation>>().Result;
         }
-       
-        public int getChosedReservationId()
-        {
-            return chosedreservationid;
-        }
+        
+
+
+
 
         public void LogInUser(DTO.User u)
         {
+            GetUser();
+            foreach (var user in users)
+            {
+                if (user.Name == u.Name)
+                {
+                    signuserid = user.UserId;
+                }
+            }
+
         }
-
-        
-
-        public DTO.User SignedUser()
+        public int SignedUserId()
         {
-            return null;
+            return signuserid;
         }
-
-        
-
         public void Loggingout()
         {
+            signuserid = -1;
         }
 
-        public void setChosedReservationId(int id)
-        {
-            chosedreservationid = id;
-        }
+      
     }
 }

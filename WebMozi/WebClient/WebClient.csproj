@@ -50,9 +50,6 @@
     <Content Update="Views\User\ChooseSeats.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
-    <Content Update="Views\User\CreateUserOrLogin.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
     <Content Update="Views\User\ListMovieEvents.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>

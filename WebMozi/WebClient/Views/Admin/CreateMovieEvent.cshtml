@@ -18,20 +18,19 @@
     <body>
         @using (Html.BeginForm("CreateEvent", "Admin", "Home", FormMethod.Post))
         {
-            <div>
-
-                @Html.DropDownListFor(m => m.Movie.MovieId, ViewBag.movielist as SelectList, "Please Select Movie")
+            <div class="form-group">
+                @Html.DropDownListFor(m => m.Movie.MovieId, ViewBag.movielist as SelectList, "Please Select Movie", htmlAttributes: new { required = "" })
             </div>
-                <div>
+                <div class="form-group">
 
-                    @Html.DropDownListFor(m => m.Room.RoomId, ViewBag.roomlist as SelectList, "Please Select Room")
+                    @Html.DropDownListFor(m => m.Room.RoomId, ViewBag.roomlist as SelectList, "Please Select Room", htmlAttributes: new { required = "" })
                 </div>
 
                 <form class="p-a-1" asp-controller="Admin" asp-action="CreateEvent" method="post">
 
                     <div class="form-group">
                         <label asp-for="Time">Time:</label>
-                        <input class="form-control" asp-for="Time" />
+                        <input class="form-inline" asp-for="Time" required/>
                     </div>
                     <div class="text-center">
                         <button class="btn btn-primary" type="submit">

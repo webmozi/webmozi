@@ -45,18 +45,16 @@
                             <input type="button" class="btn btn-sm btn-warning" value="Choose"
                                    onclick="location.href='@Url.Action("SetSeatId", "User", new { id = m.SeatId })'" />
                         </td>
+                        Model.IsEnable = false;
                     }
-                    else {
-
-                   Model.IsEnable = false;
-                    }
+                    
                 </tr>
 
                 }
             </tbody>
         </table>
         <div class="text-center">
-            <a asp-controller="User" asp-action="CreateUserOrLogin" class="btn btn-primary">Get Enough Seats</a>
+            <a asp-controller="User" asp-action="ListSeatsInMovieEvent" class="btn btn-primary">Get Enough Seats</a>
         </div>
         <div class="text-left">
             <a asp-controller="User" asp-action="Main" class="btn btn-primary">Back</a>

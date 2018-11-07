@@ -19,11 +19,11 @@
         <div asp-validation-summary="All"></div>
         <div class="form-group">
             <label asp-for="Title">Movie title:</label>
-            <input class="form-control" asp-for="Title" />
+            <input class="form-inline" asp-for="Title" required/>
         </div>
         <div class="form-group">
             <label asp-for="Director">Director:</label>
-            <input class="form-control" asp-for="Director" />
+            <input class="form-inline" asp-for="Director" />
         </div>
         <div class="text-center">
             <button class="btn btn-primary" type="submit">

@@ -125,7 +125,7 @@ namespace DAL
         {
             using (var context = new CinemaContext())
             {
-                return context.Users.SingleOrDefault(u=> u.UserId == id);
+                return context.Users.Where(u=> u.UserId == id).SingleOrDefault();
             }
         }
         public List<Seat> ListSeatsInMovieEvent(int id)
@@ -185,6 +185,18 @@ namespace DAL
                 context.SaveChanges();
             }
         }
+        public void DeleteReservation(int id) {
+            using (var context = new CinemaContext())
+            {
+                var item = context.Reservations.SingleOrDefault(r => r.ReservationId == id);
+                if (item == null)
+                {
+                    return;
+                }
+                context.Reservations.Remove(item);
+                context.SaveChanges();
+            }
+        }
         public void AddMovieEvent(MovieEvent me)
         {
             using (var context = new CinemaContext())
@@ -195,39 +207,8 @@ namespace DAL
                 context.SaveChanges();
             }
         }
-        public void AddReservationOnlyWithMovieEvent(Reservation res)
-        {
-            using (var context = new CinemaContext())
-            {
-                res.UserId = 1;     //ITT MÉG NEM TUDJUK EZEKET ÉS MEG KÉNE OLDANI HA LEHET, HOGY NE LÉTEZŐKRE MUTASSANAK
-                res.SeatId = 4;            //ITT MÉG NEM TUDJUK EZEKET ÉS MEG KÉNE OLDANI HA LEHET, HOGY NE LÉTEZŐKRE MUTASSANAK
-                context.Reservations.Add(res);     
-                context.SaveChanges();
-            }
-
-        }
-        public void AddSeatToReservation(Reservation res)
-        {
-            using (var context = new CinemaContext())
-            {
-                Reservation reservation= context.Reservations.Find(res.ReservationId);
-                reservation.SeatId = res.SeatId;
-                context.SaveChanges();
-            }
-
-        }
-        
-        public void AddUserToReservation(Reservation res)
-        {
-            using (var context = new CinemaContext())
-            {
-
-                Reservation reservation = context.Reservations.Find(res.ReservationId);
-                reservation.UserId = res.UserId;                        
-                context.SaveChanges();
-            }
-
-        }
+     
+       
         public void DeleteMovieEvent(int id)
         {
             using (var context = new CinemaContext())
@@ -272,19 +253,11 @@ namespace DAL
             {
                 using (CinemaContext ctx = new CinemaContext())
                 {
-                    return ctx.Seats.SingleOrDefault(s => s.SeatId == id);
+                return ctx.Seats.Where(s => s.SeatId == id).SingleOrDefault();
                 }
             }
             
-        public Reservation GetReservationByIdWithMovieEvent(int id)
-        {
-            using (CinemaContext ctx = new CinemaContext())
-            {
-                var AllReservation = ctx.Reservations.Include(r =>r.MovieEvent)
-                    .Include(r=>r.MovieEvent.Movie).Include(r=>r.MovieEvent.Room).Include(r=>r.MovieEvent.Room.Seats);//////////////EZMINDKELL?
-                return AllReservation.SingleOrDefault(r => r.ReservationId == id);
-            }
-        }
+      
      
         public List<MovieEvent> ListMovieEventsWithRoomAndMovie()
         {
@@ -299,17 +272,10 @@ namespace DAL
         {
             using( CinemaContext ctx = new CinemaContext())
             {
-                return ctx.Reservations.ToList();
+                return ctx.Reservations.Include(r=>r.MovieEvent).Include(r=>r.MovieEvent.Movie).ToList();
             }
         }
-        public List<User> ListUsers()
-        {
-            using (CinemaContext ctx = new CinemaContext())
-            {
-                var AllUsers = ctx.Users.Include(u => u.Reservations);
-                return AllUsers.ToList();
-            }
-        }
+       
         public List<User> ListUsersWithoutReservation()
         {
             using (CinemaContext ctx = new CinemaContext())
@@ -341,30 +307,25 @@ namespace DAL
         }
 
 
-        public void AddReservation(int movieEventId, int seatId, int userId)
+        public void AddReservation(Reservation reservation)
         {
-            using( CinemaContext ctx = new CinemaContext() )
+            using (CinemaContext ctx = new CinemaContext())
             {
-                Reservation reservation = new Reservation();
-                reservation.MovieEventId = movieEventId;
-                reservation.MovieEvent = ctx.MovieEvents.Find(movieEventId);
-                reservation.SeatId = seatId;
-                reservation.UserId = userId;
-
+                reservation.MovieEvent = ctx.MovieEvents.Find(reservation.MovieEventId);
                 ctx.Reservations.Add(reservation);
                 ctx.SaveChanges();
             }
         }
 
 
-        public List<Reservation> listUserReservations(int userId)
+        public List<Reservation> ListUserReservations(int userId)
         {
             using( CinemaContext ctx = new CinemaContext() )
             {
-                var query = ctx.Reservations
-                                .Where(r => r.UserId == userId)
-                                .ToList();
-                return query;
+                   var q= ctx.Reservations.Include(r => r.MovieEvent).Include(r => r.MovieEvent.Movie).
+                     Include(r => r.MovieEvent.Room).Include(r=>r.MovieEvent.Room.Seats) 
+                     .Where(r=>r.UserId==userId);
+                    return q.ToList();
             }
         }
     }

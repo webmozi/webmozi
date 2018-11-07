@@ -19,15 +19,15 @@
             <input type="hidden" asp-for="UserId" />
             <div class="form-group">
                 <label asp-for="Name"></label>
-                <input asp-for="Name" class="form-control" />
+                <input asp-for="Name" class="form-inline" required/>
             </div>
             <div class="form-group">
                 <label asp-for="TelephoneNumber"></label>
-                <textarea asp-for="TelephoneNumber" class="form-control"></textarea>
+                <input asp-for="TelephoneNumber" type="number" class="form-inline" required>
             </div>
             <div class="form-group">
                 <label asp-for="Email"></label>
-                <input asp-for="Email" class="form-control" />
+                <input asp-for="Email" class="form-inline" required/>
             </div>
             <div class="text-center">
                 <button class="btn btn-primary" type="submit">Save</button>

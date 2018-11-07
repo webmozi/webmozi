@@ -165,7 +165,49 @@ namespace WebClient.Models
             throw new NotImplementedException();
         }
 
-        int IReservationManager.AddUser(User user)
+       
+
+        public int SignedUserId()
+        {
+            throw new NotImplementedException();
+        }
+
+        public int getChosedMovieEventId()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SaveMovieEventForReservation(int movieeventid)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SaveSeatForReservation(int seatid)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int getChosedSeatId()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void MakeReservation()
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Reservation> GetReservations()
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Reservation> GetReservationsByUser(int userid)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeleteReservation(int id)
         {
             throw new NotImplementedException();
         }

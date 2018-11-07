@@ -11,6 +11,17 @@ namespace WebApi.Controllers
     [ApiController]
     public class ReservationController : ControllerBase
     {
+        [HttpPost]
+        public IActionResult Create(DTO.Reservation item)
+        {
+            DAL.CinemaManager cinemamanager = new DAL.CinemaManager();
+            var dalitem = new DAL.Reservation();
+            dalitem.MovieEventId = item.MovieEvent.MovieEventId;
+            dalitem.SeatId = item.Seat.SeatId;
+            dalitem.UserId = item.User.UserId;
+            cinemamanager.AddReservation(dalitem);
+            return Created("http://localhost:6544/api/reservation", dalitem);
+        }
         [HttpGet]
         public ActionResult<List<DTO.Reservation>> Get()
         {
@@ -19,45 +30,26 @@ namespace WebApi.Controllers
             List<DAL.Reservation> dallist = cinemamanager.ListReservations();
             foreach (var res in dallist)
             {
-                reservationlist.Add(new DTO.Reservation
-                {
-                    ReservationId = res.ReservationId
-                });
+                DTO.Reservation dtoreservation = new DTO.Reservation();
+                dtoreservation.ReservationId = res.ReservationId;
+                dtoreservation.User = new DTO.User();
+                DAL.User daluser = cinemamanager.GetUserById(res.UserId);
+                dtoreservation.User.UserId = daluser.UserId;
+                dtoreservation.User.Name = daluser.Name;
+                dtoreservation.MovieEvent = new DTO.MovieEvent();
+                dtoreservation.MovieEvent.Movie = new DTO.Movie();
+                dtoreservation.MovieEvent.Movie.Title = res.MovieEvent.Movie.Title;
+                dtoreservation.MovieEvent.Time = res.MovieEvent.TimeOfEvent;
+                reservationlist.Add(dtoreservation);
             }
             return reservationlist;
         }
-        [HttpPost("onlywithmovieevent")]
-        public IActionResult ReservationWithMovieEvent(DTO.Reservation res)
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
         {
             DAL.CinemaManager cinemamanager = new DAL.CinemaManager();
-            var dalitem = new DAL.Reservation();
-            dalitem.MovieEventId = res.MovieEvent.MovieEventId;
-            cinemamanager.AddReservationOnlyWithMovieEvent(dalitem);
-            return Created("http://localhost:6544/api/reservation/onlywithmovieevent", dalitem);
-        }
-        [HttpPost("seattoreservation")]
-        public IActionResult SeatToReservation(DTO.Reservation res)
-        {
-            DAL.CinemaManager cinemamanager = new DAL.CinemaManager();
-            var dalitem = new DAL.Reservation();
-            dalitem.ReservationId = res.ReservationId;
-            dalitem.MovieEventId = res.MovieEvent.MovieEventId;
-            dalitem.SeatId = res.Seat.SeatId;
-            cinemamanager.AddSeatToReservation(dalitem);
-            return Created("http://localhost:6544/api/reservation/seattoreservation", dalitem);
-        }
-        
-        [HttpPost("usertoreservation")]
-        public IActionResult UserToReservation(DTO.Reservation res)
-        {
-            DAL.CinemaManager cinemamanager = new DAL.CinemaManager();
-            var dalitem = new DAL.Reservation();
-            dalitem.ReservationId = res.ReservationId;
-            dalitem.MovieEventId = res.MovieEvent.MovieEventId;
-            dalitem.SeatId = res.Seat.SeatId;
-            dalitem.UserId = res.User.UserId;
-            cinemamanager.AddUserToReservation(dalitem);
-            return Created("http://localhost:6544/api/reservation/usertoreservation", dalitem);
+            cinemamanager.DeleteReservation(id);
+            return NoContent();
         }
         [HttpGet("{id}")]
         public ActionResult<DTO.Reservation> GetById(int id)
@@ -68,95 +60,39 @@ namespace WebApi.Controllers
             dtoreservation.ReservationId = dalreservation.ReservationId;
             return dtoreservation;
         }
-        [HttpGet("withmovieevent/{id}")]
-        public ActionResult<DTO.Reservation> GetByIdWithMovieEvent(int id)
+       
+        [HttpGet("resbyuser/{id}")]
+        public ActionResult<List<DTO.Reservation>> GetResByUserId(int id)
         {
             DAL.CinemaManager cinemamanager = new DAL.CinemaManager();
-            DAL.Reservation dalreservation = cinemamanager.GetReservationByIdWithMovieEvent(id);
-            DTO.Reservation dtoreservation = new DTO.Reservation();
-            dtoreservation.ReservationId = dalreservation.ReservationId;
-            dtoreservation.MovieEvent = new DTO.MovieEvent();
-            dtoreservation.MovieEvent.Movie = new DTO.Movie();
-            dtoreservation.MovieEvent.Room = new DTO.Room();
-            dtoreservation.MovieEvent.MovieEventId = dalreservation.MovieEventId;
-            dtoreservation.MovieEvent.Time = dalreservation.MovieEvent.TimeOfEvent;
-            dtoreservation.MovieEvent.Movie.Director = dalreservation.MovieEvent.Movie.Director;
-            dtoreservation.MovieEvent.Movie.MovieId = dalreservation.MovieEvent.Movie.MovieId;
-            dtoreservation.MovieEvent.Movie.Title = dalreservation.MovieEvent.Movie.Title;
-            dtoreservation.MovieEvent.Room.Capacity = dalreservation.MovieEvent.Room.Capacity;
-            dtoreservation.MovieEvent.Room.RoomId = dalreservation.MovieEvent.Room.RoomId;
-            dtoreservation.MovieEvent.Room.RoomNumber = dalreservation.MovieEvent.Room.RoomNumber;
-            dtoreservation.MovieEvent.Room.Seats = new List<DTO.MovieEventSeat>();
-             foreach (var dalseat in dalreservation.MovieEvent.Room.Seats)
-                {
-                DTO.MovieEventSeat dtoseat = new DTO.MovieEventSeat();
-                dtoseat.RowNumber = dalseat.RowNumber;
-                dtoseat.SeatId = dalseat.SeatId;
-                dtoseat.SeatNumber = dalseat.SeatNumber;
-                dtoreservation.MovieEvent.Room.Seats.Add(dtoseat);
-                }
-            return dtoreservation;
-        }
-        [HttpGet("withmeandseat/{id}")]
-        public ActionResult<DTO.Reservation> GetByIdWithMovieEventAndSeat(int id)
-        {
-            DAL.CinemaManager cinemamanager = new DAL.CinemaManager();
-            DAL.Reservation dalreservation = cinemamanager.GetReservationByIdWithMovieEvent(id);
-            DTO.Reservation dtoreservation = new DTO.Reservation();
-            dtoreservation.ReservationId = dalreservation.ReservationId;
-            dtoreservation.MovieEvent = new DTO.MovieEvent();
-            dtoreservation.MovieEvent.Movie = new DTO.Movie();
-            dtoreservation.MovieEvent.Room = new DTO.Room();
-            dtoreservation.MovieEvent.MovieEventId = dalreservation.MovieEventId;
-            dtoreservation.MovieEvent.Time = dalreservation.MovieEvent.TimeOfEvent;
-            dtoreservation.MovieEvent.Movie.Director = dalreservation.MovieEvent.Movie.Director;
-            dtoreservation.MovieEvent.Movie.MovieId = dalreservation.MovieEvent.Movie.MovieId;
-            dtoreservation.MovieEvent.Movie.Title = dalreservation.MovieEvent.Movie.Title;
-            dtoreservation.MovieEvent.Room.Capacity = dalreservation.MovieEvent.Room.Capacity;
-            dtoreservation.MovieEvent.Room.RoomId = dalreservation.MovieEvent.Room.RoomId;
-            dtoreservation.MovieEvent.Room.RoomNumber = dalreservation.MovieEvent.Room.RoomNumber;
-            dtoreservation.MovieEvent.Room.Seats = new List<DTO.MovieEventSeat>();
-            foreach (var dalseat in dalreservation.MovieEvent.Room.Seats)
+            List<DAL.Reservation> dalreservations = new List<DAL.Reservation>();
+            dalreservations=cinemamanager.ListUserReservations(id);        
+            List<DTO.Reservation> dtoreservations = new List<DTO.Reservation>();
+            foreach (var dalreservation in dalreservations)
             {
-                DTO.MovieEventSeat dtoseat = new DTO.MovieEventSeat();
-                dtoseat.RowNumber = dalseat.RowNumber;
-                dtoseat.SeatId = dalseat.SeatId;
-                dtoseat.SeatNumber = dalseat.SeatNumber;
-                dtoreservation.MovieEvent.Room.Seats.Add(dtoseat);
+                DTO.Reservation dtoreservation = new DTO.Reservation();
+                dtoreservation.ReservationId = dalreservation.ReservationId;
+                dtoreservation.MovieEvent = new DTO.MovieEvent();
+                dtoreservation.MovieEvent.Movie = new DTO.Movie();
+                dtoreservation.MovieEvent.Room = new DTO.Room();
+                dtoreservation.MovieEvent.MovieEventId = dalreservation.MovieEventId;
+                dtoreservation.MovieEvent.Time = dalreservation.MovieEvent.TimeOfEvent;
+                dtoreservation.MovieEvent.Movie.MovieId = dalreservation.MovieEvent.Movie.MovieId;
+                dtoreservation.MovieEvent.Movie.Title = dalreservation.MovieEvent.Movie.Title;
+                dtoreservation.MovieEvent.Room.RoomId = dalreservation.MovieEvent.Room.RoomId;
+                dtoreservation.MovieEvent.Room.RoomNumber = dalreservation.MovieEvent.Room.RoomNumber;
+                DAL.User daluser = cinemamanager.GetUserById(dalreservation.UserId);
+                dtoreservation.User = new DTO.User();
+                dtoreservation.User.Name = daluser.Name;
+                dtoreservation.User.UserId = daluser.UserId;
+                DAL.Seat dalseatt =cinemamanager.GetSeatById(dalreservation.SeatId); 
+                dtoreservation.Seat = new DTO.MovieEventSeat();
+                dtoreservation.Seat.SeatId = dalseatt.SeatId;
+                dtoreservation.Seat.SeatNumber = dalseatt.SeatNumber;
+                dtoreservation.Seat.RowNumber = dalseatt.RowNumber;
+                dtoreservations.Add(dtoreservation);
             }
-            DAL.Seat dalseatt =cinemamanager.GetSeatById(dalreservation.SeatId);
-            dtoreservation.Seat= new DTO.MovieEventSeat();
-            dtoreservation.Seat.SeatId = dalseatt.SeatId;
-            dtoreservation.Seat.SeatNumber = dalseatt.SeatNumber;
-            dtoreservation.Seat.RowNumber = dalseatt.RowNumber;
-            return dtoreservation;
-        }
-        [HttpGet("allin/{id}")]
-        public ActionResult<DTO.Reservation> GetByIdAllIn(int id)
-        {
-            DAL.CinemaManager cinemamanager = new DAL.CinemaManager();
-            DAL.Reservation dalreservation = cinemamanager.GetReservationByIdWithMovieEvent(id);
-            DTO.Reservation dtoreservation = new DTO.Reservation();
-            dtoreservation.ReservationId = dalreservation.ReservationId;
-            dtoreservation.MovieEvent = new DTO.MovieEvent();
-            dtoreservation.MovieEvent.Movie = new DTO.Movie();
-            dtoreservation.MovieEvent.Room = new DTO.Room();
-            dtoreservation.MovieEvent.MovieEventId = dalreservation.MovieEventId;
-            dtoreservation.MovieEvent.Time = dalreservation.MovieEvent.TimeOfEvent;
-            dtoreservation.MovieEvent.Movie.MovieId = dalreservation.MovieEvent.Movie.MovieId;
-            dtoreservation.MovieEvent.Movie.Title = dalreservation.MovieEvent.Movie.Title;
-            dtoreservation.MovieEvent.Room.RoomId = dalreservation.MovieEvent.Room.RoomId;
-            dtoreservation.MovieEvent.Room.RoomNumber = dalreservation.MovieEvent.Room.RoomNumber;
-            DAL.User daluser = cinemamanager.GetUserById(dalreservation.UserId);
-            dtoreservation.User = new DTO.User();
-            dtoreservation.User.Name = daluser.Name;
-            dtoreservation.User.UserId = daluser.UserId;
-            DAL.Seat dalseatt = cinemamanager.GetSeatById(dalreservation.SeatId);
-            dtoreservation.Seat = new DTO.MovieEventSeat();
-            dtoreservation.Seat.SeatId = dalseatt.SeatId;
-            dtoreservation.Seat.SeatNumber = dalseatt.SeatNumber;
-            dtoreservation.Seat.RowNumber = dalseatt.RowNumber;
-            return dtoreservation;
+            return dtoreservations;
         }
     }
 }

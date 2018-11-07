@@ -9,20 +9,19 @@ namespace WebClient.Models
     {
         IEnumerable<DTO.User> ListUsers();
         IEnumerable<DTO.Reservation> ListReservations();
-        void CreateReservationOnlyWithMovieEvent(DTO.MovieEvent me);
         DTO.Reservation SelectReservation(int id);
-        DTO.Reservation SelectReservationWithMovieEvent(int id);
-        DTO.Reservation SelectReservationAllIn(int id);
-        int AddUser(DTO.User user);
+        void AddUser(DTO.User user);
         DTO.User SelectUser(int ID);
         DTO.User EditUser(DTO.User u);
         void DeleteUser(int id);
-        DTO.Reservation AddSeatToReservation(int resID, DTO.MovieEventSeat s);
-        DTO.Reservation AddUserToReservation(int resID, DTO.User u);
+        int getChosedMovieEventId();
+        void SaveMovieEventForReservation(int movieeventid);
+        void SaveSeatForReservation(int seatid);
+        void MakeReservation();
+        void DeleteReservation(int id);
+        List<DTO.Reservation> GetReservationsByUser(int userid);
         void LogInUser(DTO.User u);
         void Loggingout();
-        DTO.User SignedUser();
-        int getChosedReservationId();
-        void setChosedReservationId(int id);
+        int SignedUserId();
     }
 }

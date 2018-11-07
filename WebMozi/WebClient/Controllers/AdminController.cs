@@ -150,5 +150,18 @@ namespace WebClient.Controllers
             IEnumerable<DTO.MovieEventSeat> seatslist = icinemamanager.ListSeatsInRoom(id);
             return View("ListSeats", seatslist);
         }
+
+        [HttpGet]
+        public ViewResult ListReservation()
+        {
+            return View("ListReservation", ireservationmanager.ListReservations().ToList());
+        }
+        [HttpGet]
+        public ViewResult DeleteReservation(int id)
+        {
+            TempData["message"] = $"{ireservationmanager.SelectReservation(id).ReservationId} was removed";
+            ireservationmanager.DeleteReservation(id);
+            return ListReservation();
+        }
     }
 }

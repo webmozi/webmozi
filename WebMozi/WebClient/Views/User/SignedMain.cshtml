@@ -11,9 +11,12 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
 </head>
 <body>
-    <h3>First please choose a movie or log in</h3>
+    <h3>Choose a movie or see your cart</h3>
     <div class="panel-heading text-center">
         <a class="btn btn-primary" asp-controller="User" asp-action="ListEvents">Choose a movie</a>
+    </div>
+    <div class="panel-heading text-center">
+        <a class="btn btn-primary" asp-controller="User" asp-action="Reservation">See your cart</a>
     </div>
     <div class="text-left">
         <a asp-controller="Home" asp-action="Index" class="btn btn-primary">Back</a>
