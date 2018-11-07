@@ -149,7 +149,7 @@ namespace WebClient.Models
         {
             return SelectRoom(id).Seats;
         }
-        public List<DTO.MovieEventSeat> getEnableSeats(int id, List<DTO.Reservation> res)
+        public List<DTO.MovieEventSeat> getEnableSeats(int id)
         {
             HttpClient client = new HttpClient();
             var result = client.GetAsync("http://localhost:6544/api/movieevents/enableseats/" + id).Result;

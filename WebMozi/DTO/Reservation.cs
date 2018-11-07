@@ -12,6 +12,6 @@ namespace DTO
 
         public User User { get; set; }
 
-        public DTO.MovieEventSeat Seat { get; set; }
+        public MovieEventSeat Seat { get; set; }
     }
 }

@@ -12,8 +12,6 @@ namespace WebClient.Controllers
 {
     public class UserController : HomeController
     {
-        private int seatid = 0;
-
         [HttpGet]
         public ViewResult Main()
         {
@@ -24,7 +22,7 @@ namespace WebClient.Controllers
             }
             else
             {
-                return View("Main");
+                return View("Login");
             }
         }
 
@@ -47,7 +45,7 @@ namespace WebClient.Controllers
         public ViewResult Logout()
         {
             ireservationmanager.Loggingout();
-            return View("Main");
+            return View("Login");
         }
         [HttpGet]
         public ViewResult Login()
@@ -93,7 +91,7 @@ namespace WebClient.Controllers
             DTO.MovieEvent me = icinemamanager.SelectMovieEvent(meId);
             Models.EnableAndDisableSeats seats = new Models.EnableAndDisableSeats();
             seats.AllSeats = icinemamanager.SelectMovieEvent(me.MovieEventId).Room.Seats;
-            seats.EnableSeats = icinemamanager.getEnableSeats(me.MovieEventId, null);
+            seats.EnableSeats = icinemamanager.getEnableSeats(me.MovieEventId);
             return View("ChooseSeats", seats);
         }
         [HttpGet]
@@ -107,14 +105,13 @@ namespace WebClient.Controllers
         {
             Models.EnableAndDisableSeats seats = new Models.EnableAndDisableSeats();
             seats.AllSeats = icinemamanager.SelectMovieEvent(ireservationmanager.getChosedMovieEventId()).Room.Seats;
-            seats.EnableSeats= icinemamanager.getEnableSeats(ireservationmanager.getChosedMovieEventId(), ireservationmanager.ListReservations().ToList());
+            seats.EnableSeats= icinemamanager.getEnableSeats(ireservationmanager.getChosedMovieEventId());
             return View("ListSeatsInMovieEvent",seats);
         }
         [HttpGet]
         public ViewResult SetSeatId(int id)
         {
-            seatid = id;
-            return ChooseSeat(seatid);
+            return ChooseSeat(id);
         }
         [HttpGet]
         public ViewResult ChooseSeat(int seatid)
@@ -129,7 +126,7 @@ namespace WebClient.Controllers
             int movieeventid = ireservationmanager.getChosedMovieEventId();
             Models.EnableAndDisableSeats seats = new Models.EnableAndDisableSeats();
             seats.AllSeats = icinemamanager.SelectMovieEvent(movieeventid).Room.Seats;
-            seats.EnableSeats = icinemamanager.getEnableSeats(movieeventid, ireservationmanager.ListReservations().ToList());
+            seats.EnableSeats = icinemamanager.getEnableSeats(movieeventid);
             return View("ChooseSeats", seats);
         }
 

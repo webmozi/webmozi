@@ -175,7 +175,7 @@ namespace WebClient.Models
         }
 
       
-        public List<MovieEventSeat> getEnableSeats(int id,List<DTO.Reservation> reservations)
+        public List<MovieEventSeat> getEnableSeats(int id)
         {
             DTO.MovieEvent movieevent = null;
             List<DTO.MovieEventSeat> enablelist = new List<DTO.MovieEventSeat>();
@@ -186,7 +186,7 @@ namespace WebClient.Models
                     movieevent = me;
                 }
             }
-            foreach (var r in reservations)
+            foreach (var r in new List<DTO.Reservation>())
             {
               
                     for (int j = 0; j < movieevent.Room.Seats.Count; j++)

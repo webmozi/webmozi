@@ -56,9 +56,6 @@
     <Content Update="Views\User\ListSeatsInMovieEvent.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
-    <Content Update="Views\User\Main.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
     <Content Update="Views\User\Reservation.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
