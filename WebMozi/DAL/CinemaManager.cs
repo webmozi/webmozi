@@ -284,6 +284,7 @@ namespace DAL
                 return ctx.Users.ToList();
             }
         }
+
         public List<Seat> ListFreeSeatsForMovieEvent(int movieEventId)
         {
             using( CinemaContext ctx = new CinemaContext() )
