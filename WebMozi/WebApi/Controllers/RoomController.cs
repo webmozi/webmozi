@@ -19,8 +19,7 @@ namespace WebApi.Controllers
         public ActionResult<List<DTO.Room>> Get()
         {
             List<DTO.Room> dtorooms = new List<DTO.Room>();
-            DAL.CinemaManager cinemamanager = new DAL.CinemaManager();
-            List<DAL.Room> dalrooms = cinemamanager.ListRooms();
+            List<DAL.Room> dalrooms = DAL.Queries.ListRooms();
             foreach (var room in dalrooms)
             {
                 DTO.Room dtoroom = new DTO.Room();
@@ -45,8 +44,7 @@ namespace WebApi.Controllers
         {
             DTO.Room dtoroom = new DTO.Room();
             dtoroom.Seats = new List<DTO.MovieEventSeat>();
-            DAL.CinemaManager cinemamanager = new DAL.CinemaManager();
-            DAL.Room dalroom= cinemamanager.GetRoomById(id);
+            DAL.Room dalroom= DAL.Queries.GetRoomById(id);
             dtoroom.RoomId = dalroom.RoomId;
             dtoroom.Capacity = dalroom.Capacity;
             dtoroom.RoomNumber = dalroom.RoomNumber;
@@ -64,19 +62,17 @@ namespace WebApi.Controllers
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            DAL.CinemaManager cinemamanager = new DAL.CinemaManager();
-            cinemamanager.DeleteRoom(id);
+            DAL.Administration.DeleteRoom(id);
             return NoContent();
         }
         [HttpPost]
         public IActionResult Create(DTO.Room item)
         {
-            DAL.CinemaManager cinemamanager = new DAL.CinemaManager();
             var dalitem = new DAL.Room();
             dalitem.RoomId = item.RoomId;
             dalitem.RoomNumber = item.RoomNumber;
             dalitem.Capacity = item.Capacity;
-            cinemamanager.AddRoom(dalitem);
+            DAL.Administration.AddRoom(dalitem);
             return Created("http://localhost:6544/api/rooms", item);
         }
 

@@ -66,7 +66,7 @@ namespace DAL
         }
 
 
-        public static void UpdateMovie(DAL.Movie movie)
+        public static void UpdateMovie(Movie movie)
         {
             using (var context = new CinemaContext())
             {
@@ -75,9 +75,6 @@ namespace DAL
                 {
                     return;
                 }
-
-                
-                //item.MovieId = movie.MovieId;
                 item.Director = movie.Director;
                 item.Title = movie.Title;
                 context.Movies.Update(item);
@@ -168,7 +165,22 @@ namespace DAL
             }
         }
 
-
+        public static void UpdateUser(User user)
+        {
+            using (var context = new CinemaContext())
+            {
+                var item = context.Users.Find(user.UserId);
+                if (item == null)
+                {
+                    return;
+                }
+                item.Name = user.Name;
+                item.TelephoneNumber = user.TelephoneNumber;
+                item.Email = user.Email;
+                context.Users.Update(item);
+                context.SaveChanges();
+            }
+        }
 
         ////////////////////////////////////////////////////////////////////////////////////////////
         ///                                       RESERVATIONS                                  ///
@@ -179,13 +191,23 @@ namespace DAL
         {
             using (CinemaContext ctx = new CinemaContext())
             {
-                // Szükség van a navigation property-k megadására beszúráskor?
-                //reservation.MovieEvent = ctx.MovieEvents.Find(reservation.MovieEventId);
                 ctx.Reservations.Add(reservation);
                 ctx.SaveChanges();
             }
         }
-
+        public static void DeleteReservation(int id)
+        {
+            using (CinemaContext ctx = new CinemaContext())
+            {
+                var item = ctx.Reservations.SingleOrDefault(r => r.ReservationId == id);
+                if (item == null)
+                {
+                    return;
+                }
+                ctx.Reservations.Remove(item);
+                ctx.SaveChanges();
+            }
+        }
 
     }
 }

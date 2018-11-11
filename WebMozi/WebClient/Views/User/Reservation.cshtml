@@ -81,16 +81,19 @@
                         }
                         else
                         {
-                            <tr>
-                                <td>  </td>
-                                <td>  </td>
-                                <td>  </td>
-                                <td>  </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => Model.ElementAt(i).Seat.SeatNumber)
-                                    @Html.DisplayFor(modelItem => Model.ElementAt(i).Seat.RowNumber)
-                                </td>
-                            </tr>
+                <tr>
+                    <td>  </td>
+                    <td>  </td>
+                    <td>  </td>
+                    <td>  </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => Model.ElementAt(i).Seat.RowNumber)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => Model.ElementAt(i).Seat.SeatNumber)
+
+                    </td>
+                </tr>
                         }
                         
                     }

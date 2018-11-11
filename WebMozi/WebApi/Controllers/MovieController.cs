@@ -17,8 +17,7 @@ namespace WebApi.Controllers
         public ActionResult<List<DTO.Movie>> Get()
         {
             List<DTO.Movie> movielist = new List<DTO.Movie>();
-            DAL.CinemaManager cinemamanager = new DAL.CinemaManager();
-            List<DAL.Movie> dallist = cinemamanager.ListMovies();
+            List<DAL.Movie> dallist = DAL.Queries.ListMovies();
             foreach (var movie in dallist)
             {
                 movielist.Add(new DTO.Movie
@@ -33,8 +32,7 @@ namespace WebApi.Controllers
         [HttpGet("{id}")]
         public ActionResult<DTO.Movie> GetById(int id)
         {
-            DAL.CinemaManager cinemamanager = new DAL.CinemaManager();
-            DAL.Movie dalmovie=cinemamanager.GetMovieById(id);
+            DAL.Movie dalmovie=DAL.Queries.GetMovieById(id);
             DTO.Movie dtomovie = new DTO.Movie();
             dtomovie.Director = dalmovie.Director;
             dtomovie.MovieId = dalmovie.MovieId;
@@ -44,25 +42,21 @@ namespace WebApi.Controllers
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            DAL.CinemaManager cinemamanager = new DAL.CinemaManager();
-            cinemamanager.DeleteMovie(id);
+            DAL.Administration.DeleteMovie(id);
             return NoContent();
         }
         [HttpPost]
         public IActionResult Create(DTO.Movie item)
         {
-            DAL.CinemaManager cinemamanager = new DAL.CinemaManager();
             var dalitem = new DAL.Movie();
             dalitem.Director = item.Director;
             dalitem.Title = item.Title;
-            cinemamanager.AddMovie(dalitem);
+            DAL.Administration.AddMovie(dalitem);
             return Created("http://localhost:6544/api/movie", item);
         }
         [HttpPut]
         public ActionResult<DTO.Movie> Update(DTO.Movie item)
         {
-            DAL.CinemaManager cinemamanager = new DAL.CinemaManager();
-
             var newDalMovie = new DAL.Movie
             {
                 Title = item.Title,
@@ -70,7 +64,7 @@ namespace WebApi.Controllers
                 Director = item.Director,
             };
 
-            cinemamanager.UpdateMovie(newDalMovie);
+            DAL.Administration.UpdateMovie(newDalMovie);
 
             return NoContent();
         }

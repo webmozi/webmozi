@@ -14,26 +14,24 @@ namespace WebApi.Controllers
         [HttpPost]
         public IActionResult Create(DTO.Reservation item)
         {
-            DAL.CinemaManager cinemamanager = new DAL.CinemaManager();
             var dalitem = new DAL.Reservation();
             dalitem.MovieEventId = item.MovieEvent.MovieEventId;
             dalitem.SeatId = item.Seat.SeatId;
             dalitem.UserId = item.User.UserId;
-            cinemamanager.AddReservation(dalitem);
+            DAL.Administration.AddReservation(dalitem);
             return Created("http://localhost:6544/api/reservation", dalitem);
         }
         [HttpGet]
         public ActionResult<List<DTO.Reservation>> Get()
         {
             List<DTO.Reservation> reservationlist = new List<DTO.Reservation>();
-            DAL.CinemaManager cinemamanager = new DAL.CinemaManager();
-            List<DAL.Reservation> dallist = cinemamanager.ListReservations();
+            List<DAL.Reservation> dallist = DAL.Queries.ListReservations();
             foreach (var res in dallist)
             {
                 DTO.Reservation dtoreservation = new DTO.Reservation();
                 dtoreservation.ReservationId = res.ReservationId;
                 dtoreservation.User = new DTO.User();
-                DAL.User daluser = cinemamanager.GetUserById(res.UserId);
+                DAL.User daluser = DAL.Queries.GetUserById(res.UserId);
                 dtoreservation.User.UserId = daluser.UserId;
                 dtoreservation.User.Name = daluser.Name;
                 dtoreservation.MovieEvent = new DTO.MovieEvent();
@@ -47,15 +45,13 @@ namespace WebApi.Controllers
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            DAL.CinemaManager cinemamanager = new DAL.CinemaManager();
-            cinemamanager.DeleteReservation(id);
+            DAL.Administration.DeleteReservation(id);
             return NoContent();
         }
         [HttpGet("{id}")]
         public ActionResult<DTO.Reservation> GetById(int id)
         {
-            DAL.CinemaManager cinemamanager = new DAL.CinemaManager();
-            DAL.Reservation dalreservation = cinemamanager.GetReservationById(id);
+            DAL.Reservation dalreservation = DAL.Queries.GetReservationById(id);
             DTO.Reservation dtoreservation = new DTO.Reservation();
             dtoreservation.ReservationId = dalreservation.ReservationId;
             return dtoreservation;
@@ -64,9 +60,8 @@ namespace WebApi.Controllers
         [HttpGet("resbyuser/{id}")]
         public ActionResult<List<DTO.Reservation>> GetResByUserId(int id)
         {
-            DAL.CinemaManager cinemamanager = new DAL.CinemaManager();
             List<DAL.Reservation> dalreservations = new List<DAL.Reservation>();
-            dalreservations=cinemamanager.ListUserReservations(id);        
+            dalreservations=DAL.Queries.ListUserReservations(id);        
             List<DTO.Reservation> dtoreservations = new List<DTO.Reservation>();
             foreach (var dalreservation in dalreservations)
             {
@@ -81,11 +76,11 @@ namespace WebApi.Controllers
                 dtoreservation.MovieEvent.Movie.Title = dalreservation.MovieEvent.Movie.Title;
                 dtoreservation.MovieEvent.Room.RoomId = dalreservation.MovieEvent.Room.RoomId;
                 dtoreservation.MovieEvent.Room.RoomNumber = dalreservation.MovieEvent.Room.RoomNumber;
-                DAL.User daluser = cinemamanager.GetUserById(dalreservation.UserId);
+                DAL.User daluser = DAL.Queries.GetUserById(dalreservation.UserId);
                 dtoreservation.User = new DTO.User();
                 dtoreservation.User.Name = daluser.Name;
                 dtoreservation.User.UserId = daluser.UserId;
-                DAL.Seat dalseatt =cinemamanager.GetSeatById(dalreservation.SeatId); 
+                DAL.Seat dalseatt =DAL.Queries.GetSeatById(dalreservation.SeatId); 
                 dtoreservation.Seat = new DTO.MovieEventSeat();
                 dtoreservation.Seat.SeatId = dalseatt.SeatId;
                 dtoreservation.Seat.SeatNumber = dalseatt.SeatNumber;

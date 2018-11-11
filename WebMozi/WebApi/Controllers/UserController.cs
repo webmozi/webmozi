@@ -15,8 +15,7 @@ namespace WebApi.Controllers
         public ActionResult<List<DTO.User>> Get()
         {
             List<DTO.User> dtouserlist = new List<DTO.User>();
-            DAL.CinemaManager cinemamanager = new DAL.CinemaManager();
-            List<DAL.User> dalusers = cinemamanager.ListUsersWithoutReservation();
+            List<DAL.User> dalusers = DAL.Queries.ListUsers();
             foreach (var user in dalusers)
             {
                 dtouserlist.Add(new DTO.User
@@ -32,8 +31,7 @@ namespace WebApi.Controllers
         [HttpGet("{id}")]
         public ActionResult<DTO.User> GetById(int id)
         {
-            DAL.CinemaManager cinemamanager = new DAL.CinemaManager();
-            DAL.User daluser = cinemamanager.GetUserById(id);
+            DAL.User daluser = DAL.Queries.GetUserById(id);
             DTO.User dtouser = new DTO.User();
             dtouser.Name = daluser.Name;
             dtouser.UserId = daluser.UserId;
@@ -44,26 +42,22 @@ namespace WebApi.Controllers
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            DAL.CinemaManager cinemamanager = new DAL.CinemaManager();
-            cinemamanager.DeleteUser(id);
+            DAL.Administration.DeleteUser(id);
             return NoContent();
         }
         [HttpPost]
         public IActionResult Create(DTO.User item)
         {
-            DAL.CinemaManager cinemamanager = new DAL.CinemaManager();
             var dalitem = new DAL.User();
             dalitem.Name = item.Name;
             dalitem.TelephoneNumber = item.TelephoneNumber;
             dalitem.Email = item.Email;
-            cinemamanager.AddUser(dalitem);
+            DAL.Administration.AddUser(dalitem);
             return Created("http://localhost:6544/api/user", item);
         }
         [HttpPut]
         public ActionResult<DTO.User> Update(DTO.User item)
         {
-            DAL.CinemaManager cinemamanager = new DAL.CinemaManager();
-
             var newDalUser = new DAL.User
             {
                 UserId = item.UserId,
@@ -72,8 +66,7 @@ namespace WebApi.Controllers
                 Email = item.Email,
             };
 
-            cinemamanager.UpdateUser(newDalUser);
-
+            DAL.Administration.UpdateUser(newDalUser);
             return NoContent();
         }
     }

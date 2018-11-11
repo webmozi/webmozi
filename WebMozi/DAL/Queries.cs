@@ -6,7 +6,7 @@ using System.Text;
 
 namespace DAL
 {
-    class Queries
+    public class Queries
     {
 
         ////////////////////////////////////////////////////////////////////////////////////////////
@@ -98,8 +98,7 @@ namespace DAL
         }
 
 
-        // Az összes User-t visszaadja, nem csak a foglalás nélkülieket
-        public static List<User> ListUsers/*WithoutReservation*/()
+        public static List<User> ListUsers()
         {
             using (CinemaContext ctx = new CinemaContext())
             {
@@ -109,16 +108,6 @@ namespace DAL
         }
 
 
-        public static List<Reservation> ListResevation()
-        {
-            using (var context = new CinemaContext())
-            {
-                return context.Reservations.ToList();
-            }
-        }
-
-
-        // Szükség van itt mindkettő ListReservation()-re?
         public static List<Reservation> ListReservations()
         {
             using (CinemaContext ctx = new CinemaContext())
@@ -131,13 +120,12 @@ namespace DAL
        
 
 
-        // Itt a MovieEvent Room-jának az összes Seat-jére miért van szükség?
         public static List<Reservation> ListUserReservations(int userId)
         {
             using (CinemaContext ctx = new CinemaContext())
             {
                 var q = ctx.Reservations.Include(r => r.MovieEvent).Include(r => r.MovieEvent.Movie).
-                  Include(r => r.MovieEvent.Room).Include(r => r.MovieEvent.Room.Seats)
+                  Include(r => r.MovieEvent.Room)
                   .Where(r => r.UserId == userId);
                 return q.ToList();
             }
