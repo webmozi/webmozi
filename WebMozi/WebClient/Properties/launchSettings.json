@@ -15,7 +15,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "WebApplication1": {
+    "WebClient": {
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {
