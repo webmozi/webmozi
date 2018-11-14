@@ -211,5 +211,20 @@ namespace WebClient.Models
         {
             throw new NotImplementedException();
         }
+
+        public void LogInAdmin(User u)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int SignedAdminId()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void MakeReservation(int meid, int seatid)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

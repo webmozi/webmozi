@@ -1,7 +1,7 @@
 ﻿@model EnableAndDisableSeats
 @{
     ViewBag.Title = "Choose Seat";
-    Layout = "_UserLayout";
+    Layout = "_SignedUserLayout";
 }
 
 <!DOCTPYE html>
@@ -57,7 +57,7 @@
             <a asp-controller="User" asp-action="ListSeatsInMovieEvent" class="btn btn-primary">Get Enough Seats</a>
         </div>
         <div class="text-left">
-            <a asp-controller="User" asp-action="Main" class="btn btn-primary">Back</a>
+            <a asp-controller="User" asp-action="Main" class="btn btn-info">Back</a>
         </div>
     </body>
 </html>

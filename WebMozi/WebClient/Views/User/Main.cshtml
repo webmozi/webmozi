@@ -1,6 +1,7 @@
-﻿@{
-    ViewBag.Title = "Admin Main";
-    Layout = "_SignedAdminLayout";
+﻿
+@{
+    ViewBag.Title = "User Main";
+    Layout = "_SignedUserLayout";
 }
 <!DOCTYPE html>
 <html>
@@ -12,12 +13,12 @@
 </head>
 <body>
     <div class="text-center">
-        <text>Admin Pages</text>
+        <text>Welcome in Cinema AKG</text>
     </div>
     <div class="form-group">
-        <div class="text-left">
-            <a asp-controller="Home" asp-action="Index" class="btn btn-info">Back</a>
-        </div>
+            <div class="text-left">
+                <a asp-controller="Home" asp-action="Index" class="btn btn-info">Back</a>
+            </div>
     </div>
 </body>
 </html>

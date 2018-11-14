@@ -1,5 +1,4 @@
-﻿
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
@@ -7,16 +6,11 @@
     <title>@ViewBag.Title</title>
 </head>
 <body>
-    <div class="panel panel-success">
-        <div class="panel-heading text-center"><h4>@ViewBag.Title</h4></div>
-    </div>
-    <div class="panel-body">
-        @if (TempData["message"] != null)
-        {
-            <div class="alert alert-success">@TempData["message"]</div>
-        }
-        @RenderBody()
-    </div>
+    <main>
+        <div class="panel-body">
+            @RenderBody()
+        </div>
+    </main>
 </body>
 </html>
 

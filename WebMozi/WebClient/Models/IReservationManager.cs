@@ -14,14 +14,14 @@ namespace WebClient.Models
         DTO.User SelectUser(int ID);
         DTO.User EditUser(DTO.User u);
         void DeleteUser(int id);
-        int getChosedMovieEventId();
-        void SaveMovieEventForReservation(int movieeventid);
-        void SaveSeatForReservation(int seatid);
-        void MakeReservation();
+        void MakeReservation(int meid,int seatid);
         void DeleteReservation(int id);
         List<DTO.Reservation> GetReservationsByUser(int userid);
         void LogInUser(DTO.User u);
+        void LogInAdmin(DTO.User u);
         void Loggingout();
         int SignedUserId();
+        int SignedAdminId();
+
     }
 }

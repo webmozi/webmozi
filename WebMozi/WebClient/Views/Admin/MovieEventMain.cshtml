@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Admin Main";
+    ViewBag.Title = "Movie Event Main";
     Layout = "_SignedAdminLayout";
 }
 <!DOCTYPE html>
@@ -11,14 +11,12 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
 </head>
 <body>
-    <div class="text-center">
-        <text>Admin Pages</text>
+    <div class="panel-heading text-left">
+        <a class="btn btn-primary" asp-controller="Admin" asp-action="ListEvents">Event List</a>
     </div>
-    <div class="form-group">
-        <div class="text-left">
-            <a asp-controller="Home" asp-action="Index" class="btn btn-info">Back</a>
-        </div>
+    <div class="panel-heading text-left">
+        <a class="btn btn-primary" asp-controller="Admin" asp-action="CreateEvent">Create Event</a>
     </div>
+    
 </body>
 </html>
-

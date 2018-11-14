@@ -11,15 +11,13 @@ namespace WebClient.Models
     {
         private List<DTO.User> users;
         private List<DTO.Reservation> reservations;
-        private static int chosedmovieeventid;
-        private static int chosedseatid;
         private static int signuserid;
+        private static int signadminid;
 
         public RealReservationManager()
         {
-            chosedmovieeventid=-1;
-            chosedseatid = -1;
             signuserid = -1;
+            signadminid = -1;
     }
         private void GetUser()
         {
@@ -116,19 +114,10 @@ namespace WebClient.Models
                 return response.Content.ReadAsAsync<DTO.Reservation>().Result;
             }
         }
-        public void SaveMovieEventForReservation(int movieeventid)
-        {
-
-            chosedmovieeventid = movieeventid;
-        }
-        public int getChosedMovieEventId() {
-            return chosedmovieeventid;
-        }
-        public void SaveSeatForReservation(int seatid)
-        {
-            chosedseatid = seatid;
-        }
-        public void MakeReservation() {
+        
+      
+      
+        public void MakeReservation(int chosedmovieeventid,int chosedseatid) {
             DTO.Reservation res = new DTO.Reservation();
             res.MovieEvent = new DTO.MovieEvent();
             res.MovieEvent.MovieEventId = chosedmovieeventid;
@@ -171,9 +160,25 @@ namespace WebClient.Models
         }
         public void Loggingout()
         {
+            signadminid = -1;
             signuserid = -1;
         }
-
-      
+        public void LogInAdmin(DTO.User u)
+        {
+            GetUser();
+            foreach (var user in users)
+            {
+                if (user.Name == u.Name)
+                {
+                    signuserid = user.UserId;
+                    signadminid = user.UserId;
+                }
+            }
+        }
+        public int SignedAdminId()
+        {
+            return signadminid;
+        }
+        
     }
 }

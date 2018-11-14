@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = "List Movie Events";
-    Layout = "_UserLayout";
+    Layout = "_SignedUserLayout";
 }
 
 <!DOCTPYE html>
@@ -15,7 +15,6 @@
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
     </head>
     <body>
-        <h3>First please choose a movie</h3>
         <table class="table table-sm table-striped table-bordered">
             <thead>
                 <tr>
@@ -46,8 +45,5 @@
                 }
             </tbody>
         </table>
-        <div class="text-left">
-            <a asp-controller="User" asp-action="Main" class="btn btn-primary">Back</a>
-        </div>
     </body>
 </html>

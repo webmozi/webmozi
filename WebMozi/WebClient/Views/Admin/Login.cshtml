@@ -1,10 +1,8 @@
 ﻿@model DTO.User
 
-@using Microsoft.AspNetCore.Http
-
 @{
-    ViewBag.Title = "Log In";
-    Layout = "_UserLayout";
+    ViewBag.Title = "Admin Sign in";
+    Layout = "_AdminLayout";
 }
 <!DOCTYPE html>
 <html>
@@ -16,7 +14,7 @@
 </head>
 <body>
     <div class="text-danger" asp-validation-summary="All"></div>
-    <form asp-action="Login" asp-controller="User" method="post">
+    <form asp-action="Login" asp-controller="Admin" method="post">
         <div class="form-group">
             <label asp-for="Name"></label>
             <div>
@@ -31,15 +29,10 @@
         </div>
         <div class="form-group">
             <button class="btn btn-primary" type="submit">Sign In</button>
-            <input type="button" class="btn btn-sm btn-warning" value="Register"
-                   onclick="location.href='@Url.Action("RegisterUser","User")'" />
-        </div>
-        <div class="form-group">
-            <div class="text-left">
-                <a asp-controller="Home" asp-action="Index" class="btn btn-info">Back</a>
-            </div>
+             </div>
+        <div class="text-left">
+            <a asp-controller="Home" asp-action="Index" class="btn btn-info">Back</a>
         </div>
     </form>
 </body>
 </html>
-

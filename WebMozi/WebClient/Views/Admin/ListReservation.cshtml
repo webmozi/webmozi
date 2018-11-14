@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<DTO.Reservation>
 @{
     ViewBag.Title = "List Reservation";
-    Layout = "_AdminLayout";
+    Layout = "_SignedAdminLayout";
 }
 <!DOCTYPE html>
 <html>
@@ -50,7 +50,7 @@
         </tbody>
     </table>
     <div class="text-left">
-        <a asp-controller="Admin" asp-action="Main" class="btn btn-primary">Back</a>
+        <a asp-controller="Admin" asp-action="UserReservationMain" class="btn btn-info">Back</a>
     </div>
 </body>
 </html>

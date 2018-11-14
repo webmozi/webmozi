@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = "List Movie Events";
-    Layout = "_AdminLayout";
+    Layout = "_SignedAdminLayout";
 }
 
 <!DOCTPYE html>
@@ -54,7 +54,7 @@
             </tbody>
         </table>
         <div class="text-left">
-            <a asp-controller="Admin" asp-action="Main" class="btn btn-primary">Back</a>
+            <a asp-controller="Admin" asp-action="MovieEventMain" class="btn btn-info">Back</a>
         </div>
     </body>
 </html>

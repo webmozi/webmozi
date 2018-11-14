@@ -13,10 +13,49 @@ namespace WebClient.Controllers
         [HttpGet]
         public ViewResult Main()
         {
+            return View("Login");
+        }
+        [HttpGet]
+        public ViewResult AdminMain()
+        {
             return View("Main");
         }
+        [HttpPost]
+        public ViewResult Login(DTO.User u)
+        {
+           ireservationmanager.LogInAdmin(u);
 
-
+            int aid = ireservationmanager.SignedAdminId();
+            if (aid == -1)
+            {
+                TempData["invalid"] = $"Invalid username or password";
+                return Main();
+            }
+            else
+            {
+                TempData["success"] = $"Successfull log in!";
+                return AdminMain();
+            }
+        }
+        public ViewResult MovieMain()
+        {
+            return View("MovieMain");
+        }
+        [HttpGet]
+        public ViewResult RoomMain()
+        {
+            return View("RoomMain");
+        }
+        [HttpGet]
+        public ViewResult MovieEventMain()
+        {
+            return View("MovieEventMain");
+        }
+        [HttpGet]
+        public ViewResult UserReservationMain()
+        {
+            return View("UserReservationMain");
+        }
         [HttpGet]
         public ViewResult ListMovies()
         {
@@ -30,13 +69,14 @@ namespace WebClient.Controllers
         [HttpPost]
         public ViewResult AddMovie(DTO.Movie m)
         {
+            TempData["add"] = $"{m.Title} added!";
             icinemamanager.AddMovie(m);
             return ListMovies();
         }
         [HttpGet]
         public ViewResult DeleteMovie(int ID)
         {
-            TempData["message"] = $"{icinemamanager.SelectMovie(ID).Title} was removed";
+            TempData["remove"] = $"{icinemamanager.SelectMovie(ID).Title} was removed!";
             icinemamanager.DeleteMovie(ID);
             return ListMovies();
         }
@@ -50,7 +90,7 @@ namespace WebClient.Controllers
         public IActionResult EditMovie(DTO.Movie m)
         {
             DTO.Movie movie = icinemamanager.EditMovie(m);
-            TempData["message"] = $"{movie.Title} has been saved";
+            TempData["edit"] = $"{movie.Title} has been saved!";
             return ListMovies();
         }
 
@@ -67,15 +107,16 @@ namespace WebClient.Controllers
             return View("AddRoom");
         }
         [HttpPost]
-        public ViewResult AddRoom(DTO.Room m)
+        public ViewResult AddRoom(DTO.Room r)
         {
-            icinemamanager.AddRoom(m);
+            TempData["add"] = $"{r.RoomNumber} added!";
+            icinemamanager.AddRoom(r);
             return ListRooms();
         }
         [HttpGet]
         public ViewResult DeleteRoom(int ID)
         {
-            TempData["message"] = $"{icinemamanager.SelectRoom(ID).RoomNumber} was removed";
+            TempData["delete"] = $"{icinemamanager.SelectRoom(ID).RoomNumber} was removed!";
             icinemamanager.DeleteRoom(ID);
             return ListRooms();
         }
@@ -104,14 +145,15 @@ namespace WebClient.Controllers
             mevent.Room = icinemamanager.SelectRoom(me.Room.RoomId);
             mevent.Time = me.Time;
             icinemamanager.AddMovieEvent(mevent);
-            TempData["message"] = $"{mevent.Movie.Title} has been saved";
+            TempData["add"] = $"{mevent.Movie.Title} added at {mevent.Time} in Room {mevent.Room.RoomNumber}!";
             return ListEvents();
         }
         [HttpGet]
-        public ViewResult DeleteMovieEvent(int ID)
+        public ViewResult DeleteMovieEvent(int Id)
         {
-            TempData["message"] = $"{icinemamanager.SelectMovieEvent(ID).Movie.Title} was removed";
-            icinemamanager.DeleteMovieEvent(ID);
+            DTO.MovieEvent mevent = icinemamanager.SelectMovieEvent(Id);
+            TempData["delete"] = $"{mevent.Movie.Title} at {mevent.Time} in Room {mevent.Room.RoomNumber} was removed !";
+            icinemamanager.DeleteMovieEvent(Id);
             return ListEvents();
         }
 
@@ -125,7 +167,7 @@ namespace WebClient.Controllers
         [HttpGet]
         public ViewResult DeleteUser(int ID)
         {
-            TempData["message"] = $"{ireservationmanager.SelectUser(ID).Name} was removed";
+            TempData["delete"] = $"{ireservationmanager.SelectUser(ID).Name} was removed!";
             ireservationmanager.DeleteUser(ID);
             return ListUsers();
         }
@@ -139,7 +181,7 @@ namespace WebClient.Controllers
         public IActionResult EditUser(DTO.User u)
         {
             DTO.User user = ireservationmanager.EditUser(u);
-            TempData["message"] = $"{user.Name} has been saved";
+            TempData["edit"] = $"{user.Name} has been saved!";
             return ListUsers();
         }
         
@@ -159,7 +201,7 @@ namespace WebClient.Controllers
         [HttpGet]
         public ViewResult DeleteReservation(int id)
         {
-            TempData["message"] = $"{ireservationmanager.SelectReservation(id).ReservationId} was removed";
+            TempData["delete"] = $"{ireservationmanager.SelectReservation(id).ReservationId} was removed!";
             ireservationmanager.DeleteReservation(id);
             return ListReservation();
         }

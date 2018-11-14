@@ -1,4 +1,6 @@
-﻿@{
+﻿@model DTO.User
+
+@{
     ViewBag.Title = "User Main";
     Layout = "_SignedUserLayout";
 }
@@ -11,15 +13,14 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
 </head>
 <body>
-    <h3>Choose a movie or see your cart</h3>
-    <div class="panel-heading text-center">
-        <a class="btn btn-primary" asp-controller="User" asp-action="ListEvents">Choose a movie</a>
+    <div class="text-center">
+        <text>Welcome @ViewBag.User in Cinema AKG</text>
     </div>
-    <div class="panel-heading text-center">
-        <a class="btn btn-primary" asp-controller="User" asp-action="Reservation">See your cart</a>
-    </div>
-    <div class="text-left">
-        <a asp-controller="Home" asp-action="Index" class="btn btn-primary">Back</a>
+    <div class="form-group">
+        <div class="text-left">
+            <a asp-controller="Home" asp-action="Index" class="btn btn-info">Back</a>
+        </div>
     </div>
 </body>
 </html>
+

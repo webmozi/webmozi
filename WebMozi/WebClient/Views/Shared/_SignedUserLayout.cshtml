@@ -1,4 +1,63 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+
+@if (User.Identity.IsAuthenticated)
+{
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta name="viewport" content="width=device-width" />
+        <link rel="stylesheet" asp-href-include="lib/bootstrap/dist/css/*.min.css" />
+        <title>@ViewBag.Title</title>
+    </head>
+    <body>
+        <nav class="navbar navbar-default">
+            <div class="container">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a asp-controller="Home" asp-action="Index">Home Page</a>
+                    </li>
+                    <li>
+                        <a asp-controller="User" asp-action="ListMovies">Movie List</a>
+                    </li>
+                    <li>
+                        <a asp-controller="User" asp-action="ListEvents">Movie Event List</a>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a asp-controller="User" asp-action="Reservation"> @UserManager.GetUserName(User)'s Reservations</a>
+                    </li>
+                    <li>
+                        <a asp-controller="User" asp-action="Logout">Log out</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <main>
+            <section>
+                <div class="panel-body">
+                    @if (TempData["invalid"] != null)
+                    {
+                        <div class="alert alert-danger">@TempData["invalid"]</div>
+                    }
+                    @if (TempData["success"] != null)
+                    {
+                        <div class="alert alert-success">@TempData["success"]</div>
+                    }
+                    @RenderBody()
+                </div>
+            </section>
+        </main>
+    </body>
+</html>
+}
+else
+{
+<!DOCTYPE html>
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
@@ -6,16 +65,38 @@
     <title>@ViewBag.Title</title>
 </head>
 <body>
-    <div class="panel panel-success">
-        <div class="panel-heading text-center"><h4>@ViewBag.Title</h4></div>
-        <div class="panel-heading text-right">@ViewBag.User <a class="btn btn-sm btn-primary" asp-action="Logout" asp-controller="User">Log Out</a></div>
-    </div>
-    <div class="panel-body">
-        @if (TempData["message"] != null)
-        {
-        <div class="alert alert-success">@TempData["message"]</div>
-        }
-        @RenderBody()
-    </div>
+    <nav class="navbar navbar-default">
+        <div class="container">
+            <ul class="nav navbar-nav">
+                <li>
+                    <a asp-controller="Home" asp-action="Index">Home Page</a>
+                </li>
+                <li>
+                    <a asp-controller="User" asp-action="ListMovies">Movie List</a>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a asp-controller="User" asp-action="Login">Sign in</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <main>
+        <section>
+            <div class="panel-body">
+                @if (TempData["invalid"] != null)
+                {
+                    <div class="alert alert-danger">@TempData["invalid"]</div>
+                }
+                @if (TempData["success"] != null)
+                {
+                    <div class="alert alert-success">@TempData["success"]</div>
+                }
+                @RenderBody()
+            </div>
+        </section>
+    </main>
 </body>
 </html>
+}
