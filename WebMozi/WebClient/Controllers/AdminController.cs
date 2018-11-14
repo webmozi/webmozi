@@ -1,18 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using WebClient.Models;
 
 namespace WebClient.Controllers
 {
+    [Authorize(Policy = "Admin")]
     public class AdminController : HomeController
     {
+        public AdminController(UserManager<IdentityUser> userMgr, SignInManager<IdentityUser> signInMgr, RoleManager<IdentityRole> roleMgr)
+           : base(userMgr, signInMgr, roleMgr)
+        {
+        }
+
+        [AllowAnonymous]
         [HttpGet]
         public ViewResult Main()
         {
+            signInManager.SignOutAsync();
+            ViewBag.FirstWasUser = 1;
             return View("Login");
         }
         [HttpGet]
@@ -20,21 +29,56 @@ namespace WebClient.Controllers
         {
             return View("Main");
         }
+        [AllowAnonymous]
         [HttpPost]
-        public ViewResult Login(DTO.User u)
+        public async Task<ViewResult> Login(DTO.User u)
         {
-           ireservationmanager.LogInAdmin(u);
-
-            int aid = ireservationmanager.SignedAdminId();
-            if (aid == -1)
+            bool adminrole = await roleManager.RoleExistsAsync("Admin");
+            if (!adminrole)
             {
-                TempData["invalid"] = $"Invalid username or password";
-                return Main();
+                var role = new IdentityRole();
+                role.Name = "Admin";
+                await roleManager.CreateAsync(role);
+                var user = new IdentityUser { UserName = "admin" };
+                string adminpassword = "admin";
+                var checkUser = await userManager.CreateAsync(user, adminpassword);
+                if (checkUser.Succeeded)
+                {
+                    var res = await userManager.AddToRoleAsync(user, "Admin");
+                }
+            }
+            var ress = await userManager.CheckPasswordAsync(new IdentityUser() { UserName = u.Name }, u.Password);
+            if (!ress)
+            {
+                var user = new IdentityUser { UserName = u.Name };
+                var resss = await userManager.CreateAsync(user, "admin");
+                if (resss.Succeeded)
+                {
+                    var res = await userManager.AddToRoleAsync(user, "Admin");
+                }
+            }
+            var result = await signInManager.PasswordSignInAsync(u.Name, u.Password, false, false);
+            if (result.Succeeded)
+            {
+                var signeduser = userManager.FindByNameAsync(u.Name);
+                bool isAdmin = await userManager.IsInRoleAsync(signeduser.Result, "Admin");
+                if (isAdmin)
+                {
+                    TempData["successfull"] = $"Successfull Sign In as Admin";
+                    ViewBag.IsSignedIn = 1;
+                    ViewBag.AdminName = u.Name;
+                    return AdminMain();
+                }
+                else
+                {
+                    TempData["incorrect"] = $"You don't have Admin permission";
+                    return Main();
+                }
             }
             else
             {
-                TempData["success"] = $"Successfull log in!";
-                return AdminMain();
+                TempData["incorrect"] = $"Invalid username or password as Admin";
+                return Main();
             }
         }
         public ViewResult MovieMain()
@@ -184,7 +228,7 @@ namespace WebClient.Controllers
             TempData["edit"] = $"{user.Name} has been saved!";
             return ListUsers();
         }
-        
+
 
         [HttpGet]
         public ViewResult ListSeats(int id)

@@ -1,16 +1,22 @@
-﻿<!DOCTYPE html>
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <link rel="stylesheet" asp-href-include="lib/bootstrap/dist/css/*.min.css" />
-    <title>@ViewBag.Title</title>
-</head>
-<body>
-    <main>
-        <div class="panel-body">
-            @RenderBody()
-        </div>
-    </main>
-</body>
+﻿ <!DOCTYPE html>
+    <html>
+    <head>
+        <meta name="viewport" content="width=device-width" />
+        <link rel="stylesheet" asp-href-include="lib/bootstrap/dist/css/*.min.css" />
+        <title>@ViewBag.Title</title>
+    </head>
+    <body>
+                <div class="panel-body">
+                    @if (TempData["incorrect"] != null)
+                    {
+                        <div class="alert alert-danger">@TempData["incorrect"]</div>
+                    }
+                    @if (TempData["successfull"] != null)
+                    {
+                        <div class="alert alert-success">@TempData["successfull"]</div>
+                    }
+                    @RenderBody()
+                </div>
+    </body>
 </html>
 

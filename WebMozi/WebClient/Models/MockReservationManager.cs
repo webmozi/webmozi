@@ -1,26 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using DTO;
 
 namespace WebClient.Models
 {
     public class MockReservationManager : IReservationManager
     {
-        private  List<DTO.User> users;
-        private  List<DTO.Reservation> reservations;
-        private  static int reservationIDs;
+        private List<DTO.User> users;
+        private List<DTO.Reservation> reservations;
+        private static int reservationIDs;
         private static int userIDs;
         private DTO.User signedUser;
         private int chosedreservationid;
-        public MockReservationManager() {
+        public MockReservationManager()
+        {
             userIDs = 0;
             chosedreservationid = -1;
             reservationIDs = 0;
             users = new List<DTO.User>();
             reservations = new List<DTO.Reservation>();
-            DTO.User u = new DTO.User() { Name = "Ako", Password="Ako",TelephoneNumber = "06308888888", Email = "ako@hotmail.com" };
+            DTO.User u = new DTO.User() { Name = "Ako", Password = "Ako", TelephoneNumber = "06308888888", Email = "ako@hotmail.com" };
             AddUser(u);
             DTO.User u2 = new DTO.User() { Name = "Gabo", Password = "Gabo", TelephoneNumber = "06207777777", Email = "gabo@gmail.com" };
             AddUser(u2);
@@ -80,12 +80,13 @@ namespace WebClient.Models
             DTO.User user = null;
             foreach (DTO.User us in users)
             {
-                if (us.Name==u.Name && us.Password==u.Password)
+                if (us.Name == u.Name && us.Password == u.Password)
                 {
                     user = us;
                 }
             }
-            if (user != null) {
+            if (user != null)
+            {
                 signedUser = user;
             }
         }
@@ -94,7 +95,7 @@ namespace WebClient.Models
             signedUser = null;
             chosedreservationid = -1;
         }
-     
+
         public DTO.User SignedUser()
         {
             return signedUser;
@@ -102,18 +103,19 @@ namespace WebClient.Models
 
         public void CreateReservationOnlyWithMovieEvent(DTO.MovieEvent me)
         {
-            DTO.Reservation reservation = new DTO.Reservation();            
+            DTO.Reservation reservation = new DTO.Reservation();
             reservation.ReservationId = reservationIDs;
             reservationIDs++;
             reservation.MovieEvent = me;
             reservations.Add(reservation);
-           
+
             chosedreservationid = reservation.ReservationId;
         }
-        public DTO.Reservation AddSeatToReservation(int resID, DTO.MovieEventSeat s) {
+        public DTO.Reservation AddSeatToReservation(int resID, DTO.MovieEventSeat s)
+        {
             for (int i = 0; i < reservations.Count; i++)
             {
-                if (reservations.ElementAt(i).ReservationId== resID)
+                if (reservations.ElementAt(i).ReservationId == resID)
                 {
                     reservations.ElementAt(i).Seat = s;
                     return reservations.ElementAt(i);
@@ -127,7 +129,7 @@ namespace WebClient.Models
             {
                 if (reservations.ElementAt(i).ReservationId == resID)
                 {
-                    reservations.ElementAt(i).User=u;
+                    reservations.ElementAt(i).User = u;
                     return reservations.ElementAt(i);
                 }
             }
@@ -145,54 +147,8 @@ namespace WebClient.Models
             return null;
         }
 
-        public int getChosedReservationId()
-        {
-            return chosedreservationid;
-        }
 
         public Reservation SelectReservationWithMovieEvent(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Reservation SelectReservationAllIn(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void setChosedReservationId(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-       
-
-        public int SignedUserId()
-        {
-            throw new NotImplementedException();
-        }
-
-        public int getChosedMovieEventId()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void SaveMovieEventForReservation(int movieeventid)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void SaveSeatForReservation(int seatid)
-        {
-            throw new NotImplementedException();
-        }
-
-        public int getChosedSeatId()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void MakeReservation()
         {
             throw new NotImplementedException();
         }
@@ -212,17 +168,24 @@ namespace WebClient.Models
             throw new NotImplementedException();
         }
 
-        public void LogInAdmin(User u)
-        {
-            throw new NotImplementedException();
-        }
 
-        public int SignedAdminId()
-        {
-            throw new NotImplementedException();
-        }
 
         public void MakeReservation(int meid, int seatid)
+        {
+            throw new NotImplementedException();
+        }
+
+        int IReservationManager.GetIdByUser(User u)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void MakeReservation(int meid, int seatid, int userid)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int GetIdByUser(User u)
         {
             throw new NotImplementedException();
         }

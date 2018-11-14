@@ -66,23 +66,24 @@ namespace WebClient.Models
                 DTO.MovieEventSeat seat = new DTO.MovieEventSeat();
                 seat.SeatId = seatIDs;
                 seatIDs++;
-                seat.SeatNumber = (i / 10)+1;
+                seat.SeatNumber = (i / 10) + 1;
                 seat.RowNumber = i + 1;
                 seats.Add(seat);
             }
             return seats;
         }
-        public DTO.MovieEventSeat GetSeat(int seatID,int roomID)
+        public DTO.MovieEventSeat GetSeat(int seatID, int roomID)
         {
             DTO.Room room = SelectRoom(roomID);
-            foreach (DTO.MovieEventSeat s in room.Seats.ToList()) 
+            foreach (DTO.MovieEventSeat s in room.Seats.ToList())
             {
-                if (s.SeatId == seatID) {
+                if (s.SeatId == seatID)
+                {
                     return s;
                 }
             }
             return null;
         }
-        
+
     }
 }

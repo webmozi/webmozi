@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using DTO;
 
 namespace WebClient.Models
@@ -174,7 +173,7 @@ namespace WebClient.Models
             return roommanager.ListSeatsInRoom(id);
         }
 
-      
+
         public List<MovieEventSeat> getEnableSeats(int id)
         {
             DTO.MovieEvent movieevent = null;
@@ -188,16 +187,16 @@ namespace WebClient.Models
             }
             foreach (var r in new List<DTO.Reservation>())
             {
-              
-                    for (int j = 0; j < movieevent.Room.Seats.Count; j++)
-                    {
 
-                        if (r.Seat.SeatId == movieevent.Room.Seats.ElementAt(j).SeatId)
-                        {
-                            enablelist.Add(movieevent.Room.Seats.ElementAt(j));
-                        }
+                for (int j = 0; j < movieevent.Room.Seats.Count; j++)
+                {
+
+                    if (r.Seat.SeatId == movieevent.Room.Seats.ElementAt(j).SeatId)
+                    {
+                        enablelist.Add(movieevent.Room.Seats.ElementAt(j));
                     }
-                
+                }
+
             }
             return enablelist;
         }

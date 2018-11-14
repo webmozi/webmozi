@@ -2,47 +2,37 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
-using System.Threading.Tasks;
 using DTO;
 
 namespace WebClient.Models
 {
-    public class RealReservationManager :IReservationManager
+    public class RealReservationManager : IReservationManager
     {
-        private List<DTO.User> users;
-        private List<DTO.Reservation> reservations;
-        private static int signuserid;
-        private static int signadminid;
-
-        public RealReservationManager()
-        {
-            signuserid = -1;
-            signadminid = -1;
-    }
-        private void GetUser()
+        private List<DTO.User> GetUser()
         {
             HttpClient client = new HttpClient();
             var result = client.GetAsync("http://localhost:6544/api/user").Result;
             if (result.IsSuccessStatusCode)
             {
-                users = result.Content.ReadAsAsync<List<DTO.User>>().Result;
+                return result.Content.ReadAsAsync<List<DTO.User>>().Result;
             }
+            return null;
         }
-        private void GetReservation()
+        private List<DTO.Reservation> GetReservation()
         {
             HttpClient client = new HttpClient();
             var result = client.GetAsync("http://localhost:6544/api/reservation").Result;
             if (result.IsSuccessStatusCode)
             {
-                reservations = result.Content.ReadAsAsync<List<DTO.Reservation>>().Result;
+                return result.Content.ReadAsAsync<List<DTO.Reservation>>().Result;
             }
+            return null;
         }
 
 
         public IEnumerable<DTO.User> ListUsers()
         {
-            GetUser();
-            return users;
+            return GetUser();
         }
         public void AddUser(DTO.User user)
         {
@@ -50,7 +40,7 @@ namespace WebClient.Models
             {
                 client.BaseAddress = new Uri("http://localhost:6544/");
                 var response = client.PostAsJsonAsync<DTO.User>("api/user", user).Result;
-              
+
             }
         }
         public DTO.User SelectUser(int id)
@@ -94,8 +84,8 @@ namespace WebClient.Models
 
         public IEnumerable<Reservation> ListReservations()
         {
-            GetReservation();
-            return reservations;
+
+            return GetReservation();
         }
         public void DeleteReservation(int id)
         {
@@ -114,15 +104,16 @@ namespace WebClient.Models
                 return response.Content.ReadAsAsync<DTO.Reservation>().Result;
             }
         }
-        
-      
-      
-        public void MakeReservation(int chosedmovieeventid,int chosedseatid) {
+
+
+
+        public void MakeReservation(int chosedmovieeventid, int chosedseatid, int userid)
+        {
             DTO.Reservation res = new DTO.Reservation();
             res.MovieEvent = new DTO.MovieEvent();
             res.MovieEvent.MovieEventId = chosedmovieeventid;
             res.User = new DTO.User();
-            res.User.UserId = signuserid;
+            res.User.UserId = userid;
             res.Seat = new DTO.MovieEventSeat();
             res.Seat.SeatId = chosedseatid;
             using (var client = new HttpClient())
@@ -130,55 +121,35 @@ namespace WebClient.Models
                 client.BaseAddress = new Uri("http://localhost:6544/");
                 var response = client.PostAsJsonAsync<DTO.Reservation>("api/reservation", res).Result;
             }
-            
+
         }
-        public List<DTO.Reservation> GetReservationsByUser(int id) {
+        public List<DTO.Reservation> GetReservationsByUser(int id)
+        {
             HttpClient client = new HttpClient();
             var result = client.GetAsync("http://localhost:6544/api/reservation/resbyuser/" + id).Result;
             return result.Content.ReadAsAsync<List<DTO.Reservation>>().Result;
         }
-        
 
 
 
 
-        public void LogInUser(DTO.User u)
+
+        public int GetIdByUser(DTO.User u)
         {
-            GetUser();
-            foreach (var user in users)
+            foreach (var user in GetUser().ToList())
             {
-                if (user.Name == u.Name)
+                if (user.Email == u.Email)
                 {
-                    signuserid = user.UserId;
+                    return user.UserId;
                 }
             }
+            return -1;
 
         }
-        public int SignedUserId()
-        {
-            return signuserid;
-        }
-        public void Loggingout()
-        {
-            signadminid = -1;
-            signuserid = -1;
-        }
-        public void LogInAdmin(DTO.User u)
-        {
-            GetUser();
-            foreach (var user in users)
-            {
-                if (user.Name == u.Name)
-                {
-                    signuserid = user.UserId;
-                    signadminid = user.UserId;
-                }
-            }
-        }
-        public int SignedAdminId()
-        {
-            return signadminid;
-        }
-        
+
+
+
+
+
     }
 }

@@ -3,8 +3,7 @@
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
 
-
-@if (User.Identity.IsAuthenticated)
+@if (SignInManager.IsSignedIn(User)||ViewBag.IsSignedIn==1)
 {
     <!DOCTYPE html>
     <html>
@@ -29,7 +28,7 @@
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a asp-controller="User" asp-action="Reservation"> @UserManager.GetUserName(User)'s Reservations</a>
+                        <a asp-controller="User" asp-action="Reservation"> @ViewBag.Name's Reservations</a>
                     </li>
                     <li>
                         <a asp-controller="User" asp-action="Logout">Log out</a>
@@ -57,7 +56,7 @@
 }
 else
 {
-<!DOCTYPE html>
+
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />

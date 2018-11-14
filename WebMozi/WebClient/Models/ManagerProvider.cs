@@ -16,9 +16,11 @@ namespace WebClient.Models
                 return instance;
             }
         }
-        protected ManagerProvider() {
+        protected ManagerProvider()
+        {
         }
-        public  IReservationManager GetReservationManager() {
+        public IReservationManager GetReservationManager()
+        {
             return new RealReservationManager();
         }
         public ICinemaManager GetCinemaManager()

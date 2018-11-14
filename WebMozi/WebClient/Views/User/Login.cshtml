@@ -1,6 +1,5 @@
 ﻿@model DTO.User
 
-@using Microsoft.AspNetCore.Http
 
 @{
     ViewBag.Title = "Log In";
@@ -18,10 +17,10 @@
     <div class="text-danger" asp-validation-summary="All"></div>
     <form asp-action="Login" asp-controller="User" method="post">
         <div class="form-group">
-            <label asp-for="Name"></label>
+            <label asp-for="Email"></label>
             <div>
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>        <input asp-for="Name" class="form-inline" required />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>        <input asp-for="Email" class="form-inline" required />
         </div>
         <div class="form-group">
             <label asp-for="Password"></label>

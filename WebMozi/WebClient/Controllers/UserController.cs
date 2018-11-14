@@ -1,62 +1,58 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Security.Claims;
+using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
+
 
 namespace WebClient.Controllers
 {
     public class UserController : HomeController
     {
+        public UserController(UserManager<IdentityUser> userMgr, SignInManager<IdentityUser> signInMgr, RoleManager<IdentityRole> roleMgr)
+            : base(userMgr, signInMgr, roleMgr)
+        {
+        }
 
         [HttpGet]
         public ViewResult Main()
         {
-            if (ireservationmanager.SignedUserId()!=-1)
+            if (Thread.CurrentPrincipal != null)
             {
-                DTO.User u=ireservationmanager.SelectUser(ireservationmanager.SignedUserId());
-                HttpContext.Session.SetString("_Name", u.Name);
-                ViewBag.User = HttpContext.Session.GetString("_Name");
-                return View("SignedMain");
+                ViewBag.Name = HttpContext.Session.GetString(Thread.CurrentPrincipal.Identity.Name + "_Name");
+                ViewBag.IsSignedIn = 1;
             }
-            else
+            else if (userManager.GetUserName(User) != null)
             {
-                return View("Main");
+                ViewBag.Name = HttpContext.Session.GetString(userManager.GetUserName(User) + "_Name");
             }
+            return View("Main");
         }
-         [HttpGet]
+
+        [HttpGet]
         public ViewResult ListMovies()
         {
-            if (ireservationmanager.SignedUserId() != -1) {
-                ViewBag.User = HttpContext.Session.GetString("_Name");
-                return View("SignedListMovies", icinemamanager.ListMovies());
-            }
-            else
-            {
-                return View("ListMovies", icinemamanager.ListMovies());
-            }
-       }
-
+            ViewBag.Name = HttpContext.Session.GetString(userManager.GetUserName(User) + "_Name");
+            return View("ListMovies", icinemamanager.ListMovies());
+        }
         [HttpGet]
         public ViewResult RegisterUser()
         {
             return View("RegisterUser");
         }
         [HttpPost]
-        public async Task<ViewResult> RegisterUserAsync(DTO.User u)
+        public async Task<ViewResult> RegisterUser(DTO.User u)
         {
             ireservationmanager.AddUser(u);
-            var user = new IdentityUser { UserName = u.Name, Email = u.Email,PhoneNumber=u.TelephoneNumber};
+            var user = new IdentityUser { UserName = u.Email };
             var result = await userManager.CreateAsync(user, u.Password);
-          
-            return Login();
+            if (result.Succeeded)
+            {
+                return Login();
+            }
+            else { return RegisterUser(); }
         }
 
 
@@ -70,19 +66,32 @@ namespace WebClient.Controllers
         [HttpGet]
         public ViewResult Login()
         {
-           
             return View("Login");
         }
         [HttpPost]
         public async Task<ViewResult> Login(DTO.User u)
         {
-            var user = new IdentityUser { UserName = u.Name};
-            var result = await signInManager.PasswordSignInAsync(user,u.Password,false, lockoutOnFailure: false);
+            var result = await signInManager.PasswordSignInAsync(u.Email, u.Password, false, false);
             if (result.Succeeded)
             {
-                ViewBag.User = HttpContext.Session.GetString("_Name");
+                var identity = new ClaimsIdentity();
+                identity.AddClaim(new Claim(ClaimTypes.Name, u.Email));
+                Thread.CurrentPrincipal = new ClaimsPrincipal(identity);
+                if (u.Email == "admin")
+                {
+                    TempData["invalid"] = $"You can't Sign In with admin";
+                    return Login();
+                }
+                int uid = ireservationmanager.GetIdByUser(u);
+                HttpContext.Session.SetString(Thread.CurrentPrincipal.Identity.Name + "_Name", ireservationmanager.SelectUser(uid).Name);
+                HttpContext.Session.SetInt32(Thread.CurrentPrincipal.Identity.Name, uid);
                 TempData["success"] = $"Successfull log in!";
                 return Main();
+            }
+            else if (result.IsLockedOut)
+            {
+                TempData["invalid"] = $"User account locked out! Wait 1 minute";
+                return Login();
             }
             else
             {
@@ -97,17 +106,18 @@ namespace WebClient.Controllers
         [HttpGet]
         public ViewResult ListEvents()
         {
-            if (ireservationmanager.SignedUserId() == -1) {
+            if (!signInManager.IsSignedIn(User))
+            {
                 return View("Login");
             }
-            ViewBag.User = HttpContext.Session.GetString("_Name");
+            ViewBag.Name = HttpContext.Session.GetString(userManager.GetUserName(User) + "_Name");
             return View("ListMovieEvents", icinemamanager.ListMovieEventsWithoutSeats());
         }
         [HttpGet]
         public ViewResult SelectedMovieEvent(int meId)
         {
-            ViewBag.User = HttpContext.Session.GetString("_Name");
-            HttpContext.Session.SetInt32("_meId", meId);
+            ViewBag.Name = HttpContext.Session.GetString(userManager.GetUserName(User) + "_Name");
+            HttpContext.Session.SetInt32(userManager.GetUserName(User) + "_meId", meId);
             DTO.MovieEvent me = icinemamanager.SelectMovieEvent(meId);
             Models.EnableAndDisableSeats seats = new Models.EnableAndDisableSeats();
             seats.AllSeats = icinemamanager.SelectMovieEvent(me.MovieEventId).Room.Seats;
@@ -115,7 +125,8 @@ namespace WebClient.Controllers
             return View("ChooseSeats", seats);
         }
         [HttpGet]
-        public ViewResult SelectMovieEvent(int id) {
+        public ViewResult SelectMovieEvent(int id)
+        {
             return SelectedMovieEvent(id);
         }
 
@@ -123,12 +134,12 @@ namespace WebClient.Controllers
         [HttpGet]
         public ViewResult ListSeatsInMovieEvent()
         {
-            ViewBag.User = HttpContext.Session.GetString("_Name");
+            ViewBag.Name = HttpContext.Session.GetString(userManager.GetUserName(User) + "_Name");
             Models.EnableAndDisableSeats seats = new Models.EnableAndDisableSeats();
-            int movieeventid =(int) HttpContext.Session.GetInt32("_meId");
+            int movieeventid = (int)HttpContext.Session.GetInt32(userManager.GetUserName(User) + "_meId");
             seats.AllSeats = icinemamanager.SelectMovieEvent(movieeventid).Room.Seats;
-            seats.EnableSeats= icinemamanager.getEnableSeats(movieeventid);
-            return View("ListSeatsInMovieEvent",seats);
+            seats.EnableSeats = icinemamanager.getEnableSeats(movieeventid);
+            return View("ListSeatsInMovieEvent", seats);
         }
         [HttpGet]
         public ViewResult SetSeatId(int id)
@@ -138,28 +149,33 @@ namespace WebClient.Controllers
         [HttpGet]
         public ViewResult ChooseSeat(int seatid)
         {
-            ViewBag.User = HttpContext.Session.GetString("_Name");
-            ireservationmanager.MakeReservation((int)HttpContext.Session.GetInt32("_meId"),seatid);
+            ViewBag.Name = HttpContext.Session.GetString(userManager.GetUserName(User) + "_Name");
+            ireservationmanager.MakeReservation((int)HttpContext.Session.GetInt32(userManager.GetUserName(User) + "_meId"), seatid, (int)HttpContext.Session.GetInt32(userManager.GetUserName(User)));
             return ChooseSeatMore();
         }
         [HttpGet]
         public ViewResult ChooseSeatMore()
         {
-            ViewBag.User = HttpContext.Session.GetString("_Name");
-            int movieeventid = (int)HttpContext.Session.GetInt32("_meId");
+            ViewBag.Name = HttpContext.Session.GetString(userManager.GetUserName(User) + "_Name");
+            int movieeventid = (int)HttpContext.Session.GetInt32(userManager.GetUserName(User) + "_meId");
             Models.EnableAndDisableSeats seats = new Models.EnableAndDisableSeats();
             seats.AllSeats = icinemamanager.SelectMovieEvent(movieeventid).Room.Seats;
             seats.EnableSeats = icinemamanager.getEnableSeats(movieeventid);
             return View("ChooseSeats", seats);
         }
 
-        
+
         [HttpGet]
         public ViewResult Reservation()
         {
-            ViewBag.User = HttpContext.Session.GetString("_Name");
+            ViewBag.Name = HttpContext.Session.GetString(userManager.GetUserName(User) + "_Name");
             List<DTO.Reservation> reservationlist = new List<DTO.Reservation>();
-            reservationlist = ireservationmanager.GetReservationsByUser(ireservationmanager.SignedUserId());
+            if (userManager.GetUserName(User) == null)
+            {
+                signInManager.SignOutAsync();
+                return Main();
+            }
+            reservationlist = ireservationmanager.GetReservationsByUser((int)HttpContext.Session.GetInt32(userManager.GetUserName(User)));
             return View("Reservation", reservationlist);
         }
     }
