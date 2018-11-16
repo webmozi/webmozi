@@ -1,31 +1,30 @@
 ﻿@model EnableAndDisableSeats
 
     @{
-    ViewBag.Title = "List Seats";
-    Layout = "_SignedUserLayout";
+        ViewBag.Title = "Seats in the room";
+        ViewBag.Subtitle = "The available seats are free";
+        Layout = "_SignedUserLayout";
     }
 
     <!DOCTYPE html>
 
     <html>
     <head>
-        <meta name="viewport" content="wirdt=device-width" />
+        <meta name="viewport" content="width=device-width" />
         <title>@ViewBag.Title</title>
         <link rel="stylesheet" href="~/css/styles.css" />
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
     </head>
     <body>
         <div class="text-center">
-            <a asp-controller="User" asp-action="Reservation" class="btn btn-success">Get Reservation</a>
+            <a id="idd" asp-controller="User" asp-action="Reservation" class="btn btn-success">Make Reservation</a>
         </div>
-        <h4>Here is the list of seats</h4>
         <table class="table table-sm table-striped table-bordered">
             <thead>
                 <tr>
-                    <th>Seat Number</th>
                     <th>Row Number</th>
-                    <th>Enable</th>
-
+                    <th>Seat Number</th>
+                    <th>Available</th>
                 </tr>
             </thead>
             <tbody>
@@ -34,10 +33,12 @@
 
                 <tr>
                     <td>
-                        @Html.DisplayFor(modelItem => m.SeatNumber)
+                        @Html.DisplayFor(modelItem => m.RowNumber)
+
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => m.RowNumber)
+                        @Html.DisplayFor(modelItem => m.SeatNumber)
+
                     </td>
                     @foreach (var n in Model.EnableSeats) {
                         if (n.SeatId == m.SeatId)
@@ -65,9 +66,6 @@
                 }
             </tbody>
         </table>
-        <div class="text-left">
-            <a asp-controller="User" asp-action="Main" class="btn btn-info">Back</a>
-        </div>
     </body>
 </html>
 

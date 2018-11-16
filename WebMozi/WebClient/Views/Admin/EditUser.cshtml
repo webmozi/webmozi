@@ -8,33 +8,63 @@
 
 <html>
 <head>
-    <meta name="viewport" content="widt=device-width" />
     <title>@ViewBag.Title</title>
-    <link rel="stylesheet" href="~/css/styles.css" />
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
 </head>
 <body>
-    <div class="panel-body">
-        <form asp-controller="Admin" asp-action="EditUser" method="post">
-            <input type="hidden" asp-for="UserId" />
-            <div class="form-group">
-                <label asp-for="Name"></label>
-                <input asp-for="Name" class="form-inline" required />
+    <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
+        <a class="navbar-brand mr-1" asp-controller="Home" asp-action="Index">User Page</a>
+
+        <ul class="navbar-nav nav">
+            <li>
+                <a class="nav-link" asp-controller="Admin" asp-action="ListMovies">Movies</a>
+            </li>
+            <li>
+                <a class="nav-link" asp-controller="Admin" asp-action="ListRooms">Rooms</a>
+            </li>
+            <li>
+                <a class="nav-link" asp-controller="Admin" asp-action="ListMovieEvents">Movie Events</a>
+            </li>
+            <li>
+                <a class="nav-link active" asp-controller="Admin" asp-action="ListUsers">Users and reservations</a>
+            </li>
+        </ul>
+    </nav>
+    <div id="wrapper">
+        <div id="content-wrapper">
+            <div class="container-fluid">
+                <ul class="sidebar navbar-nav">
+                    <li class="nav-item active">
+                        <a class="nav-link" asp-controller="Admin" asp-action="ListUsers">User List</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Admin" asp-action="ListReservation">Reservation List</a>
+                    </li>
+                </ul>
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <form asp-controller="Admin" asp-action="EditUser" method="post">
+                            <input type="hidden" asp-for="UserId" />
+                            <div class="form-group">
+                                <label asp-for="Name"></label>
+                                <input asp-for="Name" class="form-inline" required />
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="TelephoneNumber"></label>
+                                <input asp-for="TelephoneNumber" type="number" class="form-inline" required>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Email"></label>
+                                <input asp-for="Email" class="form-inline" required />
+                            </div>
+                            <div class="text-left">
+                                <button class="btn btn-primary" type="submit">Save</button>
+                                <a asp-contoller="Admin" asp-action="ListUsers" class="btn btn-secondary">Cancel</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="TelephoneNumber"></label>
-                <input asp-for="TelephoneNumber" type="number" class="form-inline" required>
-            </div>
-            <div class="form-group">
-                <label asp-for="Email"></label>
-                <input asp-for="Email" class="form-inline" required />
-            </div>
-            <div class="text-left">
-                <button class="btn btn-primary" type="submit">Save</button>
-                <a asp-contoller="Admin" asp-action="ListUsers" class="btn btn-secondary">Cancel</a>
-            </div>
-            <br>
-        </form>
+        </div>
     </div>
 </body>
 </html>

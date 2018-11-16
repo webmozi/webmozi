@@ -1,20 +1,31 @@
-﻿@{
+﻿
+@{
     ViewBag.Title = "Cinema AKG";
-    Layout = null;
+    ViewBag.Subtitle = "Where only the favorites are cast";
+    Layout = "_UserLayout";
 }
 
 <!DOCTYPE html>
-
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>Main View</title>
+    <title>@ViewBag.Title</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+    <style>
+        h1.welc {
+            font-size:55px;
+        }
+    </style>
 </head>
 <body>
-    <div class="panel-heading text-center">
-        <a class="btn btn-primary" asp-controller="Admin" asp-action="Main">Admin</a>
-        <a class="btn btn-primary" asp-controller="User" asp-action="Main">User</a>
+    <div class="text-center">
+        <h1 class="welc">Hello!</h1>
+    </div>
+    <div class="text-center">
+        <h2>Good to see you here</h2>
+    </div>
+    <div class="text-center">
+        <h3>If you are new to AKG then get started by creating a new account</h3>
     </div>
 </body>
 </html>

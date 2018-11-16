@@ -1,7 +1,8 @@
 ﻿@model IEnumerable<DTO.MovieEventHeader>
 
 @{
-    ViewBag.Title = "List Movie Events";
+    ViewBag.Title = "Movie Events";
+    ViewBag.Subtitle = "Here are the movies with their time";
     Layout = "_SignedUserLayout";
 }
 
@@ -9,7 +10,7 @@
 
     <html>
     <head>
-        <meta name="viewport" content="wirdt=device-width" />
+        <meta name="viewport" content="width=device-width" />
         <title>@ViewBag.Title</title>
         <link rel="stylesheet" href="~/css/styles.css" />
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
@@ -18,29 +19,31 @@
         <table class="table table-sm table-striped table-bordered">
             <thead>
                 <tr>
-                    <th>Movie Name</th>
-                    <th>Director</th>
-                    <th>Date Time</th>
+                    <th class="text-center">Movie Name</th>
+                    <th class="text-center">Director</th>
+                    <th class="text-center">Length</th>
+                    <th class="text-center">Time</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (var m in Model)
                 {
 
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => m.Movie.Title)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => m.Movie.Director)
-                        </td>
-                        <td class="text-center">
-                            <input type="button" class="btn btn-sm btn-warning" value=@Html.DisplayFor(modellItem =>m.Time.TimeOfDay)
-                                   onclick="location.href='@Url.Action("SelectMovieEvent","User", new { id = m.MovieEventId })'" />
-
-                        </td>
-
-                    </tr>
+                <tr>
+                    <td class="text-center">
+                        @Html.DisplayFor(modelItem => m.Movie.Title)
+                    </td>
+                    <td class="text-center">
+                        @Html.DisplayFor(modelItem => m.Movie.Director)
+                    </td>
+                    <td class="text-center">
+                        @Html.DisplayFor(modelItem => m.Movie.Length)
+                    </td>
+                    <td class="text-center">
+                        <input type="button" class="btn btn-sm btn-warning" value=@Html.DisplayFor(modellItem =>m.Time.TimeOfDay)
+                               onclick="location.href='@Url.Action("SelectMovieEvent","User", new { id = m.MovieEventId })'" />
+                    </td>
+                </tr>
 
                 }
             </tbody>

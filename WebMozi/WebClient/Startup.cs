@@ -23,7 +23,7 @@ namespace WebClient
 
         public void ConfigureServices(IServiceCollection services)
         {
-
+            
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
@@ -65,7 +65,7 @@ namespace WebClient
             {
                 options.Cookie.Name = "YourAppCookieName";
                 options.Cookie.HttpOnly = true;
-                options.ExpireTimeSpan = TimeSpan.FromMinutes(1);
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(3);
                 options.LoginPath = "/Admin/Login";
                 options.AccessDeniedPath = $"/Admin/Login";
                 options.ReturnUrlParameter = CookieAuthenticationDefaults.ReturnUrlParameter;

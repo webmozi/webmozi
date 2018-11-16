@@ -21,8 +21,8 @@ namespace DAL
                 for (int i = 0; i < room.Capacity; i++)
                 {
                     DAL.Seat seat = new DAL.Seat();
-                    seat.SeatNumber = (i / 10) + 1;
-                    seat.RowNumber = i + 1;
+                    seat.SeatNumber = i + 1;
+                    seat.RowNumber =(i / 10) + 1;
                     seats.Add(seat);
                 }
                 room.Seats = seats;
@@ -77,6 +77,7 @@ namespace DAL
                 }
                 item.Director = movie.Director;
                 item.Title = movie.Title;
+                item.Length = movie.Length;
                 context.Movies.Update(item);
                 context.SaveChanges();
 

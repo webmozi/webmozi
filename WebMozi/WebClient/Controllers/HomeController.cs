@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using WebClient.Models;
@@ -19,10 +20,30 @@ namespace WebClient.Controllers
 
         public async Task<ViewResult> Index()
         {
-            if (User.Identity.Name == "admin")
+            if (User != null)
             {
-                await signInManager.SignOutAsync();
+                if (userManager.GetUserName(User) == "admin")
+                {
+                    await signInManager.SignOutAsync();
+                    return View("MainView");
+                }
+                else if (userManager.GetUserName(User)==null)
+                {
+                    return View("MainView");
+                }
+                else
+                {
+                    ViewBag.Name = HttpContext.Session.GetString(userManager.GetUserName(User) + "_Name");
+                    return View("SignedMainView");
+                }
             }
+            else
+            {
+                return View("MainView");
+            }
+        }
+        public async Task<ViewResult> Logout() {
+            await signInManager.SignOutAsync();
             return View("MainView");
         }
 

@@ -27,6 +27,8 @@ namespace DAL.Migrations
 
                     b.Property<string>("Director");
 
+                    b.Property<int>("Length");
+
                     b.Property<string>("Title");
 
                     b.HasKey("MovieId");
@@ -34,9 +36,9 @@ namespace DAL.Migrations
                     b.ToTable("Movies");
 
                     b.HasData(
-                        new { MovieId = 1, Director = "Ruben Fleischer", Title = "Venom" },
-                        new { MovieId = 2, Director = "David Kerr", Title = "Jhonny English" },
-                        new { MovieId = 3, Director = "Pierre Morel", Title = "Peppermint" }
+                        new { MovieId = 1, Director = "Ruben Fleischer", Length = 120, Title = "Venom" },
+                        new { MovieId = 2, Director = "David Kerr", Length = 95, Title = "Jhonny English" },
+                        new { MovieId = 3, Director = "Pierre Morel", Length = 110, Title = "Peppermint" }
                     );
                 });
 
@@ -134,8 +136,8 @@ namespace DAL.Migrations
 
                     b.HasData(
                         new { SeatId = 1, RoomId = 1, RowNumber = 1, SeatNumber = 1 },
-                        new { SeatId = 2, RoomId = 1, RowNumber = 2, SeatNumber = 1 },
-                        new { SeatId = 3, RoomId = 1, RowNumber = 3, SeatNumber = 1 },
+                        new { SeatId = 2, RoomId = 1, RowNumber = 1, SeatNumber = 2 },
+                        new { SeatId = 3, RoomId = 1, RowNumber = 1, SeatNumber = 2 },
                         new { SeatId = 4, RoomId = 2, RowNumber = 1, SeatNumber = 1 },
                         new { SeatId = 5, RoomId = 2, RowNumber = 1, SeatNumber = 2 }
                     );

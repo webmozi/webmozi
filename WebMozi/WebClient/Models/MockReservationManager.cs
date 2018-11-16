@@ -7,26 +7,26 @@ namespace WebClient.Models
 {
     public class MockReservationManager : IReservationManager
     {
-        private List<DTO.User> users;
+        private List<User> users;
         private List<DTO.Reservation> reservations;
         private static int reservationIDs;
         private static int userIDs;
-        private DTO.User signedUser;
+        private User signedUser;
         private int chosedreservationid;
         public MockReservationManager()
         {
             userIDs = 0;
             chosedreservationid = -1;
             reservationIDs = 0;
-            users = new List<DTO.User>();
+            users = new List<User>();
             reservations = new List<DTO.Reservation>();
-            DTO.User u = new DTO.User() { Name = "Ako", Password = "Ako", TelephoneNumber = "06308888888", Email = "ako@hotmail.com" };
+            User u = new User() { Name = "Ako", Password = "Ako", TelephoneNumber = "06308888888", Email = "ako@hotmail.com" };
             AddUser(u);
-            DTO.User u2 = new DTO.User() { Name = "Gabo", Password = "Gabo", TelephoneNumber = "06207777777", Email = "gabo@gmail.com" };
+            User u2 = new User() { Name = "Gabo", Password = "Gabo", TelephoneNumber = "06207777777", Email = "gabo@gmail.com" };
             AddUser(u2);
         }
 
-        public IEnumerable<DTO.User> ListUsers()
+        public IEnumerable<User> ListUsers()
         {
             return users;
         }
@@ -34,16 +34,16 @@ namespace WebClient.Models
         {
             return reservations;
         }
-        public void AddUser(DTO.User user)
+        public void AddUser(User user)
         {
             user.UserId = userIDs;
             userIDs++;
             users.Add(user);
         }
-        public DTO.User SelectUser(int ID)
+        public User SelectUser(int ID)
         {
-            DTO.User user = null;
-            foreach (DTO.User us in users)
+            User user = null;
+            foreach (User us in users)
             {
                 if (us.UserId == ID)
                 {
@@ -54,7 +54,7 @@ namespace WebClient.Models
         }
         public void DeleteUser(int id)
         {
-            foreach (DTO.User u in users.ToList())
+            foreach (User u in users.ToList())
             {
                 if (u.UserId == id)
                 {
@@ -62,7 +62,7 @@ namespace WebClient.Models
                 }
             }
         }
-        public DTO.User EditUser(DTO.User u)
+        public User EditUser(User u)
         {
             for (int i = 0; i < users.Count; i++)
             {
@@ -75,10 +75,10 @@ namespace WebClient.Models
             }
             return u;
         }
-        public void LogInUser(DTO.User u)
+        public void LogInUser(User u)
         {
-            DTO.User user = null;
-            foreach (DTO.User us in users)
+            User user = null;
+            foreach (User us in users)
             {
                 if (us.Name == u.Name && us.Password == u.Password)
                 {
@@ -96,7 +96,7 @@ namespace WebClient.Models
             chosedreservationid = -1;
         }
 
-        public DTO.User SignedUser()
+        public User SignedUser()
         {
             return signedUser;
         }
@@ -123,13 +123,13 @@ namespace WebClient.Models
             }
             return null;
         }
-        public DTO.Reservation AddUserToReservation(int resID, DTO.User u)
+        public DTO.Reservation AddUserToReservation(int resID, User u)
         {
             for (int i = 0; i < reservations.Count; i++)
             {
                 if (reservations.ElementAt(i).ReservationId == resID)
                 {
-                    reservations.ElementAt(i).User = u;
+                    reservations.ElementAt(i).User = new DTO.User { Name=u.Name,Email=u.Email,TelephoneNumber=u.TelephoneNumber};
                     return reservations.ElementAt(i);
                 }
             }
@@ -175,7 +175,7 @@ namespace WebClient.Models
             throw new NotImplementedException();
         }
 
-        int IReservationManager.GetIdByUser(User u)
+        int IReservationManager.GetIdByUser(DTO.User u)
         {
             throw new NotImplementedException();
         }
@@ -189,5 +189,32 @@ namespace WebClient.Models
         {
             throw new NotImplementedException();
         }
+
+        public int GetIdByUser(DTO.User u)
+        {
+            throw new NotImplementedException();
+        }
+
+        IEnumerable<DTO.User> IReservationManager.ListUsers()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void AddUser(DTO.User user)
+        {
+            throw new NotImplementedException();
+        }
+
+        DTO.User IReservationManager.SelectUser(int ID)
+        {
+            throw new NotImplementedException();
+        }
+
+        public DTO.User EditUser(DTO.User u)
+        {
+            throw new NotImplementedException();
+        }
+
+       
     }
 }

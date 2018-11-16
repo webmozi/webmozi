@@ -9,52 +9,99 @@
 
 <html>
     <head>
-        <meta name="viewport" content="wirdt=device-width" />
         <title>@ViewBag.Title</title>
-        <link rel="stylesheet" href="~/css/styles.css" />
-        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
     </head>
     <body>
-        <h4>Here is the list of movie events</h4>
+        <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
+            <a class="navbar-brand mr-1" asp-controller="Home" asp-action="Index">User Page</a>
 
-        <table class="table table-sm table-striped table-bordered">
-            <thead>
-                <tr>
-                    <th>Movie Name</th>
-                    <th>Director</th>
-                    <th>Date Time</th>
-                    <th>Room</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var m in Model)
-                {
+            <ul class="navbar-nav nav">
+                <li>
+                    <a class="nav-link" asp-controller="Admin" asp-action="ListMovies">Movies</a>
+                </li>
+                <li>
+                    <a class="nav-link" asp-controller="Admin" asp-action="ListRooms">Rooms</a>
+                </li>
+                <li>
+                    <a class="nav-link active" asp-controller="Admin" asp-action="ListMovieEvents">Movie Events</a>
+                </li>
+                <li>
+                    <a class="nav-link" asp-controller="Admin" asp-action="ListUsers">Users and reservations</a>
+                </li>
+            </ul>
+        </nav>
+        <div id="wrapper">
+            <div id="content-wrapper">
+                <div class="container-fluid">
+                    <ul class="sidebar navbar-nav">
+                        <li class="nav-item active">
+                            <a class="nav-link" asp-controller="Admin" asp-action="ListMovieEvents">Event List</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Admin" asp-action="CreateEvent">Create Event</a>
+                        </li>
+                    </ul>
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            @if (TempData["add"] != null)
+                            {
+                                <div class="alert alert-success">@TempData["add"]</div>
+                            }
+                            @if (TempData["delete"] != null)
+                            {
+                                <div class="alert alert-danger">@TempData["delete"]</div>
+                            }
+                            @if (TempData["edit"] != null)
+                            {
+                                <div class="alert alert-warning">@TempData["edit"]</div>
+                            }
+                            <div class="table-responsive">
 
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => m.Movie.Title)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => m.Movie.Director)
-                    </td>
-                    <td class="text-center">
-                        @Html.DisplayFor(modellItem => m.Time)
-                    </td>
-                    <td class="text-center">
-                        @Html.DisplayFor(modellItem => m.Room.RoomNumber)
-                    </td>
-                    <td class="text-center">
-                        <input type="button" class="btn btn-danger btn-sm" value="Delete"
-                               onclick="location.href='@Url.Action("DeleteMovieEvent","Admin", new { id = m.MovieEventId })'" />
-                    </td>
-                </tr>
+                                <table class="table table-bordered" id="dataTable" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>Movie Name</th>
+                                            <th>Director</th>
+                                            <th>Length</th>
+                                            <th>Date Time</th>
+                                            <th>Room</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var m in Model)
+                                        {
 
-                    }
-            </tbody>
-        </table>
-        <div class="text-left">
-            <a asp-controller="Admin" asp-action="MovieEventMain" class="btn btn-info">Back</a>
+                                        <tr>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => m.Movie.Title)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => m.Movie.Director)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => m.Movie.Length)
+                                            </td>
+                                            <td >
+                                                @Html.DisplayFor(modellItem => m.Time)
+                                            </td>
+                                            <td >
+                                                @Html.DisplayFor(modellItem => m.Room.RoomNumber)
+                                            </td>
+                                            <td class="text-center">
+                                                <input type="button" class="btn btn-danger btn-sm" value="Delete"
+                                                       onclick="location.href='@Url.Action("DeleteMovieEvent","Admin", new { id = m.MovieEventId })'" />
+                                            </td>
+                                        </tr>
+
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </body>
 </html>

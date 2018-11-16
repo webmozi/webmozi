@@ -1,6 +1,7 @@
 ﻿@model EnableAndDisableSeats
 @{
-    ViewBag.Title = "Choose Seat";
+    ViewBag.Title = "Seats in the room";
+    ViewBag.Subtitle = "Choose the seats you'd like to watch the movie from";
     Layout = "_SignedUserLayout";
 }
 
@@ -8,57 +9,57 @@
 
     <html>
     <head>
-        <meta name="viewport" content="wirdt=device-width" />
+        <meta name="viewport" content="width=device-width" />
         <title>@ViewBag.Title</title>
         <link rel="stylesheet" href="~/css/styles.css" />
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
     </head>
     <body>
+        <div class="text-center">
+            <a id="idd" asp-controller="User" asp-action="ListSeatsInMovieEvent" class="btn btn-primary ">Got Enough Seats</a>
+        </div>
         <table class="table table-sm table-striped table-bordered">
             <thead>
                 <tr>
-                    <th>Seat Number</th>
                     <th>Row Numner</th>
-                    <th>Enable</th>
+
+                    <th>Seat Number</th>
+                    <th class="text-center">Available</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (var m in Model.AllSeats)
                 {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => m.SeatNumber)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => m.RowNumber)
-                    </td>
-                    @foreach (var n in Model.EnableSeats)
-                    {
-                        if (n.SeatId == m.SeatId)
-                        {
-                            Model.IsEnable = true;
-                        }
-                    }
-                    @if (Model.IsEnable)
-                    {
-                        <td class="text-center">
-                            <input type="button" class="btn btn-sm btn-warning" value="Choose"
-                                   onclick="location.href='@Url.Action("SetSeatId", "User", new { id = m.SeatId })'" />
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => m.RowNumber)
+
                         </td>
-                        Model.IsEnable = false;
-                    }
-                    
-                </tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => m.SeatNumber)
+
+                        </td>
+                        @foreach (var n in Model.EnableSeats)
+                        {
+                            if (n.SeatId == m.SeatId)
+                            {
+                                Model.IsEnable = true;
+                            }
+                        }
+                        @if (Model.IsEnable)
+                        {
+                            <td class="text-center">
+                                <input type="button" class="btn btn-sm btn-warning" value="Choose"
+                                       onclick="location.href='@Url.Action("SetSeatId", "User", new { id = m.SeatId })'" />
+                            </td>
+                            Model.IsEnable = false;
+                        }
+
+                    </tr>
 
                 }
             </tbody>
         </table>
-        <div class="text-center">
-            <a asp-controller="User" asp-action="ListSeatsInMovieEvent" class="btn btn-primary">Get Enough Seats</a>
-        </div>
-        <div class="text-left">
-            <a asp-controller="User" asp-action="Main" class="btn btn-info">Back</a>
-        </div>
     </body>
 </html>
 

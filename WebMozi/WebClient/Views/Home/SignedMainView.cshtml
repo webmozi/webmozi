@@ -1,0 +1,31 @@
+﻿
+@{
+    ViewBag.Title = "Cinema AKG";
+    ViewBag.Subtitle = "Where only the favorites are cast";
+    Layout = "_SignedUserLayout";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+    <style>
+        h1.welc {
+            font-size: 55px;
+        }
+    </style>
+</head>
+<body>
+    <div class="text-center">
+        <h1 class="welc">Hello @ViewBag.Name!</h1>
+    </div>
+    <div class="text-center">
+        <h2>Good to see you here.</h2>
+    </div>
+    <div class="text-center">
+        <h3>Choose an event from movie events or check your reservations!</h3>
+    </div>
+</body>
+</html>

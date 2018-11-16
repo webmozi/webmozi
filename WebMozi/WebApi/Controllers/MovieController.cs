@@ -24,6 +24,7 @@ namespace WebApi.Controllers
                 {
                     Director = movie.Director,
                     MovieId = movie.MovieId,
+                    Length = movie.Length,
                     Title = movie.Title
                 });
             }
@@ -36,6 +37,7 @@ namespace WebApi.Controllers
             DTO.Movie dtomovie = new DTO.Movie();
             dtomovie.Director = dalmovie.Director;
             dtomovie.MovieId = dalmovie.MovieId;
+            dtomovie.Length = dalmovie.Length;
             dtomovie.Title = dalmovie.Title;
             return dtomovie;
         }
@@ -51,6 +53,7 @@ namespace WebApi.Controllers
             var dalitem = new DAL.Movie();
             dalitem.Director = item.Director;
             dalitem.Title = item.Title;
+            dalitem.Length = item.Length;
             DAL.Administration.AddMovie(dalitem);
             return Created("http://localhost:6544/api/movie", item);
         }
@@ -62,6 +65,7 @@ namespace WebApi.Controllers
                 Title = item.Title,
                 MovieId = item.MovieId,
                 Director = item.Director,
+                Length = item.Length
             };
 
             DAL.Administration.UpdateMovie(newDalMovie);

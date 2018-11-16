@@ -11,5 +11,7 @@ namespace DTO
         public string Title { get; set; }
 
         public string Director { get; set; }
+        
+        public int Length { get; set; }
     }
 }

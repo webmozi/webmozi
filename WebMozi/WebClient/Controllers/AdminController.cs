@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using WebClient.Models;
 
 namespace WebClient.Controllers
 {
@@ -20,6 +21,7 @@ namespace WebClient.Controllers
         [HttpGet]
         public ViewResult Main()
         {
+            TempData["successfull"] = null;
             signInManager.SignOutAsync();
             ViewBag.FirstWasUser = 1;
             return View("Login");
@@ -27,11 +29,11 @@ namespace WebClient.Controllers
         [HttpGet]
         public ViewResult AdminMain()
         {
-            return View("Main");
+            return ListMovies();
         }
         [AllowAnonymous]
         [HttpPost]
-        public async Task<ViewResult> Login(DTO.User u)
+        public async Task<ViewResult> Login(User u)
         {
             bool adminrole = await roleManager.RoleExistsAsync("Admin");
             if (!adminrole)
@@ -81,25 +83,7 @@ namespace WebClient.Controllers
                 return Main();
             }
         }
-        public ViewResult MovieMain()
-        {
-            return View("MovieMain");
-        }
-        [HttpGet]
-        public ViewResult RoomMain()
-        {
-            return View("RoomMain");
-        }
-        [HttpGet]
-        public ViewResult MovieEventMain()
-        {
-            return View("MovieEventMain");
-        }
-        [HttpGet]
-        public ViewResult UserReservationMain()
-        {
-            return View("UserReservationMain");
-        }
+     
         [HttpGet]
         public ViewResult ListMovies()
         {
@@ -120,7 +104,7 @@ namespace WebClient.Controllers
         [HttpGet]
         public ViewResult DeleteMovie(int ID)
         {
-            TempData["remove"] = $"{icinemamanager.SelectMovie(ID).Title} was removed!";
+            TempData["delete"] = $"{icinemamanager.SelectMovie(ID).Title} was removed!";
             icinemamanager.DeleteMovie(ID);
             return ListMovies();
         }
@@ -168,7 +152,7 @@ namespace WebClient.Controllers
 
 
         [HttpGet]
-        public ViewResult ListEvents()
+        public ViewResult ListMovieEvents()
         {
             return View("ListMovieEvents", icinemamanager.ListMovieEventsWithoutSeats());
         }
@@ -190,7 +174,7 @@ namespace WebClient.Controllers
             mevent.Time = me.Time;
             icinemamanager.AddMovieEvent(mevent);
             TempData["add"] = $"{mevent.Movie.Title} added at {mevent.Time} in Room {mevent.Room.RoomNumber}!";
-            return ListEvents();
+            return ListMovieEvents();
         }
         [HttpGet]
         public ViewResult DeleteMovieEvent(int Id)
@@ -198,7 +182,7 @@ namespace WebClient.Controllers
             DTO.MovieEvent mevent = icinemamanager.SelectMovieEvent(Id);
             TempData["delete"] = $"{mevent.Movie.Title} at {mevent.Time} in Room {mevent.Room.RoomNumber} was removed !";
             icinemamanager.DeleteMovieEvent(Id);
-            return ListEvents();
+            return ListMovieEvents();
         }
 
 

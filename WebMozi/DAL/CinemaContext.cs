@@ -10,7 +10,7 @@ namespace DAL
     //      - remove the last migration:        Remove-Migration -Context CinemaContext -Project DAL -StartUpProject WebApi
     //      - drop database:                    drop-database -Context CinemaContext -Project DAL -StartUpProject WebApi
     //
-    //
+    //Add-Migration      SecondMigration -Context CinemaContext -Project DAL -StartUpProject WebApi
     //
     //      -create database based on the created migrations: update-database -Context CinemaContext -Project DAL -StartUpProject WebApi
     public class CinemaContext : DbContext
@@ -41,27 +41,31 @@ namespace DAL
         {
 
             //////////////////////////// MOVIES //////////////////////////////////
-           
+
             modelBuilder.Entity<Movie>().HasData(
                 new Movie
                 {
                     MovieId = 1,
                     Title = "Venom",
                     Director = "Ruben Fleischer",
+                    Length = 120
                 },
 
                 new Movie
                 {
                     MovieId = 2,
                     Title = "Jhonny English",
-                    Director = "David Kerr"
+                    Director = "David Kerr",
+                    Length = 95
+
                 },
 
                 new Movie
                 {
                     MovieId = 3,
                     Title = "Peppermint",
-                    Director = "Pierre Morel"
+                    Director = "Pierre Morel",
+                    Length = 110
                 }
 
             );
@@ -103,8 +107,8 @@ namespace DAL
                 new Seat
                 {
                     SeatId = 2,
-                    RowNumber = 2,
-                    SeatNumber = 1,
+                    RowNumber = 1,
+                    SeatNumber = 2,
                     RoomId = 1
 
                 },
@@ -112,8 +116,8 @@ namespace DAL
                 new Seat
                 {
                     SeatId = 3,
-                    RowNumber = 3,
-                    SeatNumber = 1,
+                    RowNumber = 1,
+                    SeatNumber = 2,
                     RoomId = 1
 
                 },
@@ -160,7 +164,7 @@ namespace DAL
                     MovieId = 2,
                     RoomId = 2
                 },
-                
+
                 new MovieEvent
                 {
                     MovieEventId = 3,
@@ -175,21 +179,7 @@ namespace DAL
             //////////////////////////// USERS //////////////////////////////////
 
             modelBuilder.Entity<User>().HasData(
-                new User
-                {
-                    UserId = 1,
-                    Name = "Laci",
-                    Email = "laci@gmail.com",
-                    TelephoneNumber = "06-70-707-0707"
-                },
-                
-                new User
-                {
-                    UserId = 2,
-                    Name = "Peti",
-                    Email = "peti@icloud.com",
-                    TelephoneNumber = "06-70- 606-0606"
-                }
+            //itt hiányozna a password, ha itt hozzuk létre
             );
 
 
@@ -197,40 +187,8 @@ namespace DAL
             //////////////////////////// RESERVATIONS //////////////////////////////////
 
             modelBuilder.Entity<Reservation>().HasData(
-                new Reservation
-                {
-                    ReservationId = 1,
-
-                    MovieEventId = 1,
-                    SeatId = 4,
-                    UserId = 2
-
-                },
-
-
-                new Reservation
-                {
-                    ReservationId = 2,
-
-                    MovieEventId = 1,
-                    SeatId = 5,
-                    UserId = 2
-
-                },
-
-
-                new Reservation
-                {
-                    ReservationId = 3,
-
-                    MovieEventId = 3,
-                    SeatId = 1,
-                    UserId = 1
-                }
+            //User nélkül nincs reservation
             );
-
-            
-
         }
 
     }

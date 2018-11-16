@@ -8,80 +8,84 @@
     <!DOCTYPE html>
     <html>
     <head>
-        <meta name="viewport" content="width=device-width" />
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <link rel="stylesheet" asp-href-include="bootstrap/startbootstrap-sb-admin-gh-pages/vendor/bootstrap/css/bootstrap.min.css">
+
+        <link asp-href-include="bootstrap/startbootstrap-sb-admin-gh-pages/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+        <link asp-href-include="bootstrap/startbootstrap-sb-admin-gh-pages/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet" type="text/css">
+        <link asp-href-include="bootstrap/startbootstrap-sb-admin-gh-pages/css/sb-admin.css" rel="stylesheet" type="text/css">
+
+
         <link rel="stylesheet" asp-href-include="lib/bootstrap/dist/css/*.min.css" />
+        <style>
+            .navbar {
+                position: relative;
+                min-height: 50px;
+                margin-bottom: 0;
+                border: 1px solid transparent;
+                border-radius: 0px;
+            }
+            #wrapper #content-wrapper {
+            overflow-x: hidden;
+            width: 100%;
+            padding-top: 0;
+            padding-bottom: 0;
+            }
+            .container-fluid {
+             padding-right: 15px;
+             padding-left: 0;
+             margin-right: auto;
+             margin-left: auto;
+            }
+            .navbar-nav > li > a {
+                padding-top: 0;
+                padding-bottom: 0;
+                line-height: 0;
+            }
+            .navbar-expand .navbar-nav .nav-link {
+                padding-right: 2rem;
+                padding-left: 2rem;
+            }
+            .sidebar .nav-item .nav-link {
+                display: block;
+                width: 100%;
+                text-align: left;
+                padding: 2rem;
+                width: 225px;
+            }
+        </style>
         <title>@ViewBag.Title</title>
     </head>
-    <body>
-        <nav class="navbar navbar-default">
-            <div class="container">
-                <ul class="nav navbar-nav">
-                    <li>
-                        <a asp-controller="Home" asp-action="Index">Home Page</a>
-                    </li>
-                    <li>
-                        <a asp-controller="Admin" asp-action="MovieMain">Movies</a>
-                    </li>
-                    <li>
-                        <a asp-controller="Admin" asp-action="RoomMain">Rooms</a>
-                    </li>
-                    <li>
-                        <a asp-controller="Admin" asp-action="MovieEventMain">Movie Events</a>
-                    </li>
-                    <li>
-                        <a asp-controller="Admin" asp-action="UserReservationMain">Users and reservations</a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-        <main>
-            <div class="panel-body">
-                @if (TempData["incorrect"] != null)
-            {
-                    <div class="alert alert-danger">@TempData["incorrect"]</div>
-                }
-        @if (TempData["successfull"] != null)
-        {
-                    <div class="alert alert-success">@TempData["successfull"]</div>
-    }
-    @if (TempData["add"] != null)
-    {
-                    <div class="alert alert-success">@TempData["add"]</div>
-}
-                @if (TempData["delete"] != null)
-    {
-                    <div class="alert alert-danger">@TempData["delete"]</div>
-                }
-                @if (TempData["edit"] != null)
-    {
-                    <div class="alert alert-warning">@TempData["edit"]</div>
-                }
-                @RenderBody()
-            </div>
-        </main>
+    <body id="page-top">
+                    @RenderBody()
     </body>
 </html>
 }
 else
 {
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <link rel="stylesheet" asp-href-include="lib/bootstrap/dist/css/*.min.css" />
-    <title>@ViewBag.Title</title>
-</head>
-<body>
-    <div class="panel-body">
-        @if (TempData["incorrect"] != null)
-{
-            <div class="alert alert-danger">@TempData["incorrect"]</div>
-        }
-        @if (TempData["successfull"] != null)
-{
-            <div class="alert alert-success">@TempData["successfull"]</div>
-        }
-        @RenderBody()
-    </div>
-</body>
-</html>
+    <html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <link rel="stylesheet" asp-href-include="bootstrap/startbootstrap-sb-admin-gh-pages/vendor/bootstrap/css/bootstrap.min.css">
+
+        <link asp-href-include="bootstrap/startbootstrap-sb-admin-gh-pages/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+        <link asp-href-include="bootstrap/startbootstrap-sb-admin-gh-pages/css/sb-admin.css" rel="stylesheet" type="text/css">
+
+        <link rel="stylesheet" asp-href-include="lib/bootstrap/dist/css/*.min.css" />
+        <title>@ViewBag.Title</title>
+    </head>
+    <body class="bg-dark">
+        <div class="container">
+            @RenderBody()
+        </div>
+    </body>
+    </html>
 }

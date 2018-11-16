@@ -1,12 +1,13 @@
 ﻿@model IEnumerable<DTO.Reservation>
 @{
     ViewBag.Title = "Reservation";
+    ViewBag.Subtitle = "Here is your reservation";
     Layout = "_SignedUserLayout";
 }
 <!DOCTPYE html>
     <html>
     <head>
-        <meta name="viewport" content="wirdt=device-width" />
+        <meta name="viewport" content="width=device-width" />
         <title>@ViewBag.Title</title>
         <link rel="stylesheet" href="~/css/styles.css" />
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
@@ -44,10 +45,10 @@
                         </td>
 
                         <td>
-                            @Html.DisplayFor(modelItem => Model.ElementAt(i).Seat.SeatNumber)
+                            @Html.DisplayFor(modelItem => Model.ElementAt(i).Seat.RowNumber)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => Model.ElementAt(i).Seat.RowNumber)
+                            @Html.DisplayFor(modelItem => Model.ElementAt(i).Seat.SeatNumber)
                         </td>
                         }
                     </tr>
@@ -100,8 +101,5 @@
                  }
                </tbody>
             </table>
-        <div class="text-left">
-            <a asp-controller="User" asp-action="Main" class="btn btn-info">Back</a>
-        </div>
     </body>
 </html>

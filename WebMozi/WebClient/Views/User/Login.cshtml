@@ -1,9 +1,10 @@
-﻿@model DTO.User
+﻿@model WebClient.Models.User
 
 
 @{
-    ViewBag.Title = "Log In";
-    Layout = "_UserLayout";
+    ViewBag.Title = "Sign In";
+    ViewBag.Subtitle = "Please sign in with your account";
+    Layout = "_SignedUserLayout";
 }
 <!DOCTYPE html>
 <html>
@@ -14,31 +15,40 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
 </head>
 <body>
-    <div class="text-danger" asp-validation-summary="All"></div>
-    <form asp-action="Login" asp-controller="User" method="post">
-        <div class="form-group">
-            <label asp-for="Email"></label>
-            <div>
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>        <input asp-for="Email" class="form-inline" required />
-        </div>
-        <div class="form-group">
-            <label asp-for="Password"></label>
-            <div><span asp-validation-for="Password" class="text-danger"></span></div>
-            <input type="password" asp-for="Password" class="form-inline" required />
-
-        </div>
-        <div class="form-group">
-            <button class="btn btn-primary" type="submit">Sign In</button>
-            <input type="button" class="btn btn-sm btn-warning" value="Register"
-                   onclick="location.href='@Url.Action("RegisterUser","User")'" />
-        </div>
-        <div class="form-group">
-            <div class="text-left">
-                <a asp-controller="Home" asp-action="Index" class="btn btn-info">Back</a>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <form name="sentMessage" id="contactForm" asp-action="Login" asp-controller="User" method="post">
+                    <div class="control-group">
+                        <div class="form-group floating-label-form-group controls">
+                            <label asp-for="Email"></label>
+                            <div>
+                                <span asp-validation-for="Email" class="text-danger"></span>
+                            </div>
+                            <input asp-for="Email" placeholder="Email Address" class="form-control" required data-validation-required-message="Please enter your Email." />
+                            <p class="help-block text-danger"></p>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <div class="form-group floating-label-form-group controls">
+                            <label asp-for="Password"></label>
+                            <div><span asp-validation-for="Password" class="text-danger"></span></div>
+                            <input type="password" asp-for="Password" placeholder="Password" class="form-control" required data-validation-required-message="Please enter your password." />
+                        </div>
+                    </div>
+                    <div id="success"></div>
+                    <div class="form-group">
+                        <button class="btn btn-primary" type="submit" id="sendMessageButton">Sign In</button>
+                        <input type="button" class="btn btn-sm btn-warning" value="Register" id="sendMessageButton"
+                               onclick="location.href='@Url.Action("RegisterUser","User")'" />
+                    </div>
+                </form>
+                <div class="clearfix">
+                    <a class="btn btn-primary float-right" asp-controller="Admin" asp-action="Main">Admin &rarr;</a>
+                </div>
             </div>
         </div>
-    </form>
+    </div>
 </body>
 </html>
 

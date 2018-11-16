@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-
+using WebClient.Models;
 
 namespace WebClient.Controllers
 {
@@ -17,18 +17,11 @@ namespace WebClient.Controllers
         }
 
         [HttpGet]
-        public ViewResult Main()
+        public ViewResult Main(string name)
         {
-            if (Thread.CurrentPrincipal != null)
-            {
-                ViewBag.Name = HttpContext.Session.GetString(Thread.CurrentPrincipal.Identity.Name + "_Name");
-                ViewBag.IsSignedIn = 1;
-            }
-            else if (userManager.GetUserName(User) != null)
-            {
-                ViewBag.Name = HttpContext.Session.GetString(userManager.GetUserName(User) + "_Name");
-            }
-            return View("Main");
+            ViewBag.IsSignedIn = 1;
+            ViewBag.Name = HttpContext.Session.GetString(name + "_Name");
+            return ListEvents();
         }
 
         [HttpGet]
@@ -43,10 +36,15 @@ namespace WebClient.Controllers
             return View("RegisterUser");
         }
         [HttpPost]
-        public async Task<ViewResult> RegisterUser(DTO.User u)
+        public async Task<ViewResult> RegisterUser(User u)
         {
-            ireservationmanager.AddUser(u);
-            var user = new IdentityUser { UserName = u.Email };
+            DTO.User dtouser = new DTO.User();
+            dtouser.Email = u.Email;
+            dtouser.Name = u.Name;
+            dtouser.TelephoneNumber = u.TelephoneNumber;
+            dtouser.UserId = u.UserId;
+            ireservationmanager.AddUser(dtouser);
+            var user = new IdentityUser { UserName = dtouser.Email };
             var result = await userManager.CreateAsync(user, u.Password);
             if (result.Succeeded)
             {
@@ -54,22 +52,15 @@ namespace WebClient.Controllers
             }
             else { return RegisterUser(); }
         }
-
-
-
-        [HttpGet]
-        public async Task<ViewResult> Logout()
-        {
-            await signInManager.SignOutAsync();
-            return View("Login");
-        }
+        
+      
         [HttpGet]
         public ViewResult Login()
         {
             return View("Login");
         }
         [HttpPost]
-        public async Task<ViewResult> Login(DTO.User u)
+        public async Task<ViewResult> Login(User u)
         {
             var result = await signInManager.PasswordSignInAsync(u.Email, u.Password, false, false);
             if (result.Succeeded)
@@ -82,11 +73,16 @@ namespace WebClient.Controllers
                     TempData["invalid"] = $"You can't Sign In with admin";
                     return Login();
                 }
-                int uid = ireservationmanager.GetIdByUser(u);
+                DTO.User dtouser = new DTO.User();
+                dtouser.Email = u.Email;
+                dtouser.Name = u.Name;
+                dtouser.TelephoneNumber = u.TelephoneNumber;
+                dtouser.UserId = u.UserId;
+                int uid = ireservationmanager.GetIdByUser(dtouser);
                 HttpContext.Session.SetString(Thread.CurrentPrincipal.Identity.Name + "_Name", ireservationmanager.SelectUser(uid).Name);
                 HttpContext.Session.SetInt32(Thread.CurrentPrincipal.Identity.Name, uid);
                 TempData["success"] = $"Successfull log in!";
-                return Main();
+                return Main(Thread.CurrentPrincipal.Identity.Name);
             }
             else if (result.IsLockedOut)
             {
@@ -106,11 +102,9 @@ namespace WebClient.Controllers
         [HttpGet]
         public ViewResult ListEvents()
         {
-            if (!signInManager.IsSignedIn(User))
-            {
-                return View("Login");
-            }
+            if (userManager.GetUserName(User) != null) { 
             ViewBag.Name = HttpContext.Session.GetString(userManager.GetUserName(User) + "_Name");
+            }
             return View("ListMovieEvents", icinemamanager.ListMovieEventsWithoutSeats());
         }
         [HttpGet]
@@ -170,11 +164,6 @@ namespace WebClient.Controllers
         {
             ViewBag.Name = HttpContext.Session.GetString(userManager.GetUserName(User) + "_Name");
             List<DTO.Reservation> reservationlist = new List<DTO.Reservation>();
-            if (userManager.GetUserName(User) == null)
-            {
-                signInManager.SignOutAsync();
-                return Main();
-            }
             reservationlist = ireservationmanager.GetReservationsByUser((int)HttpContext.Session.GetInt32(userManager.GetUserName(User)));
             return View("Reservation", reservationlist);
         }
