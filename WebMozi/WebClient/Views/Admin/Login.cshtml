@@ -8,10 +8,27 @@
 <html>
 <head>
     <title>@ViewBag.Title</title>
+    <style>
+        .card-headerr {
+            text-align: center;
+            padding: .75rem 1.25rem;
+            margin-bottom: 0;
+            background-color: rgba(0,0,0,.03);
+            border-bottom: 1px solid rgba(0,0,0,.125);
+        }
+        .card-login {
+            max-width: 400px;
+        }
+        .btn-blockk {
+            display: block;
+            width: 25%;
+        }
+    </style>
 </head>
 <body>
     <div class="card card-login mx-auto mt-5">
-        <div class="card-header">Login</div>
+        <div class="card-headerr">
+            <text class="text-center"></text>Login</div>
         <div class="card-body">
             @if (TempData["successfull"] != null)
             {
@@ -23,22 +40,18 @@
             }
             <form asp-action="Login" asp-controller="Admin" method="post">
                 <div class="form-group">
-                    <!---<div class="form-label-group"> ha megy a js-->
                     <label asp-for="Name"></label>
                     <div>
                         <span asp-validation-for="Name" class="text-danger"></span>
                     </div>        <input asp-for="Name" class="form-control" placeholder="Name" required autofocus="autofocus" />
-                    <!---- </div>-->
                 </div>
                 <div class="form-group">
-                    <!----- <div class="form-label-group">-->
                     <label asp-for="Password"></label>
                     <div><span asp-validation-for="Password" class="text-danger"></span></div>
                     <input type="password" asp-for="Password" id="inputPassword" class="form-control" placeholder="Password" required />
-                    <!---</div>-->
                 </div>
                 <div class="form-group">
-                    <button class="btn btn-primary btn-block" type="submit">Sign In</button>
+                    <button class="btn btn-primary btn-blockk center-block" type="submit">Sign In</button>
                 </div>
                 <div class="text-left">
                     <a asp-controller="Home" asp-action="Index" class="btn btn-info">Back</a>

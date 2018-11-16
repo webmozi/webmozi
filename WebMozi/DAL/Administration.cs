@@ -24,11 +24,11 @@ namespace DAL
                     seat.SeatNumber = i + 1;
                     seat.RowNumber =(i / 10) + 1;
                     seats.Add(seat);
+                    context.Seats.Add(seat);
                 }
                 room.Seats = seats;
                 context.CinemaRooms
                  .Add(room);
-
                 context.SaveChanges();
             }
         }

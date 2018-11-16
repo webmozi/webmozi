@@ -11,5 +11,7 @@ namespace WebClient.Models
         public List<DTO.MovieEventSeat> EnableSeats { get; set; } = new List<DTO.MovieEventSeat>();
 
         public bool IsEnable { get; set; } = false;
+
+      
     }
 }

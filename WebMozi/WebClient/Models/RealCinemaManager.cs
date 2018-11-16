@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using DTO;
 
@@ -145,7 +146,9 @@ namespace WebClient.Models
         }
         public IEnumerable<DTO.MovieEventSeat> ListSeatsInRoom(int id)
         {
-            return SelectRoom(id).Seats;
+            List<DTO.MovieEventSeat> seats = SelectRoom(id).Seats;
+            List<DTO.MovieEventSeat> sortedList = seats.OrderBy(o => o.SeatNumber).ToList();
+            return sortedList;
         }
         public List<DTO.MovieEventSeat> getEnableSeats(int id)
         {
