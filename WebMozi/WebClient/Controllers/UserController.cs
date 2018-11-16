@@ -70,6 +70,7 @@ namespace WebClient.Controllers
                 Thread.CurrentPrincipal = new ClaimsPrincipal(identity);
                 if (u.Email == "admin")
                 {
+                    await signInManager.SignOutAsync();
                     TempData["invalid"] = $"You can't Sign In with admin";
                     return Login();
                 }

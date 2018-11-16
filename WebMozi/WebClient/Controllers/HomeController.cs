@@ -27,11 +27,31 @@ namespace WebClient.Controllers
                     await signInManager.SignOutAsync();
                     return View("MainView");
                 }
-                else if (userManager.GetUserName(User)==null)
+                else if (userManager.GetUserName(User) == null)
                 {
+                    await signInManager.SignOutAsync();
+
                     return View("MainView");
                 }
-                else
+                else if (userManager.GetUserName(User).Equals(""))
+                {
+                    await signInManager.SignOutAsync();
+
+                    return View("MainView");
+                }
+                else if (HttpContext.Session.GetString(userManager.GetUserName(User) + "_Name") == null)
+                {
+                    await signInManager.SignOutAsync();
+
+                    return View("MainView");
+                }
+                else if (HttpContext.Session.GetString(userManager.GetUserName(User) + "_Name").Equals(""))
+                {
+                    await signInManager.SignOutAsync();
+
+                    return View("MainView");
+
+                }
                 {
                     ViewBag.Name = HttpContext.Session.GetString(userManager.GetUserName(User) + "_Name");
                     return View("SignedMainView");
@@ -39,6 +59,7 @@ namespace WebClient.Controllers
             }
             else
             {
+                await signInManager.SignOutAsync();
                 return View("MainView");
             }
         }
