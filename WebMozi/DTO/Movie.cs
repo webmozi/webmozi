@@ -13,5 +13,7 @@ namespace DTO
         public string Director { get; set; }
         
         public int Length { get; set; }
+
+        public string Img { get; set; }
     }
 }

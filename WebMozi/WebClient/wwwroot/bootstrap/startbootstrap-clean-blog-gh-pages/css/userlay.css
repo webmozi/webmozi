@@ -1,0 +1,20 @@
+﻿header.masthead {
+    margin-bottom: 50px;
+    background: no-repeat center center;
+    background-color: #868e96;
+    background-attachment: scroll;
+    position: relative;
+    background-size: cover;
+    height: 350px;
+}
+
+#mainNav .navbar-nav > li.nav-item > a {
+    font-size: 18px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+header.masthead .site-heading {
+    padding: 100px 0 0 0;
+}

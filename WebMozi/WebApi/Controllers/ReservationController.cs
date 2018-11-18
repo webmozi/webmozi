@@ -38,6 +38,7 @@ namespace WebApi.Controllers
                 dtoreservation.MovieEvent.Movie = new DTO.Movie();
                 dtoreservation.MovieEvent.Movie.Title = res.MovieEvent.Movie.Title;
                 dtoreservation.MovieEvent.Movie.Length = res.MovieEvent.Movie.Length;
+                dtoreservation.MovieEvent.Movie.Img = res.MovieEvent.Movie.Img;
                 dtoreservation.MovieEvent.Time = res.MovieEvent.TimeOfEvent;
                 reservationlist.Add(dtoreservation);
             }
@@ -76,6 +77,7 @@ namespace WebApi.Controllers
                 dtoreservation.MovieEvent.Movie.MovieId = dalreservation.MovieEvent.Movie.MovieId;
                 dtoreservation.MovieEvent.Movie.Title = dalreservation.MovieEvent.Movie.Title;
                 dtoreservation.MovieEvent.Movie.Length = dalreservation.MovieEvent.Movie.Length;
+                dtoreservation.MovieEvent.Movie.Img = dalreservation.MovieEvent.Movie.Img;
                 dtoreservation.MovieEvent.Room.RoomId = dalreservation.MovieEvent.Room.RoomId;
                 dtoreservation.MovieEvent.Room.RoomNumber = dalreservation.MovieEvent.Room.RoomNumber;
                 DAL.User daluser = DAL.Queries.GetUserById(dalreservation.UserId);

@@ -11,96 +11,56 @@
         <title>@ViewBag.Title</title>
         <link rel="stylesheet" href="~/css/styles.css" />
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" asp-href-include="bootstrap/startbootstrap-clean-blog-gh-pages/css/width.css">
+        <link rel="stylesheet" asp-href-include="bootstrap/startbootstrap-clean-blog-gh-pages/css/choose.css">
+        <link rel="stylesheet" asp-href-include="bootstrap/startbootstrap-clean-blog-gh-pages/css/reservation.css">
+
     </head>
     <body>
-        <h3>Here is your reservation</h3>
-        <table class="table table-sm table-striped table-bordered">
-            <thead>
-                <tr>
-                    <th>User Name</th>
-                    <th>Movie Title</th>
-                    <th>Date Time</th>
-                    <th>Room Number</th>
-                    <th>Row Number</th>
-                    <th>Seat Number</th>
 
-            </thead>
-            <tbody>
-                @for (int i = 0; i < Model.ToList().Count; i++)
-                {
-                <tr>
-                    @if (i == 0)
-                    {
-                        <td>
-                            @Html.DisplayFor(modelItem => Model.ElementAt(i).User.Name)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => Model.ElementAt(i).MovieEvent.Movie.Title)
-                        </td>
-                        <td>
+        @for (int i = 0; i < Model.ToList().Count; i++)
+        {
+            <div class="col-sm-12">
+                <div class="card mb-4 text-white bg-dark">
+                    <div class="card-body">
+                        <h5 align="center" class="font-weight-bold">@Html.DisplayFor(modelItem => Model.ElementAt(i).MovieEvent.Movie.Title)</h5>
+                        <p class="font-weight-bold phere">
+                            Time:
+                        </p>
+                        <p class="phere">
                             @Html.DisplayFor(modelItem => Model.ElementAt(i).MovieEvent.Time)
-                        </td>
-                        <td>
+
+                        </p>
+                        <input type="button" class="btn btn-outline-light btn-lg inputhere" value="Delete"
+                               onclick="location.href='@Url.Action("DeleteReservation", "User", new { id = Model.ElementAt(i).ReservationId })'" />
+
+
+                        <br />
+                        <p class="font-weight-bold phere">
+                            Room:
+                        </p>
+
+                        <p class="phere">
                             @Html.DisplayFor(modelItem => Model.ElementAt(i).MovieEvent.Room.RoomNumber)
-                        </td>
-
-                        <td>
+                        </p>
+                        <br />
+                        <p class="font-weight-bold phere">
+                            Row:
+                        </p>
+                        <p class="phere">
                             @Html.DisplayFor(modelItem => Model.ElementAt(i).Seat.RowNumber)
-                        </td>
-                        <td>
+                        </p>
+                        <p class="font-weight-bold phere">
+                            Seat:
+                        </p>
+                        <p class="phere">
                             @Html.DisplayFor(modelItem => Model.ElementAt(i).Seat.SeatNumber)
-                        </td>
-                        }
-                    </tr>
-                    @if (i != 0)
-                    {
-                        @if (Model.ElementAt(i).MovieEvent.Movie.Title != Model.ElementAt(i - 1).MovieEvent.Movie.Title
-                          || Model.ElementAt(i).MovieEvent.Room.RoomNumber != Model.ElementAt(i - 1).MovieEvent.Room.RoomNumber
-                          || Model.ElementAt(i).MovieEvent.Time != Model.ElementAt(i - 1).MovieEvent.Time)
-                        {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => Model.ElementAt(i).User.Name)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => Model.ElementAt(i).MovieEvent.Movie.Title)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => Model.ElementAt(i).MovieEvent.Time)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => Model.ElementAt(i).MovieEvent.Room.RoomNumber)
-                    </td>
+                        </p>
 
-                    <td>
-                       @Html.DisplayFor(modelItem => Model.ElementAt(i).Seat.RowNumber)
+                    </div>
 
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => Model.ElementAt(i).Seat.SeatNumber)
-                    </td>
-                </tr>
-                        }
-                        else
-                        {
-                <tr>
-                    <td>  </td>
-                    <td>  </td>
-                    <td>  </td>
-                    <td>  </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => Model.ElementAt(i).Seat.RowNumber)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => Model.ElementAt(i).Seat.SeatNumber)
-
-                    </td>
-                </tr>
-                        }
-                        
-                    }
-                 }
-               </tbody>
-            </table>
-    </body>
+                    </div>
+                </div>
+            }
+                    </body>
 </html>

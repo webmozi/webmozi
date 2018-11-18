@@ -63,6 +63,7 @@
                                             <th>Movie Name</th>
                                             <th>Director</th>
                                             <th>Length</th>
+                                            <th>Img</th>
                                             <th>Date Time</th>
                                             <th>Room</th>
                                             <th></th>
@@ -81,6 +82,9 @@
                                             </td>
                                             <td>
                                                 @Html.DisplayFor(modelItem => m.Movie.Length) minutes
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => m.Movie.Img)
                                             </td>
                                             <td >
                                                 @Html.DisplayFor(modellItem => m.Time)

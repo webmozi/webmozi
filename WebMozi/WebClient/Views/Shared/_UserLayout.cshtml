@@ -19,29 +19,8 @@
     <script src="@Url.Content("~/bootstrap/startbootstrap-clean-blog-gh-pages/vendor/jquery/jquery.min.js")" type="text/javascript"></script>
     <script src="@Url.Content("~/bootstrap/startbootstrap-clean-blog-gh-pages/vendor/bootstrap/js/bootstrap.min.js")" type="text/javascript"></script>
     <script src="@Url.Content("~/bootstrap/startbootstrap-clean-blog-gh-pages/js/clean-blog.min.js")" type="text/javascript"></script>
-    <style>
-        header.masthead {
-            margin-bottom: 50px;
-            background: no-repeat center center;
-            background-color: #868e96;
-            background-attachment: scroll;
-            position: relative;
-            background-size: cover;
-            height: 350px;
-        }
 
-        #mainNav .navbar-nav > li.nav-item > a {
-            font-size: 18px;
-            font-weight: 800;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
-
-        header.masthead .site-heading {
-            padding: 100px 0 0 0;
-        }
-      
-    </style>
+    <link rel="stylesheet" asp-href-include="bootstrap/startbootstrap-clean-blog-gh-pages/css/userlay.css">
 
     <title>@ViewBag.Title</title>
 </head>
@@ -76,7 +55,7 @@
     </nav>
     <header class="masthead">
         <div class="overlay">
-            <img class="overlay" src=~/bootstrap/startbootstrap-clean-blog-gh-pages/img/home-bg.jpg />
+            <img class="overlay" src=~/images/home-bg.jpg />
         </div>
         <div class="container">
             <div class="row">

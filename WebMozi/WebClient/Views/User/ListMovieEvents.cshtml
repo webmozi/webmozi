@@ -14,39 +14,36 @@
         <title>@ViewBag.Title</title>
         <link rel="stylesheet" href="~/css/styles.css" />
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+      
+        <link rel="stylesheet" asp-href-include="bootstrap/startbootstrap-clean-blog-gh-pages/css/width.css">
+        <link rel="stylesheet" asp-href-include="bootstrap/startbootstrap-clean-blog-gh-pages/css/card.css">
+
     </head>
     <body>
-        <table class="table table-sm table-striped table-bordered">
-            <thead>
-                <tr>
-                    <th class="text-center">Movie Name</th>
-                    <th class="text-center">Director</th>
-                    <th class="text-center">Length</th>
-                    <th class="text-center">Time</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var m in Model)
-                {
-
-                <tr>
-                    <td class="text-center">
-                        @Html.DisplayFor(modelItem => m.Movie.Title)
-                    </td>
-                    <td class="text-center">
-                        @Html.DisplayFor(modelItem => m.Movie.Director)
-                    </td>
-                    <td class="text-center">
-                        @Html.DisplayFor(modelItem => m.Movie.Length)
-                    </td>
-                    <td class="text-center">
-                        <input type="button" class="btn btn-sm btn-warning" value=@Html.DisplayFor(modellItem =>m.Time.TimeOfDay)
-                               onclick="location.href='@Url.Action("SelectMovieEvent","User", new { id = m.MovieEventId })'" />
-                    </td>
-                </tr>
-
-                }
-            </tbody>
-        </table>
-    </body>
+        @foreach (var m in Model)
+        {
+            <div class="col-md-3">
+                <div class="card mb-4 border-dark">
+                    <img class="card-img-top" src=~/images/@Html.DisplayFor(modelItem => m.Movie.Img) />
+                    <div class="card-body">
+                        <h5 align="center"  class="font-weight-bold">@Html.DisplayFor(modelItem => m.Movie.Title)</h5>
+                        <p class="font-weight-bold phere">
+                            Director:
+                        </p> 
+                        <p  class="phere">@Html.DisplayFor(modelItem => m.Movie.Director)
+                        </p>
+                        <br />
+                        <p class="font-weight-bold phere">
+                            Length:
+                            </p>
+                        <p class="phere" >
+                        @Html.DisplayFor(modelItem => m.Movie.Length) minutes
+                        </p>
+                        <input type="button" class="btn btn-sm btn-dark center-block" value="@m.Time.ToShortTimeString()"
+                               onclick="location.href='@Url.Action("SelectMovieEvent", "User", new { id = m.MovieEventId })'" />
+                    </div>
+                </div>
+            </div>
+        }
+        </body>
 </html>

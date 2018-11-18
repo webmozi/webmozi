@@ -12,34 +12,34 @@
     <title>@ViewBag.Title</title>
     <link rel="stylesheet" href="~/css/styles.css" />
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" asp-href-include="bootstrap/startbootstrap-clean-blog-gh-pages/css/width.css">
+    <link rel="stylesheet" asp-href-include="bootstrap/startbootstrap-clean-blog-gh-pages/css/card.css">
+
 </head>
 <body>
-    <table class="table table-sm table-striped table-bordered">
-        <thead>
-            <tr>
-                <th class="text-center">Title</th>
-                <th class="text-center">Director</th>
-                <th class="text-center">Length</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var m in Model)
-            {
-
-            <tr>
-                <td class="text-center">
-                    @Html.DisplayFor(modelItem => m.Title)
-                </td>
-                <td class="text-center">
-                    @Html.DisplayFor(modelItem => m.Director)
-                </td>
-                <td class="text-center">
+    @foreach (var m in Model)
+    {
+        <div class="col-md-3">
+            <div class="card mb-4 border-dark">
+                <img class="card-img-top" src=~/images/@Html.DisplayFor(modelItem =>m.Img) />
+                <div class="card-body">
+                    <h5 align="center" class="font-weight-bold">@Html.DisplayFor(modelItem => m.Title)</h5>
+                    <p class="font-weight-bold phere">
+                        Director:
+                    </p>
+                    <p class="phere">
+                        @Html.DisplayFor(modelItem => m.Director)
+                </p>
+                <br />
+                <p class="font-weight-bold phere">
+                    Length:
+                </p>
+                <p class="phere">
                     @Html.DisplayFor(modelItem => m.Length) minutes
-                </td>
-            </tr>
-
-            }
-        </tbody>
-    </table>
+                </p>
+            </div>
+        </div>
+    </div>
+}
 </body>
 </html>

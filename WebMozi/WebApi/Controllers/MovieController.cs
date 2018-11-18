@@ -25,7 +25,8 @@ namespace WebApi.Controllers
                     Director = movie.Director,
                     MovieId = movie.MovieId,
                     Length = movie.Length,
-                    Title = movie.Title
+                    Title = movie.Title,
+                    Img = movie.Img
                 });
             }
             return movielist;
@@ -39,6 +40,7 @@ namespace WebApi.Controllers
             dtomovie.MovieId = dalmovie.MovieId;
             dtomovie.Length = dalmovie.Length;
             dtomovie.Title = dalmovie.Title;
+            dtomovie.Img = dalmovie.Img;
             return dtomovie;
         }
         [HttpDelete("{id}")]
@@ -54,6 +56,7 @@ namespace WebApi.Controllers
             dalitem.Director = item.Director;
             dalitem.Title = item.Title;
             dalitem.Length = item.Length;
+            dalitem.Img = item.Img;
             DAL.Administration.AddMovie(dalitem);
             return Created("http://localhost:6544/api/movie", item);
         }
@@ -65,7 +68,8 @@ namespace WebApi.Controllers
                 Title = item.Title,
                 MovieId = item.MovieId,
                 Director = item.Director,
-                Length = item.Length
+                Length = item.Length,
+                Img = item.Img
             };
 
             DAL.Administration.UpdateMovie(newDalMovie);

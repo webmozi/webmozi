@@ -125,18 +125,8 @@ namespace WebClient.Controllers
         {
             return SelectedMovieEvent(id);
         }
-
-
-        [HttpGet]
-        public ViewResult ListSeatsInMovieEvent()
-        {
-            ViewBag.Name = HttpContext.Session.GetString(userManager.GetUserName(User) + "_Name");
-            Models.EnableAndDisableSeats seats = new Models.EnableAndDisableSeats();
-            int movieeventid = (int)HttpContext.Session.GetInt32(userManager.GetUserName(User) + "_meId");
-            seats.AllSeats = icinemamanager.SelectMovieEvent(movieeventid).Room.Seats;
-            seats.EnableSeats = icinemamanager.getEnableSeats(movieeventid);
-            return View("ListSeatsInMovieEvent", seats);
-        }
+        
+        
         [HttpGet]
         public ViewResult SetSeatId(int id)
         {
@@ -160,7 +150,11 @@ namespace WebClient.Controllers
             return View("ChooseSeats", seats);
         }
 
-
+        [HttpGet]
+        public ViewResult DeleteReservation(int id) {
+            ireservationmanager.DeleteReservation(id);
+            return Reservation();
+        }
         [HttpGet]
         public ViewResult Reservation()
         {

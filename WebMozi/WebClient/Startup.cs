@@ -47,7 +47,7 @@ namespace WebClient
                    options.Password.RequireUppercase = false;
                    options.Password.RequiredLength = 4;
 
-                   options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(1);
+                   options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
                    options.Lockout.MaxFailedAccessAttempts = 5;
                    options.Lockout.AllowedForNewUsers = true;
 
@@ -65,7 +65,7 @@ namespace WebClient
             {
                 options.Cookie.Name = "YourAppCookieName";
                 options.Cookie.HttpOnly = true;
-                options.ExpireTimeSpan = TimeSpan.FromMinutes(3);
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
                 options.LoginPath = "/Admin/Login";
                 options.AccessDeniedPath = $"/Admin/Login";
                 options.ReturnUrlParameter = CookieAuthenticationDefaults.ReturnUrlParameter;
@@ -77,7 +77,7 @@ namespace WebClient
             services.AddSession(options =>
             {
                 options.Cookie.Name = ".AdventureWorks.Session";
-                options.IdleTimeout = TimeSpan.FromMinutes(1);
+                options.IdleTimeout = TimeSpan.FromMinutes(5);
             });
 
         }

@@ -32,6 +32,7 @@ namespace WebApi.Controllers
                 movieevent.Movie.MovieId = dalme.Movie.MovieId;
                 movieevent.Movie.Title = dalme.Movie.Title;
                 movieevent.Movie.Length = dalme.Movie.Length;
+                movieevent.Movie.Img = dalme.Movie.Img;
                 movieevent.Room.RoomId = dalme.Room.RoomId;
                 movieevent.Room.RoomNumber = dalme.Room.RoomNumber;
                 movieevent.Room.Capacity = dalme.Room.Capacity;
@@ -64,6 +65,7 @@ namespace WebApi.Controllers
                 movieevent.Movie.MovieId = dalme.Movie.MovieId;
                 movieevent.Movie.Title = dalme.Movie.Title;
                 movieevent.Movie.Length = dalme.Movie.Length;
+                movieevent.Movie.Img = dalme.Movie.Img;
                 movieevent.Room.RoomId = dalme.Room.RoomId;
                 movieevent.Room.RoomNumber = dalme.Room.RoomNumber;
                 dtomovieevents.Add(movieevent);
@@ -100,6 +102,7 @@ namespace WebApi.Controllers
             movieevent.Movie.MovieId = dalme.Movie.MovieId;
             movieevent.Movie.Title = dalme.Movie.Title;
             movieevent.Movie.Length = dalme.Movie.Length;
+            movieevent.Movie.Img = dalme.Movie.Img;
             movieevent.Room.RoomId = dalme.Room.RoomId;
             movieevent.Room.RoomNumber = dalme.Room.RoomNumber;
             movieevent.Room.Capacity = dalme.Room.Capacity;

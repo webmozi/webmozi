@@ -64,6 +64,7 @@
                                         <th>Title</th>
                                         <th>Director</th>
                                         <th>Length</th>
+                                        <th>Img</th>
                                         <th></th>
                                     </tr>
                                 </thead>
@@ -79,6 +80,9 @@
                                         </td>
                                         <td>
                                             @Html.DisplayFor(modelItem => m.Length) minutes
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => m.Img)
                                         </td>
                                         <td class="text-center">
                                             <input type="button" class="btn btn-sm btn-warning" value="Edit"

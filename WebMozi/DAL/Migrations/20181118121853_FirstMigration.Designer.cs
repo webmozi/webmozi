@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DAL.Migrations
 {
     [DbContext(typeof(CinemaContext))]
-    [Migration("20181116141431_SecondMigration")]
-    partial class SecondMigration
+    [Migration("20181118121853_FirstMigration")]
+    partial class FirstMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -29,6 +29,8 @@ namespace DAL.Migrations
 
                     b.Property<string>("Director");
 
+                    b.Property<string>("Img");
+
                     b.Property<int>("Length");
 
                     b.Property<string>("Title");
@@ -38,9 +40,9 @@ namespace DAL.Migrations
                     b.ToTable("Movies");
 
                     b.HasData(
-                        new { MovieId = 1, Director = "Ruben Fleischer", Length = 120, Title = "Venom" },
-                        new { MovieId = 2, Director = "David Kerr", Length = 95, Title = "Jhonny English" },
-                        new { MovieId = 3, Director = "Pierre Morel", Length = 110, Title = "Peppermint" }
+                        new { MovieId = 1, Director = "Ruben Fleischer", Img = "venom.jpg", Length = 120, Title = "Venom" },
+                        new { MovieId = 2, Director = "David Kerr", Img = "venom.jpg", Length = 95, Title = "Jhonny English" },
+                        new { MovieId = 3, Director = "Pierre Morel", Img = "venom.jpg", Length = 110, Title = "Peppermint" }
                     );
                 });
 
@@ -90,12 +92,6 @@ namespace DAL.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Reservations");
-
-                    b.HasData(
-                        new { ReservationId = 1, MovieEventId = 1, SeatId = 4, UserId = 2 },
-                        new { ReservationId = 2, MovieEventId = 1, SeatId = 5, UserId = 2 },
-                        new { ReservationId = 3, MovieEventId = 3, SeatId = 1, UserId = 1 }
-                    );
                 });
 
             modelBuilder.Entity("DAL.Room", b =>
@@ -160,11 +156,6 @@ namespace DAL.Migrations
                     b.HasKey("UserId");
 
                     b.ToTable("Users");
-
-                    b.HasData(
-                        new { UserId = 1, Email = "laci@gmail.com", Name = "Laci", TelephoneNumber = "06-70-707-0707" },
-                        new { UserId = 2, Email = "peti@icloud.com", Name = "Peti", TelephoneNumber = "06-70- 606-0606" }
-                    );
                 });
 
             modelBuilder.Entity("DAL.MovieEvent", b =>

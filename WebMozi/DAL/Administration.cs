@@ -22,7 +22,7 @@ namespace DAL
                 {
                     DAL.Seat seat = new DAL.Seat();
                     seat.SeatNumber = i + 1;
-                    seat.RowNumber =(i / 10) + 1;
+                    seat.RowNumber =(i / 6) + 1;
                     seats.Add(seat);
                     context.Seats.Add(seat);
                 }
@@ -78,6 +78,7 @@ namespace DAL
                 item.Director = movie.Director;
                 item.Title = movie.Title;
                 item.Length = movie.Length;
+                item.Img = movie.Img;
                 context.Movies.Update(item);
                 context.SaveChanges();
 

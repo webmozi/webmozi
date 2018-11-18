@@ -10,7 +10,7 @@ namespace DAL
     //      - remove the last migration:        Remove-Migration -Context CinemaContext -Project DAL -StartUpProject WebApi
     //      - drop database:                    drop-database -Context CinemaContext -Project DAL -StartUpProject WebApi
     //
-    //Add-Migration      SecondMigration -Context CinemaContext -Project DAL -StartUpProject WebApi
+    //Add-Migration      FirstMigration -Context CinemaContext -Project DAL -StartUpProject WebApi
     //
     //      -create database based on the created migrations: update-database -Context CinemaContext -Project DAL -StartUpProject WebApi
     public class CinemaContext : DbContext
@@ -48,7 +48,8 @@ namespace DAL
                     MovieId = 1,
                     Title = "Venom",
                     Director = "Ruben Fleischer",
-                    Length = 120
+                    Length = 120,
+                    Img= "venom.jfif"
                 },
 
                 new Movie
@@ -56,7 +57,8 @@ namespace DAL
                     MovieId = 2,
                     Title = "Jhonny English",
                     Director = "David Kerr",
-                    Length = 95
+                    Length = 95,
+                    Img = "venom.jfif"
 
                 },
 
@@ -65,7 +67,8 @@ namespace DAL
                     MovieId = 3,
                     Title = "Peppermint",
                     Director = "Pierre Morel",
-                    Length = 110
+                    Length = 110,
+                    Img = "venom.jfif"
                 }
 
             );
