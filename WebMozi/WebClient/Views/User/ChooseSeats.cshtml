@@ -16,12 +16,26 @@
         <link rel="stylesheet" asp-href-include="bootstrap/startbootstrap-clean-blog-gh-pages/css/width.css">
         <link rel="stylesheet" asp-href-include="bootstrap/startbootstrap-clean-blog-gh-pages/css/card.css">
         <link rel="stylesheet" asp-href-include="bootstrap/startbootstrap-clean-blog-gh-pages/css/choose.css">
-
+        <style>
+            .stylee {
+                border-top: 3px double;
+                margin-left: 100px;
+                margin-right: 100px;
+                margin-bottom: 100px;
+            }
+            .btn-enough {
+                color:#fff;
+                background-color: #32506d;
+                border-color: #32506d;
+                
+            }
+        </style>
     </head>
     <body>
         <div class="text-center">
-            <a id="idd" asp-controller="User" asp-action="Reservation" class="btn btn-success ">Got Enough Seats</a>
+            <a id="idd" asp-controller="User" asp-action="Reservation" class="btn btn-enough">Got Enough Seats</a>
         </div>
+        <hr class="stylee" />
         @foreach (var m in Model.AllSeats)
         {
             <div class="col-sm-2">
@@ -46,7 +60,7 @@
                         }
                         else
                         {
-                            <input type="button" class="btn btn-sm btn-dark center-block chosed" value="Chosed"
+                            <input type="button" class="btn btn-sm btn-dark center-block chosed" value="Chosen"
                                    disabled/>
 
                         }

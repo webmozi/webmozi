@@ -21,7 +21,7 @@ namespace DAL
                 for (int i = 0; i < room.Capacity; i++)
                 {
                     DAL.Seat seat = new DAL.Seat();
-                    seat.SeatNumber = i + 1;
+                    seat.SeatNumber = (i % 6) +1;
                     seat.RowNumber =(i / 6) + 1;
                     seats.Add(seat);
                     context.Seats.Add(seat);

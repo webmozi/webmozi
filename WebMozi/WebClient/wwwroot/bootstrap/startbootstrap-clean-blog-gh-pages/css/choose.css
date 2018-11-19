@@ -5,12 +5,13 @@
         max-width: 100%;
     }
 }
+
 .btn-dark.disabled, .btn-dark:disabled {
     color: #111111;
     background-color: #fff;
     border-color: #343a40;
 }
-    .btn-dark.disabled:hover {
+.btn-dark.disabled:hover {
         color: #fff;
         background-color: #23272b;
         border-color: #1d2124;

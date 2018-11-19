@@ -147,7 +147,7 @@ namespace WebClient.Models
         public IEnumerable<DTO.MovieEventSeat> ListSeatsInRoom(int id)
         {
             List<DTO.MovieEventSeat> seats = SelectRoom(id).Seats;
-            List<DTO.MovieEventSeat> sortedList = seats.OrderBy(o => o.SeatNumber).ToList();
+            List<DTO.MovieEventSeat> sortedList = seats.OrderBy(o => o.RowNumber).ThenBy(o => o.SeatNumber).ToList();
             return sortedList;
         }
         public List<DTO.MovieEventSeat> getEnableSeats(int id)
