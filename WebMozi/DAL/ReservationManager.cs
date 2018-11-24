@@ -6,7 +6,7 @@ using System.Text;
 
 namespace DAL
 {
-    class ReservationManager
+    public class ReservationManager
     {
 
         public static void AddReservation(Reservation reservation)
@@ -49,5 +49,7 @@ namespace DAL
                 return AllReservation.SingleOrDefault(r => r.ReservationId == id);
             }
         }
+
+
     }
 }

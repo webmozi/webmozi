@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DAL.Migrations
 {
     [DbContext(typeof(CinemaContext))]
-    [Migration("20181118121853_FirstMigration")]
+    [Migration("20181124132634_FirstMigration")]
     partial class FirstMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -40,9 +40,9 @@ namespace DAL.Migrations
                     b.ToTable("Movies");
 
                     b.HasData(
-                        new { MovieId = 1, Director = "Ruben Fleischer", Img = "venom.jpg", Length = 120, Title = "Venom" },
-                        new { MovieId = 2, Director = "David Kerr", Img = "venom.jpg", Length = 95, Title = "Jhonny English" },
-                        new { MovieId = 3, Director = "Pierre Morel", Img = "venom.jpg", Length = 110, Title = "Peppermint" }
+                        new { MovieId = 1, Director = "Ruben Fleischer", Img = "venom.jfif", Length = 120, Title = "Venom" },
+                        new { MovieId = 2, Director = "David Kerr", Img = "venom.jfif", Length = 95, Title = "Jhonny English" },
+                        new { MovieId = 3, Director = "Pierre Morel", Img = "venom.jfif", Length = 110, Title = "Peppermint" }
                     );
                 });
 

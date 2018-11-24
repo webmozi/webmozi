@@ -18,7 +18,7 @@ namespace WebApi.Controllers
         public ActionResult<List<DTO.MovieEvent>> Get()
         {
             List<DTO.MovieEvent> dtomovieevents = new List<DTO.MovieEvent>();
-            List<DAL.MovieEvent> dalmovieevents = DAL.Queries.ListMovieEventsWithRoomAndMovie();
+            List<DAL.MovieEvent> dalmovieevents = DAL.MovieEventManager.ListMovieEventsWithRoomAndMovie();
          
             foreach (var dalme in dalmovieevents)
             {
@@ -36,7 +36,7 @@ namespace WebApi.Controllers
                 movieevent.Room.RoomId = dalme.Room.RoomId;
                 movieevent.Room.RoomNumber = dalme.Room.RoomNumber;
                 movieevent.Room.Capacity = dalme.Room.Capacity;
-                List<DAL.Seat> seats = DAL.Queries.ListSeatsInMovieEvent(dalme.MovieEventId);
+                List<DAL.Seat> seats = DAL.MovieEventManager.ListSeatsInMovieEvent(dalme.MovieEventId);
                 foreach (var dalseat in seats)
                 {
                     DTO.MovieEventSeat dtoseat = new DTO.MovieEventSeat();
@@ -53,7 +53,7 @@ namespace WebApi.Controllers
         public ActionResult<List<DTO.MovieEventHeader>> GetMovieEventHeader()
         {
             List<DTO.MovieEventHeader> dtomovieevents = new List<DTO.MovieEventHeader>();
-            List<DAL.MovieEvent> dalmovieevents = DAL.Queries.ListMovieEventsWithRoomAndMovie();
+            List<DAL.MovieEvent> dalmovieevents = DAL.MovieEventManager.ListMovieEventsWithRoomAndMovie();
             foreach (var dalme in dalmovieevents)
             {
                 DTO.MovieEventHeader movieevent = new DTO.MovieEventHeader();
@@ -75,7 +75,7 @@ namespace WebApi.Controllers
         [HttpGet("enableseats/{id}")]
         public ActionResult<List<DTO.MovieEventSeat>> GetEnableSeatsInMovieEvent(int id)
         {
-            List<DAL.Seat> dalenableevents = DAL.Queries.ListFreeSeatsForMovieEvent(id);
+            List<DAL.Seat> dalenableevents = DAL.MovieEventManager.ListFreeSeatsForMovieEvent(id);
             List<DTO.MovieEventSeat> dtoenableseats = new List<DTO.MovieEventSeat>();
             foreach (var dales in dalenableevents)
             {
@@ -106,7 +106,7 @@ namespace WebApi.Controllers
             movieevent.Room.RoomId = dalme.Room.RoomId;
             movieevent.Room.RoomNumber = dalme.Room.RoomNumber;
             movieevent.Room.Capacity = dalme.Room.Capacity;
-            List<DAL.Seat> seats = DAL.Queries.ListSeatsInMovieEvent(dalme.MovieEventId);
+            List<DAL.Seat> seats = DAL.MovieEventManager.ListSeatsInMovieEvent(dalme.MovieEventId);
             foreach (var dalseat in seats)
             {
                 DTO.MovieEventSeat dtoseat = new DTO.MovieEventSeat();
@@ -120,7 +120,7 @@ namespace WebApi.Controllers
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            DAL.Administration.DeleteMovieEvent(id);
+            DAL.MovieEventManager.DeleteMovieEvent(id);
             return NoContent();
         }
         [HttpPost]
@@ -130,7 +130,7 @@ namespace WebApi.Controllers
             dalitem.TimeOfEvent = item.Time;
             dalitem.RoomId = item.Room.RoomId;
             dalitem.MovieId = item.Movie.MovieId;
-            DAL.Administration.AddMovieEvent(dalitem);
+            DAL.MovieEventManager.AddMovieEvent(dalitem);
             return Created("http://localhost:6544/api/movieevents", item);
         }
 

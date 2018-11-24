@@ -19,7 +19,7 @@ namespace WebApi.Controllers
         public ActionResult<List<DTO.Room>> Get()
         {
             List<DTO.Room> dtorooms = new List<DTO.Room>();
-            List<DAL.Room> dalrooms = DAL.Queries.ListRooms();
+            List<DAL.Room> dalrooms = DAL.RoomManager.ListRooms();
             foreach (var room in dalrooms)
             {
                 DTO.Room dtoroom = new DTO.Room();
@@ -44,7 +44,7 @@ namespace WebApi.Controllers
         {
             DTO.Room dtoroom = new DTO.Room();
             dtoroom.Seats = new List<DTO.MovieEventSeat>();
-            DAL.Room dalroom= DAL.Queries.GetRoomById(id);
+            DAL.Room dalroom= DAL.RoomManager.GetRoomById(id);
             dtoroom.RoomId = dalroom.RoomId;
             dtoroom.Capacity = dalroom.Capacity;
             dtoroom.RoomNumber = dalroom.RoomNumber;
@@ -62,7 +62,7 @@ namespace WebApi.Controllers
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            DAL.Administration.DeleteRoom(id);
+            DAL.RoomManager.DeleteRoom(id);
             return NoContent();
         }
         [HttpPost]
@@ -72,7 +72,7 @@ namespace WebApi.Controllers
             dalitem.RoomId = item.RoomId;
             dalitem.RoomNumber = item.RoomNumber;
             dalitem.Capacity = item.Capacity;
-            DAL.Administration.AddRoom(dalitem);
+            DAL.RoomManager.AddRoom(dalitem);
             return Created("http://localhost:6544/api/rooms", item);
         }
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -79,7 +80,7 @@ namespace DAL
             {
                 var q = ctx.Reservations.Include(r => r.MovieEvent).Include(r => r.MovieEvent.Movie).
                   Include(r => r.MovieEvent.Room)
-                  .Where(r => r.UserId == userId);
+                  .Where(r => r.UserId == userId);                
                 return q.ToList();
             }
         }

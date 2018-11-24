@@ -15,7 +15,7 @@ namespace WebApi.Controllers
         public ActionResult<List<DTO.User>> Get()
         {
             List<DTO.User> dtouserlist = new List<DTO.User>();
-            List<DAL.User> dalusers = DAL.Queries.ListUsers();
+            List<DAL.User> dalusers = DAL.UserManager.ListUsers();
             foreach (var user in dalusers)
             {
                 dtouserlist.Add(new DTO.User
@@ -31,7 +31,7 @@ namespace WebApi.Controllers
         [HttpGet("{id}")]
         public ActionResult<DTO.User> GetById(int id)
         {
-            DAL.User daluser = DAL.Queries.GetUserById(id);
+            DAL.User daluser = DAL.UserManager.GetUserById(id);
             DTO.User dtouser = new DTO.User();
             dtouser.Name = daluser.Name;
             dtouser.UserId = daluser.UserId;
@@ -42,7 +42,7 @@ namespace WebApi.Controllers
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            DAL.Administration.DeleteUser(id);
+            DAL.UserManager.DeleteUser(id);
             return NoContent();
         }
         [HttpPost]
@@ -52,7 +52,7 @@ namespace WebApi.Controllers
             dalitem.Name = item.Name;
             dalitem.TelephoneNumber = item.TelephoneNumber;
             dalitem.Email = item.Email;
-            DAL.Administration.AddUser(dalitem);
+            DAL.UserManager.AddUser(dalitem);
             return Created("http://localhost:6544/api/user", item);
         }
         [HttpPut]
@@ -66,7 +66,7 @@ namespace WebApi.Controllers
                 Email = item.Email,
             };
 
-            DAL.Administration.UpdateUser(newDalUser);
+            DAL.UserManager.UpdateUser(newDalUser);
             return NoContent();
         }
     }

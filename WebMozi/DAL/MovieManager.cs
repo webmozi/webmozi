@@ -64,6 +64,12 @@ namespace DAL
             }
         }
 
-
+        public static DAL.Movie GetMovieById(int id)
+        {
+            using (var context = new CinemaContext())
+            {
+                return context.Movies.SingleOrDefault(m => m.MovieId == id);
+            }
+        }
     }
 }

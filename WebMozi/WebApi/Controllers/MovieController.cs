@@ -17,7 +17,7 @@ namespace WebApi.Controllers
         public ActionResult<List<DTO.Movie>> Get()
         {
             List<DTO.Movie> movielist = new List<DTO.Movie>();
-            List<DAL.Movie> dallist = DAL.Queries.ListMovies();
+            List<DAL.Movie> dallist = DAL.MovieManager.ListMovies();
             foreach (var movie in dallist)
             {
                 movielist.Add(new DTO.Movie
@@ -34,7 +34,7 @@ namespace WebApi.Controllers
         [HttpGet("{id}")]
         public ActionResult<DTO.Movie> GetById(int id)
         {
-            DAL.Movie dalmovie=DAL.Queries.GetMovieById(id);
+            DAL.Movie dalmovie=DAL.MovieManager.GetMovieById(id);
             DTO.Movie dtomovie = new DTO.Movie();
             dtomovie.Director = dalmovie.Director;
             dtomovie.MovieId = dalmovie.MovieId;
@@ -57,7 +57,7 @@ namespace WebApi.Controllers
             dalitem.Title = item.Title;
             dalitem.Length = item.Length;
             dalitem.Img = item.Img;
-            DAL.Administration.AddMovie(dalitem);
+            DAL.MovieManager.AddMovie(dalitem);
             return Created("http://localhost:6544/api/movie", item);
         }
         [HttpPut]
