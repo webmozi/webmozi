@@ -42,7 +42,7 @@ namespace DAL
             using (CinemaContext ctx = new CinemaContext())
             {
 
-                return ctx.MovieEvents.ToList();
+                return ctx.MovieEvents.OrderBy(me=>me.Movie.Title).ToList();
             }
         }
 
@@ -54,7 +54,7 @@ namespace DAL
             using (CinemaContext ctx = new CinemaContext())
             {
                 var AllMoviesEvents = ctx.MovieEvents.Include(me => me.Room)
-                                               .Include(me => me.Movie);
+                                               .Include(me => me.Movie).OrderBy(me=>me.TimeOfEvent).ThenBy(me => me.Movie.Title);
                 return AllMoviesEvents.ToList();
             }
         }
@@ -96,6 +96,11 @@ namespace DAL
                                                  select s;
 
                 return (allSeatsForMovieEvent.Except(reservedSeatsForMovieEvent)).OrderBy(o => o.SeatNumber).ToList();
+            }
+        }
+        public static MovieEvent GetMovieEventById(int movieEventId) {
+            using (CinemaContext ctx = new CinemaContext()) {
+                return ctx.MovieEvents.Include(me=>me.Movie).Include(me=>me.Room).SingleOrDefault(m => m.MovieEventId == movieEventId);
             }
         }
     }

@@ -46,7 +46,7 @@ namespace WebApi.Controllers
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            DAL.Administration.DeleteMovie(id);
+            DAL.MovieManager.DeleteMovie(id);
             return NoContent();
         }
         [HttpPost]
@@ -72,7 +72,7 @@ namespace WebApi.Controllers
                 Img = item.Img
             };
 
-            DAL.Administration.UpdateMovie(newDalMovie);
+            DAL.MovieManager.UpdateMovie(newDalMovie);
 
             return NoContent();
         }

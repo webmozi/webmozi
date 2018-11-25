@@ -91,7 +91,7 @@ namespace WebApi.Controllers
         [HttpGet("{id}")]
         public ActionResult<DTO.MovieEvent> GetById(int id)
         {
-            var dalme=DAL.Queries.GetMovieEventById(id);
+            var dalme=DAL.MovieEventManager.GetMovieEventById(id);
             DTO.MovieEvent movieevent = new DTO.MovieEvent();
             movieevent.MovieEventId = dalme.MovieEventId;
             movieevent.Time = dalme.TimeOfEvent;

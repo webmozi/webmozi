@@ -17,33 +17,102 @@
       
         <link rel="stylesheet" asp-href-include="bootstrap/startbootstrap-clean-blog-gh-pages/css/width.css">
         <link rel="stylesheet" asp-href-include="bootstrap/startbootstrap-clean-blog-gh-pages/css/card.css">
-
+        <style>
+            .im {
+                margin-right:800px;
+            }
+        </style>
     </head>
     <body>
-        @foreach (var m in Model)
-        {
-            <div class="col-md-3">
-                <div class="card mb-4 border-dark">
-                    <img class="card-img-top" src=~/images/@Html.DisplayFor(modelItem => m.Movie.Img) />
-                    <div class="card-body">
-                        <h5 align="center"  class="font-weight-bold">@Html.DisplayFor(modelItem => m.Movie.Title)</h5>
-                        <p class="font-weight-bold phere">
-                            Director:
-                        </p> 
-                        <p  class="phere">@Html.DisplayFor(modelItem => m.Movie.Director)
-                        </p>
-                        <br />
-                        <p class="font-weight-bold phere">
-                            Length:
-                            </p>
-                        <p class="phere" >
-                        @Html.DisplayFor(modelItem => m.Movie.Length) minutes
-                        </p>
-                        <input type="button" class="btn btn-sm btn-dark center-block" value="@m.Time.ToShortTimeString()"
-                               onclick="location.href='@Url.Action("SelectMovieEvent", "User", new { id = m.MovieEventId })'" />
-                    </div>
-                </div>
-            </div>
-        }
-        </body>
+                    @for (int j = 0; j < Model.Count(); j++)
+                    {
+
+                        @if (j == 0)
+                        {
+
+                            <h3 class="font-weight-bold im">@Model.ElementAt(j).Time.ToShortDateString()</h3>
+                            <div class="fd">
+                                <div class="col-md-3">
+                                    <div class="card mb-4 border-dark">
+                                        <img class="card-img-top" src=~/images/@Html.DisplayFor(modelItem => Model.ElementAt(j).Movie.Img)/>
+                                        <div class="card-body">
+                                            <h5 align="center" class="font-weight-bold">@Html.DisplayFor(modelItem => Model.ElementAt(j).Movie.Title)</h5>
+                                            <p class="font-weight-bold phere">
+                                                Director:
+                                            </p>
+                                            <p class="phere">
+                                                @Html.DisplayFor(modelItem => Model.ElementAt(j).Movie.Director)
+                                            </p>
+                                            <br />
+                                            <p class="font-weight-bold phere">
+                                                Length:
+                                            </p>
+                                            <p class="phere">
+                                                @Html.DisplayFor(modelItem => Model.ElementAt(j).Movie.Length) minutes
+                                            </p>
+                                            <input type="button" class="btn btn-sm btn-dark center-block" value="@Model.ElementAt(j).Time.ToShortTimeString()"
+                                                   onclick="location.href='@Url.Action("SelectMovieEvent", "User" , new { id=Model.ElementAt(j).MovieEventId })'" />
+                                        </div>
+                                    </div>
+                                </div>
+                                </div>
+                        }
+                        @if (j != 0 && Model.ElementAt(j).Time.Date != Model.ElementAt(j - 1).Time.Date)
+                        {
+                            <h3 class="font-weight-bold im">@Model.ElementAt(j).Time.ToShortDateString()</h3>
+                            <div class="col-md-3">
+                                <div class="card mb-4 border-dark">
+                                    <img class="card-img-top" src=~/images/@Html.DisplayFor(modelItem =>Model.ElementAt(j).Movie.Img)/>
+                                    <div class="card-body">
+                                        <h5 align="center" class="font-weight-bold">@Html.DisplayFor(modelItem => Model.ElementAt(j).Movie.Title)</h5>
+                                        <p class="font-weight-bold phere">
+                                            Director:
+                                        </p>
+                                        <p class="phere">
+                                            @Html.DisplayFor(modelItem => Model.ElementAt(j).Movie.Director)
+                                        </p>
+                                        <br />
+                                        <p class="font-weight-bold phere">
+                                            Length:
+                                        </p>
+                                        <p class="phere">
+                                            @Html.DisplayFor(modelItem => Model.ElementAt(j).Movie.Length) minutes
+                                        </p>
+                                        <input type="button" class="btn btn-sm btn-dark center-block" value="@Model.ElementAt(j).Time.ToShortTimeString()"
+                                               onclick="location.href='@Url.Action("SelectMovieEvent", "User" , new { id=Model.ElementAt(j).MovieEventId })'" />
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        else 
+                        {@if (j != 0)
+                        {
+                            <div class="col-md-3">
+                                <div class="card mb-4 border-dark">
+                                    <img class="card-img-top" src=~/images/@Html.DisplayFor(modelItem => Model.ElementAt(j).Movie.Img)/>
+                                    <div class="card-body">
+                                        <h5 align="center" class="font-weight-bold">@Html.DisplayFor(modelItem => Model.ElementAt(j).Movie.Title)</h5>
+                                        <p class="font-weight-bold phere">
+                                            Director:
+                                        </p>
+                                        <p class="phere">
+                                            @Html.DisplayFor(modelItem => Model.ElementAt(j).Movie.Director)
+                                        </p>
+                                        <br />
+                                        <p class="font-weight-bold phere">
+                                            Length:
+                                        </p>
+                                        <p class="phere">
+                                            @Html.DisplayFor(modelItem => Model.ElementAt(j).Movie.Length) minutes
+                                        </p>
+                                        <input type="button" class="btn btn-sm btn-dark center-block" value="@Model.ElementAt(j).Time.ToShortTimeString()"
+                                               onclick="location.href='@Url.Action("SelectMovieEvent", "User", new { id = Model.ElementAt(j).MovieEventId })'" />
+                                    </div>
+                                </div>
+                            </div>
+                            }
+                        }
+                    }
+
+    </body>
 </html>
