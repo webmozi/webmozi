@@ -16,7 +16,7 @@ namespace DAL
                 for (int i = 0; i < room.Capacity; i++)
                 {
                     DAL.Seat seat = new DAL.Seat();
-                    seat.SeatNumber = i + 1;
+                    seat.SeatNumber = i %6+1;
                     seat.RowNumber = (i / 6) + 1;
                     seats.Add(seat);
                     context.Seats.Add(seat);
@@ -49,7 +49,7 @@ namespace DAL
         {
             using (var context = new CinemaContext())
             {
-                var AllRooms = context.CinemaRooms.Include(r => r.Seats);
+                var AllRooms = context.CinemaRooms.Include(r => r.Seats).OrderBy(r=>r.RoomNumber);
                 return AllRooms.ToList();
             }
         }

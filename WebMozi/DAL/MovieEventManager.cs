@@ -68,7 +68,7 @@ namespace DAL
                 var allSeatsForMovieEvent = context.MovieEvents
                      .Where(m => m.MovieEventId == id)
                      .Select(m => m.Room.Seats)
-                     .FirstOrDefault().OrderBy(o => o.SeatNumber);
+                     .FirstOrDefault().OrderBy(o => o.RowNumber).ThenBy(o=>o.SeatNumber);
 
                 return allSeatsForMovieEvent.ToList();
             }
@@ -83,7 +83,7 @@ namespace DAL
             {
                 var allSeatsForMovieEvent = ctx.MovieEvents
                     .Where(m => m.MovieEventId == movieEventId)
-                    .Select(m => m.Room.Seats).FirstOrDefault().OrderBy(o => o.SeatNumber); ;
+                    .Select(m => m.Room.Seats).FirstOrDefault().OrderBy(o => o.RowNumber).ThenBy(o => o.SeatNumber);
 
 
 
@@ -95,7 +95,7 @@ namespace DAL
                                                  where reservedSeatIdsForMovieEvent.Contains(s.SeatId)
                                                  select s;
 
-                return (allSeatsForMovieEvent.Except(reservedSeatsForMovieEvent)).OrderBy(o => o.SeatNumber).ToList();
+                return (allSeatsForMovieEvent.Except(reservedSeatsForMovieEvent)).OrderBy(o => o.RowNumber).ThenBy(o => o.SeatNumber).ToList();
             }
         }
         public static MovieEvent GetMovieEventById(int movieEventId) {

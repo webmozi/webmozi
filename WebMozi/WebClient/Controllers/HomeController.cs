@@ -22,40 +22,18 @@ namespace WebClient.Controllers
         {
             if (User != null)
             {
-                if (userManager.GetUserName(User) == "admin")
+                if (userManager.GetUserName(User) == null || userManager.GetUserName(User).Equals("admin")|| userManager.GetUserName(User).Equals(""))
                 {
                     await signInManager.SignOutAsync();
                     return View("MainView");
                 }
-                else if (userManager.GetUserName(User) == null)
+                else if (HttpContext.Session.GetString("_Name") == null|| HttpContext.Session.GetString("_Name").Equals(""))
                 {
                     await signInManager.SignOutAsync();
-
                     return View("MainView");
                 }
-                else if (userManager.GetUserName(User).Equals(""))
-                {
-                    await signInManager.SignOutAsync();
-
-                    return View("MainView");
-                }
-                else if (HttpContext.Session.GetString(userManager.GetUserName(User) + "_Name") == null)
-                {
-                    await signInManager.SignOutAsync();
-
-                    return View("MainView");
-                }
-                else if (HttpContext.Session.GetString(userManager.GetUserName(User) + "_Name").Equals(""))
-                {
-                    await signInManager.SignOutAsync();
-
-                    return View("MainView");
-
-                }
-                {
-                    ViewBag.Name = HttpContext.Session.GetString(userManager.GetUserName(User) + "_Name");
+                    ViewBag.Name = HttpContext.Session.GetString("_Name");
                     return View("SignedMainView");
-                }
             }
             else
             {

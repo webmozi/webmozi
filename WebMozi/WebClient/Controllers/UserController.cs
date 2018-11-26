@@ -21,14 +21,14 @@ namespace WebClient.Controllers
         public ViewResult Main(string name)
         {
             ViewBag.IsSignedIn = 1;
-            ViewBag.Name = HttpContext.Session.GetString(name + "_Name");
+            ViewBag.Name = HttpContext.Session.GetString("_Name");
             return ListEvents();
         }
 
         [HttpGet]
         public ViewResult ListMovies()
         {
-            ViewBag.Name = HttpContext.Session.GetString(userManager.GetUserName(User) + "_Name");
+            ViewBag.Name = HttpContext.Session.GetString("_Name");
             return View("ListMovies", icinemamanager.ListMovies());
         }
         [HttpGet]
@@ -81,8 +81,8 @@ namespace WebClient.Controllers
                 dtouser.TelephoneNumber = u.TelephoneNumber;
                 dtouser.UserId = u.UserId;
                 int uid = ireservationmanager.GetIdByUser(dtouser);
-                HttpContext.Session.SetString(Thread.CurrentPrincipal.Identity.Name + "_Name", ireservationmanager.SelectUser(uid).Name);
-                HttpContext.Session.SetInt32(Thread.CurrentPrincipal.Identity.Name, uid);
+                HttpContext.Session.SetString("_Name", ireservationmanager.SelectUser(uid).Name);
+                HttpContext.Session.SetInt32("_Id", uid);
                 TempData["success"] = $"Successfull log in!";
                 return Main(Thread.CurrentPrincipal.Identity.Name);
             }
@@ -105,15 +105,15 @@ namespace WebClient.Controllers
         public ViewResult ListEvents()
         {
             if (userManager.GetUserName(User) != null) { 
-            ViewBag.Name = HttpContext.Session.GetString(userManager.GetUserName(User) + "_Name");
+            ViewBag.Name = HttpContext.Session.GetString("_Name");
             }
             return View("ListMovieEvents", icinemamanager.ListMovieEventsWithoutSeats());
         }
         [HttpGet]
         public ViewResult SelectedMovieEvent(int meId)
         {
-            ViewBag.Name = HttpContext.Session.GetString(userManager.GetUserName(User) + "_Name");
-            HttpContext.Session.SetInt32(userManager.GetUserName(User) + "_meId", meId);
+            ViewBag.Name = HttpContext.Session.GetString( "_Name");
+            HttpContext.Session.SetInt32("_meId", meId);
             DTO.MovieEvent me = icinemamanager.SelectMovieEvent(meId);
             Models.EnableAndDisableSeats seats = new Models.EnableAndDisableSeats();
             seats.AllSeats = icinemamanager.SelectMovieEvent(me.MovieEventId).Room.Seats;
@@ -135,15 +135,15 @@ namespace WebClient.Controllers
         [HttpGet]
         public ViewResult ChooseSeat(int seatid)
         {
-            ViewBag.Name = HttpContext.Session.GetString(userManager.GetUserName(User) + "_Name");
-            ireservationmanager.MakeReservation((int)HttpContext.Session.GetInt32(userManager.GetUserName(User) + "_meId"), seatid, (int)HttpContext.Session.GetInt32(userManager.GetUserName(User)));
+            ViewBag.Name = HttpContext.Session.GetString("_Name");
+            ireservationmanager.MakeReservation((int)HttpContext.Session.GetInt32("_meId"), seatid, (int)HttpContext.Session.GetInt32("_Id"));
             return ChooseSeatMore();
         }
         [HttpGet]
         public ViewResult ChooseSeatMore()
         {
-            ViewBag.Name = HttpContext.Session.GetString(userManager.GetUserName(User) + "_Name");
-            int movieeventid = (int)HttpContext.Session.GetInt32(userManager.GetUserName(User) + "_meId");
+            ViewBag.Name = HttpContext.Session.GetString("_Name");
+            int movieeventid = (int)HttpContext.Session.GetInt32("_meId");
             Models.EnableAndDisableSeats seats = new Models.EnableAndDisableSeats();
             seats.AllSeats = icinemamanager.SelectMovieEvent(movieeventid).Room.Seats;
             seats.EnableSeats = icinemamanager.getEnableSeats(movieeventid);
@@ -158,9 +158,9 @@ namespace WebClient.Controllers
         [HttpGet]
         public ViewResult Reservation()
         {
-            ViewBag.Name = HttpContext.Session.GetString(userManager.GetUserName(User) + "_Name");
+            ViewBag.Name = HttpContext.Session.GetString("_Name");
             List<DTO.Reservation> reservationlist = new List<DTO.Reservation>();
-            reservationlist = ireservationmanager.GetReservationsByUser((int)HttpContext.Session.GetInt32(userManager.GetUserName(User)));
+            reservationlist = ireservationmanager.GetReservationsByUser((int)HttpContext.Session.GetInt32("_Id"));
             return View("Reservation", reservationlist);
         }
     }

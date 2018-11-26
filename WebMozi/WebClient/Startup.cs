@@ -28,7 +28,6 @@ namespace WebClient
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
 
-            
 
             services.AddIdentity<IdentityUser, IdentityRole>()
               .AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
